@@ -1,0 +1,83 @@
+//-----------RetroSonic EGZ Chomper Recreation-----------//
+//---------Original Script by Christian Whitehead---------//
+//----------------Modified by LanceReborn---------------//
+
+
+sub ObjectMain
+	switch Object.State //He goes up and never comes down
+	case 0
+		Object.Value1=Object.Ypos
+		Object.State=1
+	case 1
+		Object.Value0-=1144
+		Object.YPos+=Object.Value0
+		if Object.Value0>18432
+			Object.State=2
+		endif
+		break
+	case 2
+		Object.Value0+=1144
+		Object.YPos+=Object.Value0
+		if Object.Value0<Object.Value1
+			Object.State=1
+		endif
+		break
+	endswitch
+endsub
+
+sub ObjectPlayerInteraction
+	if Object.State<5
+		ArrayPos0=Player.EntityNo
+		ArrayPos0+=2
+		if Object[ArrayPos0].Type==TypeName[Ring Sparkle]
+			PlayerObjectCollision(C_TOUCH,-24,-24,24,24)
+		else
+			PlayerObjectCollision(C_TOUCH,-15,-10,15,10)
+		endif
+		if CheckResult==1
+			CallFunction(PlayerObject_BadnikBreak)
+		endif
+	endif
+endsub
+
+sub ObjectDraw
+	switch Object.State
+	case 0
+		DrawSprite(0)
+		break
+	case 1
+		DrawSprite(0)
+		break
+	case 2
+		DrawSprite(0)
+		break
+	case 3
+		DrawSprite(0)
+		break
+	case 4
+		DrawSprite(1)
+		break
+	case 5
+		DrawSprite(1)
+		break
+	case 6
+		DrawSprite(0)
+		break
+	endswitch
+Endsub
+
+
+sub ObjectStartup
+	LoadSpriteSheet("EGZ/Objects.gif")
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TypeName[Chomper]
+			Object[ArrayPos0].Value2=Object[ArrayPos0].YPos
+		endif
+		ArrayPos0++
+	loop
+	SpriteFrame(-16, -16, 32, 32, 1, 35)
+	SpriteFrame(-16, -16, 32, 32, 34, 35)
+Endsub
+
+

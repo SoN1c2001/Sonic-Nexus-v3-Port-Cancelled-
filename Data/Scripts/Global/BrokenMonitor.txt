@@ -75,10 +75,10 @@ sub ObjectMain
 				Object[2].DrawOrder=4
 				Object[2].XPos=Player.XPos
 				Object[2].YPos=Player.YPos
-				if Options.Soundtrack==0
+				if Game.RetroSonic==0
 					Player.Invincible=1260
 				else
-					Player.Invincible=1320
+					Player.Invincible=1260
 				endif
 				Player.BlinkTimer=0
 				Player.Visible=1
@@ -89,7 +89,11 @@ sub ObjectMain
 				Player.Acceleration=6144
 				Player.AirAcceleration=12288
 				Player.TopSpeed=786432
-				Player.SpeedShoes=1320
+				if Game.RetroSonic==0
+					Player.SpeedShoes=1320
+				else
+					Player.SpeedShoes=900
+				endif
 				break
 			case 5
 				Player.Lives++
@@ -116,9 +120,17 @@ sub ObjectMain
 				Player.SpeedShoes=1320
 				break
 			case 9
+				Player.Lives++
+				PlaySfx(21,0)
+				break
+			case 10
 				if Player.Invincible==0
 					Player.State=PlayerObject_Hurt
 				endif
+				break
+			case 14
+				PlaySfx(1,0)
+				Object[23].Value5=1
 				break
 			endswitch
 		endif
@@ -152,35 +164,24 @@ endsub
 sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
 	
-	//Broken Monitor Frame
-	SpriteFrame(-16,-16,32,32,183,133)
-	
-	//Ring Monitor
-	SpriteFrame(-8,-7,16,14,26,40)
-	
-	//Blue Shield Monitor
-	SpriteFrame(-8,-7,16,14,26,73)
-	
-	//Invincibility Monitor
-	SpriteFrame(-8,-7,16,14,26,106)
-	
-	//Power Sneakers Monitor
-	SpriteFrame(-8,-7,16,14,26,139)
-	
-	//Sonic Monitor
-	SpriteFrame(-8,-7,16,14,26,172)
-	
-	//Clock Monitor
-	SpriteFrame(-8,-8,16,14,59,271)
-	
-	//Tails Monitor
-	SpriteFrame(-8,-8,16,14,26,171)
-	
-	//Super Monitor
-	SpriteFrame(-8,-8,16,14,26,304)
-	
-	//Robotnik Powerdown
-	SpriteFrame(-8,-7,16,14,26,205)
+	//Icons
+	SpriteFrame(-16,0,32,16,18,147) //Broken Monitor Frame  //This is -8 but im putting 0 because it looks better
+	SpriteFrame(-8,-10,16,14,34,34) //Ring Monitor
+	SpriteFrame(-8,-10,16,14,18,48) //Blue Shield Monitor
+	SpriteFrame(-8,-10,16,14,34,48) //Invincibility Monitor
+	SpriteFrame(-8,-10,16,14,18,62) //Speed Shoes Monitor
+	SpriteFrame(-8,-10,16,14,34,62) //Sonic Life Monitor
+	SpriteFrame(-8,-10,16,14,18,76) //Clock Monitor
+	SpriteFrame(-8,-10,16,14,34,76) //Tails Life Monitor
+	SpriteFrame(-8,-10,16,14,18,90) //Super Monitor
+	SpriteFrame(-8,-10,16,14,34,90) //Knuckles Life Monitor
+	SpriteFrame(-8,-10,16,14,18,104) //Robotnik Monitor
+	SpriteFrame(-8,-10,16,14,34,104) //Bubble Shield Monitor
+	SpriteFrame(-8,-10,16,14,18,118) //Fire Shield Monitor
+	SpriteFrame(-8,-10,16,14,34,118) //Lightning Shield Monitor
+	SpriteFrame(-8,-10,16,14,18,132) //Blue Ring Monitor
+	SpriteFrame(-8,-10,16,14,18,34) //Static 1 Monitor
+	SpriteFrame(-8,-10,16,14,34,132) //Static 2 Monitor
 endsub
 
 sub RSDK

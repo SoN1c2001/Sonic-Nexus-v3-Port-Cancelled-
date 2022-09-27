@@ -167,6 +167,32 @@ endsub
 
 
 sub ObjectDraw
+	switch Object.Rotation // 10/10 code, won the REMS best code award
+	case 1
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 2
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 3
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 4
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 5
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 6
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 7
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	case 8
+		DrawSpriteXY(30,Player.XPos,Player.YPos)
+		break
+	endswitch
 #platform: Standard
 	DrawSpriteXY(Object.Frame,Player.XPos,Player.YPos)
 	if Object.Value6>0
@@ -268,14 +294,14 @@ sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
 	SpriteFrame(-8,-8,16,16,1,1) //Ring
 	
-	SpriteFrame(-16,-16,32,32,18,34) //Ring Monitor
-	SpriteFrame(-16,-16,32,32,18,67) //Shield Monitor
-	SpriteFrame(-16,-16,32,32,18,100) //Invincibility Monitor
-	SpriteFrame(-16,-16,32,32,18,133) //Speed Shoes Monitor
-	SpriteFrame(-16,-16,32,32,18,166) //Sonic Extra Life Monitor
-	SpriteFrame(-16,-16,32,32,51,265) //Stopwatch Monitor
-	SpriteFrame(-16,-16,32,32,18,265) //Tails Extra Life Monitor
-	SpriteFrame(-16,-16,32,32,18,298) //Super Monitor
+	SpriteFrame(-8,-10,16,14,34,34) //Ring Monitor
+	SpriteFrame(-8,-10,16,14,18,48) //Blue Shield Monitor
+	SpriteFrame(-8,-10,16,14,34,48) //Invincibility Monitor
+	SpriteFrame(-8,-10,16,14,18,62) //Speed Shoes Monitor
+	SpriteFrame(-8,-10,16,14,34,62) //Sonic Life Monitor
+	SpriteFrame(-8,-10,16,14,18,76) //Clock Monitor
+	SpriteFrame(-8,-10,16,14,34,76) //Tails Life Monitor
+	SpriteFrame(-8,-10,16,14,18,90) //Super Monitor
 	
 	SpriteFrame(-16,-8,32,16,51,17) //Red Spring Facing Up
 	SpriteFrame(-8,-16,16,32,51,34) //Red Spring Facing Right
@@ -300,6 +326,7 @@ sub ObjectStartup
 	SpriteFrame(-16,-40,32,16,52,239) //Future Sign
 	SpriteFrame(-8,-24,16,48,35,204) //Past and Future Base Only
 	SpriteFrame(-16,-40,32,16,118,239) //Past Sign
+	SpriteFrame(-16,-16,32,32,18,1) //Empty Monitor
 #endplatform
 
 #platform: Mobile

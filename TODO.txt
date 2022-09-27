@@ -1,0 +1,33 @@
+   _____             _        _   _                     
+  / ____|           (_)      | \ | |                    
+ | (___   ___  _ __  _  ___  |  \| | _____  ___   _ ___ 
+  \___ \ / _ \| '_ \| |/ __| | . ` |/ _ \ \/ / | | / __|
+  ____) | (_) | | | | | (__  | |\  |  __/>  <| |_| \__ \
+ |_____/ \___/|_| |_|_|\___| |_| \_|\___/_/\_\\__,_|___/
+                                                        
+                                                        
+Everything lol
+
+Priority:
+SpriteSheet Limit
+
+Intro and stuff:
+Finish RetroMenu
+Fix TitleScreen
+
+Global Objects:
+Do Big Ring Script
+Make HUD work like in nexus
+Fix Springs
+
+SSZ:
+Something i forgot
+
+EGZ:
+Absolutely Everything
+
+Scripting:
+Improve code (Impossible)
+Learn how deformation works
+learn how to make 3DSKY appear.
+Touch controls

@@ -70,6 +70,7 @@ endsub
 
 
 sub ObjectDraw
+	DrawSprite(0)
 	Object.Frame++
 	if Object.Frame>17
 		Object.Frame=0
@@ -81,14 +82,14 @@ sub ObjectDraw
 		break
 	case 6
 	case 7
-		DrawSprite(9)
+		DrawSprite(15)
 		break
 	case 12
 	case 13
-		DrawSprite(10)
+		DrawSprite(16)
 		break
 	case 14
-		DrawSprite(11)
+		DrawSprite(10)
 		break
 	default
 		DrawSprite(Object.PropertyValue)
@@ -101,22 +102,28 @@ sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
 	
 	//Monitor Frames
-	SpriteFrame(-16,-16,32,32,51,298) //Blank Monitor
-	SpriteFrame(-16,-16,32,32,18,34) //Ring Monitor
-	SpriteFrame(-16,-16,32,32,18,67) //Shield Monitor
-	SpriteFrame(-16,-16,32,32,18,100) //Invincibility Monitor
-	SpriteFrame(-16,-16,32,32,18,133) //Speed Shoes Monitor
-	SpriteFrame(-16,-16,32,32,18,166) //Sonic Extra Life Monitor
-	SpriteFrame(-16,-16,32,32,51,265) //Stopwatch Monitor
-	SpriteFrame(-16,-16,32,32,18,265) //Tails Extra Life Monitor
-	SpriteFrame(-16,-16,32,32,18,298) //Super Monitor
-	SpriteFrame(-16,-16,32,32,18,1) //Static Monitor 1
-	SpriteFrame(-16,-16,32,32,18,232) //Static Monitor 2
-	SpriteFrame(-16,-16,32,32,18,199) //Robotnik Monitor
+	SpriteFrame(-16,-16,32,32,18,1) //Empty Monitor
+	SpriteFrame(-8,-10,16,14,34,34) //Ring Monitor
+	SpriteFrame(-8,-10,16,14,18,48) //Blue Shield Monitor
+	SpriteFrame(-8,-10,16,14,34,48) //Invincibility Monitor
+	SpriteFrame(-8,-10,16,14,18,62) //Speed Shoes Monitor
+	SpriteFrame(-8,-10,16,14,34,62) //Sonic Life Monitor
+	SpriteFrame(-8,-10,16,14,18,76) //Clock Monitor
+	SpriteFrame(-8,-10,16,14,34,76) //Tails Life Monitor
+	SpriteFrame(-8,-10,16,14,18,90) //Super Monitor
+	SpriteFrame(-8,-10,16,14,34,90) //Knuckles Life Monitor
+	SpriteFrame(-8,-10,16,14,18,104) //Robotnik Monitor
+	SpriteFrame(-8,-10,16,14,34,104) //Bubble Shield Monitor
+	SpriteFrame(-8,-10,16,14,18,118) //Fire Shield Monitor
+	SpriteFrame(-8,-10,16,14,34,118) //Lightning Shield Monitor
+	SpriteFrame(-8,-10,16,14,18,132) //Blue Ring Monitor
+	SpriteFrame(-8,-10,16,14,18,34) //Static 1 Monitor
+	SpriteFrame(-8,-10,16,14,34,132) //Static 2 Monitor
+
 	ArrayPos0=32
 	while ArrayPos0<1056
 		if Object[ArrayPos0].Type==TypeName[Monitor]
-			if Object[ArrayPos0].PropertyValue>9
+			if Object[ArrayPos0].PropertyValue>16
 				Object[ArrayPos0].PropertyValue-=10
 				Object[ArrayPos0].DrawOrder=1
 				Object[ArrayPos0].Value2=1
@@ -130,6 +137,17 @@ sub ObjectStartup
 			if Object[ArrayPos0].Type==TypeName[Monitor]
 				if Object[ArrayPos0].PropertyValue==5
 					Object[ArrayPos0].PropertyValue=7
+				endif
+			endif
+			ArrayPos0++
+		loop
+	endif
+	if Stage.PlayerListPos==2
+		ArrayPos0=32
+		while ArrayPos0<1056
+			if Object[ArrayPos0].Type==TypeName[Monitor]
+				if Object[ArrayPos0].PropertyValue==5
+					Object[ArrayPos0].PropertyValue=9
 				endif
 			endif
 			ArrayPos0++

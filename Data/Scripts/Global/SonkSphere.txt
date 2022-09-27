@@ -1,0 +1,83 @@
+//---------------------Ball Script----------------------//
+
+//-------Aliases-------//
+//#alias 8: TYPE_RING
+
+sub ObjectMain
+	switch Object.Value0
+	case 0
+		Object.Scale+=4
+		if object.Scale>760
+			Object.Value0=1
+		endif
+		break
+	case 1
+		Object.Scale-=4
+		if object.Scale<512
+			Object.Value0=0
+		endif
+		break
+	case 2
+		Object.Scale-=8
+		if object.Scale<0
+			CreateTempObject(TypeName[SmokePuff],0,Object.XPos,Object.YPos)
+			Player.Lives++
+			PlaySfx(8,0)
+			Object.Value0=3
+		endif
+		break
+	case 3
+		Object.Type=TypeName[BlankObject]
+		break
+	endswitch
+endsub
+		
+
+sub ObjectPlayerInteraction
+	if Object.Value0<2
+		PlayerObjectCollision(C_TOUCH,-16,-16,16,16)
+		if CheckResult==1
+			Object.Value0=2
+	else
+		PlayerObjectCollision(C_TOUCH,0,0,0,0)
+	endif
+endsub
+
+
+sub ObjectDraw
+	Object.Value1++
+	if object.value1==4
+		Object.Frame++
+		Object.value1=0
+	endif
+	if Object.Frame==16
+		Object.Frame=0
+	endif
+	DrawSpriteFX(Object.Frame,FX_SCALE,Object.XPos,Object.YPos)
+endsub
+
+
+sub ObjectStartup
+	//LoadSpriteSheet("NexusGlobals/Ball.gif")
+	SpriteFrame(-16,-16,32,32,0,0)
+	SpriteFrame(-16,-16,32,32,32,0)
+	SpriteFrame(-16,-16,32,32,64,0)
+	SpriteFrame(-16,-16,32,32,96,0)
+	SpriteFrame(-16,-16,32,32,0,32)
+	SpriteFrame(-16,-16,32,32,32,32)
+	SpriteFrame(-16,-16,32,32,64,32)
+	SpriteFrame(-16,-16,32,32,96,32)
+	SpriteFrame(-16,-16,32,32,0,64)
+	SpriteFrame(-16,-16,32,32,32,64)
+	SpriteFrame(-16,-16,32,32,64,64)
+	SpriteFrame(-16,-16,32,32,96,64)
+	SpriteFrame(-16,-16,32,32,0,96)
+	SpriteFrame(-16,-16,32,32,32,96)
+	SpriteFrame(-16,-16,32,32,64,96)
+	SpriteFrame(-16,-16,32,32,96,96)
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

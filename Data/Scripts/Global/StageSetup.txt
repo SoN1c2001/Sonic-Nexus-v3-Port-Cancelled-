@@ -198,7 +198,7 @@ sub ObjectStartup
 		SetMusicTrack("RetroSonic/Invincibility.ogg",2,0)
 		SetMusicTrack("RetroSonic/SpeedShoes.ogg",3,0)
 		SetMusicTrack("RetroSonic/Boss.ogg",4,1)
-		SetMusicTrack("RetroSonic/GameOver.ogg",5,0)
+		SetMusicTrack("GameOver.ogg",5,0)
 	endif
 	Stage.PauseEnabled=0
 	Screen.CameraStyle=1
@@ -268,6 +268,7 @@ sub ObjectStartup
 	Warp.Destination=0
 	Ring.ExtraLife=100
 	Player.RoofBarrier=0
+	endif
 endsub
 
 sub RSDK

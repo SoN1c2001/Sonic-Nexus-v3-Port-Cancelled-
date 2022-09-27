@@ -1,0 +1,12 @@
+//-----------RetroSonic EGZ Rachet Pole Recreation---------//
+//---------Original Script by Christian Whitehead---------//
+//----------------Modified by LanceReborn---------------//
+
+sub ObjectDraw
+	DrawSprite(0) //I can make this better lol
+endsub
+
+sub objectStartup
+	LoadSpriteSheet("EGZ/Objects.gif")
+	SpriteFrame(-10,-32,22,64,219,1)
+endsub

@@ -1,0 +1,79 @@
+//----Retro-Sonic Screen----//
+//----Scripted by Taxman----//
+
+#alias 2: TYPE_RETROLOGO
+
+sub ObjectMain
+	
+	switch Object.State
+	case 0 //Initialise
+		LoadPalette("RetroLogo.act",0,0,0,256)
+		Object.State=1
+		Object.Value0=256
+		SetScreenFade(0,0,0,255,0,255)
+		break
+		
+	case 1 //Fade from Black
+		if Object.Value0>0
+			Object.Value0-=4
+		else
+			Object.State=2
+		end if
+		SetScreenFade(0,0,0,Object.Value0,0,255)
+		break
+		
+	case 2 //Wait
+		Object.Value0++
+		if Object.Value0==180
+			Object.Value0=0
+			Object.State=3
+		end if
+		break
+		
+	case 3 //Fade to Black
+		if Object.Value0<256
+			Object.Value0+=4
+			SetScreenFade(0,0,0,Object.Value0,0,255)
+		else
+			Object.Value0=0
+			Object.State=0
+			Object.Type++
+			SetScreenFade(0,0,0,255,0,255)
+		end if
+		
+	end switch
+	
+end sub
+
+sub ObjectDraw
+	if Screen.XSize>320
+		DrawSprite(0)
+	else
+		DrawSprite(1)
+	endif
+	Object.iXpos=Screen.CenterX
+	Object.iypos=Screen.CenterY
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusTitle/RetroLogo.gif")
+	SpriteFrame(-212,-120,424,240,0,0)
+	SpriteFrame(-160,-120,320,240,0,240)
+
+	//Setup any Retro Logo
+	//Objects that are present in the level
+	
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TYPE_RETROLOGO
+			Object[ArrayPos0].Priority=1
+		end if
+		ArrayPos0++
+	loop
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusTitle/RetroLogo.gif")
+	SetEditorIcon(Icon1,0,-160,-120,320,240,0,0)
+end sub

@@ -1,0 +1,190 @@
+//--------------Sonic Nexus SSZ Parachute-------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias SaveRAM[287]:Options.SFXStyle
+#alias SaveRAM[219]:Player.AbilityUsed
+
+sub ObjectMain
+	switch Object.State
+	case 1
+		Player.EntityNo=Object.Value0
+		Player.Animation=ANI_CORKSCREW_V
+		Player.Frame=0
+
+		if Player.Left==true
+			Player.Direction=FACING_LEFT
+		end if
+		if Player.Right==true
+			Player.Direction=FACING_RIGHT
+		end if
+
+		if Player.Direction==FACING_RIGHT
+			if Player.Speed<-196608
+				Player.Speed*=104
+				Player.Speed>>=7
+			end if
+			if Player.Speed>196608
+				Player.Speed*=104
+				Player.Speed>>=7
+				if Player.Speed<196608
+					Player.Speed=196608
+				end if
+			else
+				Player.Speed+=4096
+				if Player.Speed>196608
+					Player.Speed=196608
+				end if
+			end if
+		else
+			if Player.Speed>196608
+				Player.Speed*=104
+				Player.Speed>>=7
+			end if
+			if Player.Speed<-196608
+				Player.Speed*=104
+				Player.Speed>>=7
+				if Player.Speed>-196608
+					Player.Speed=-196608
+				end if
+			else
+				Player.Speed-=4096
+				if Player.Speed<-196608
+					Player.Speed=-196608
+				end if
+			end if
+		end if
+
+		if Player.YVelocity<65536
+			Player.YVelocity+=4096
+		end if
+
+		Player.XVelocity=Player.Speed
+		Object.XPos=Player.XPos
+		Object.YPos=Player.YPos
+		TempValue0=Player.CollisionTop
+		TempValue0-=22
+		TempValue0<<=16
+		Object.YPos+=TempValue0
+
+		if Player.State==PlayerObject_Hurt
+			Object.Priority=1
+			Object.State=2
+			Object.Value3=Player.XVelocity
+		end if
+
+		if Player.Gravity==false
+			Object.Priority=1
+			Object.State=2
+			Player.State=PlayerObject_HandleGround
+			Player.AbilityUsed=0
+			CallFunction(PlayerObject_ResetOnFloor)
+			Object.Value3=Player.XVelocity
+		else
+			Object.Value4=Player.YVelocity
+		end if
+
+		if Player.JumpPress==true
+			if Options.SFXStyle==0
+				PlaySfx(SfxName[Jump],0)
+			else
+				PlaySfx(SfxName[Jump2],0)
+			endif
+			Player.State=PlayerObject_HandleAir
+			Player.Animation=ANI_JUMPING
+			Player.YVelocity=-262144
+			Player.Gravity=1
+			Player.AbilityUsed=1
+
+			Object.Priority=1
+			Object.State=2
+			Object.Value3=Player.XVelocity
+		end if
+		break
+	case 2
+		if Object.Value4<65536
+			Object.Value4+=8192
+		end if
+
+		Object.XPos+=Object.Value3
+		Object.YPos+=Object.Value4
+
+		if Object.OutOfBounds==true
+			Object.State=3
+			Object.XPos=Object.Value1
+			Object.YPos=Object.Value2
+		end if
+		break
+	case 3
+		if Object.OutOfBounds==true
+			Object.State=0
+			Object.Priority=0
+		end if
+		break
+	end switch
+end sub
+
+sub ObjectPlayerInteraction
+	if Object.State==0
+		PlayerObjectCollision(C_TOUCH,-16,20,16,24)
+		if CheckResult==1
+			Object.Value1=Object.XPos
+			Object.Value2=Object.YPos
+
+			Player.Animation=ANI_CORKSCREW_V
+			Object.XPos=Player.XPos
+			Object.YPos=Player.YPos
+			TempValue0=Player.CollisionTop
+			TempValue0-=22
+			TempValue0<<=16
+			Player.Speed=Player.XVelocity
+			Object.YPos+=TempValue0
+			Object.State=1
+			Player.YVelocity=0
+			Player.Gravity=1
+			Player.State=PlayerObject_Blank //prevents the player from falling faster than intended
+			PlaySfx(SfxName[Catch],false)
+		end if
+	end if
+end sub
+
+sub ObjectDraw
+	switch Object.State
+	case 0
+		DrawSprite(0)
+		Object.Frame++
+		if Object.Frame>63
+			Object.Frame=0
+		end if
+		break
+	case 1
+	case 2
+		TempValue0=Object.Frame
+		TempValue0>>=3
+		DrawSprite(TempValue0)
+		Object.Frame++
+		if Object.Frame>63
+			Object.Frame=0
+		end if
+		DrawSprite(TempValue0)
+		break
+	end switch
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects2.gif")
+	
+	//Parachute Frames
+	SpriteFrame(-24,-20,48,43,219,142)
+	SpriteFrame(-19,-20,48,43,268,142)
+	SpriteFrame(-15,-20,48,43,219,186)
+	SpriteFrame(-19,-20,48,43,268,142)
+	SpriteFrame(-24,-20,48,43,219,142)
+	SpriteFrame(-29,-20,48,43,267,98)
+	SpriteFrame(-34,-20,47,43,219,98)
+	SpriteFrame(-29,-20,48,43,267,98)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects2.gif")
+	SetEditorIcon(Icon0,SingleIcon,-24,-20,48,43,219,142)
+end sub

@@ -1,0 +1,161 @@
+//---------------Sonic Nexus Logo Script--------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.YSpeed
+#alias Object.Value1 : Object.ScaleSpeed
+#alias Object.Value3 : SonicBlink
+#alias Object.Value4 : TailsBlink
+
+sub ObjectMain
+	
+	switch Object.PropertyValue
+	case 0
+		if Object.State<4
+
+			Object.YSpeed+=16384
+			Object.YPos+=Object.YSpeed
+
+			if Object.YPos>7077888
+				Object.YPos=7077888
+				Object.YSpeed>>=1
+				FlipSign(Object.YSpeed)
+				Object.State++
+			end if
+		end if
+		break
+
+	case 1
+		if Object.State<4
+
+			Object.ScaleSpeed-=2
+			Object.Scale+=Object.ScaleSpeed
+
+			if Object.Scale<512
+				Object.Scale=512
+				Object.ScaleSpeed>>=1
+				FlipSign(Object.ScaleSpeed)
+				PlayStageSfx(0,false)
+				Object.State++
+			end if
+		else
+			Object.Value2++
+			if Object.Value2>127
+				Object.Value2=0
+				Object.PropertyValue=2
+				Rand(SonicBlink,256)
+				SonicBlink+=19
+
+				Rand(TailsBlink,256)
+				TailsBlink+=34
+			end if
+		end if
+		break
+	end switch
+
+end sub
+
+sub ObjectDraw
+	if Object.PropertyValue==1
+		DrawSpriteFX(0,FX_SCALE,Object.XPos,Object.YPos)
+	else
+		Object.Value2+=8
+		if Object.Value2>511
+			Object.Value2-=512
+		end if
+
+		Sin(Object.Rotation,Object.Value2)
+		Object.Rotation>>=4
+
+		DrawSprite(1)
+		DrawSprite(2)
+		DrawSpriteScreenFX(3,FX_ROTATE,159,95) //Rotating Hand
+
+		SonicBlink--
+
+		if SonicBlink>3
+			if SonicBlink<19
+				DrawSpriteScreenXY(SonicBlink,Screen.CenterX,52)
+			end if
+		end if
+
+		if SonicBlink==4
+			Rand(SonicBlink,256)
+			SonicBlink+=19
+		end if
+
+		TailsBlink--
+
+		if TailsBlink>18
+			if TailsBlink<34
+				DrawSpriteScreenXY(TailsBlink,Object.XPos,60)
+			end if
+		end if
+
+		if TailsBlink==19
+			Rand(TailsBlink,256)
+			TailsBlink+=34
+		end if
+	end if
+end sub
+
+sub ObjectStartup
+	Object.Scale=1024
+	LoadSpriteSheet("NexusTitle/Logo.gif")
+	SpriteFrame(-128,-80,256,160,0,0)
+
+	//Logo Left
+	SpriteFrame(-128,-80,128,160,128,160)
+	//Logo Right
+	SpriteFrame(0,-80,128,160,128,0)
+
+	//Waving Finger
+	SpriteFrame(-56,-60,60,65,1,161)
+
+	//Sonic Blinking
+	SpriteFrame(52,0,42,31,62,161)
+	SpriteFrame(52,0,42,31,62,161)
+	SpriteFrame(52,0,42,31,62,161)
+
+	SpriteFrame(52,0,42,31,62,193)
+	SpriteFrame(52,0,42,31,62,193)
+	SpriteFrame(52,0,42,31,62,193)
+
+	SpriteFrame(52,0,42,31,62,225)
+	SpriteFrame(52,0,42,31,62,225)
+	SpriteFrame(52,0,42,31,62,225)
+
+	SpriteFrame(52,0,42,31,62,193)
+	SpriteFrame(52,0,42,31,62,193)
+	SpriteFrame(52,0,42,31,62,193)
+	
+	SpriteFrame(52,0,42,31,62,161)
+	SpriteFrame(52,0,42,31,62,161)
+	SpriteFrame(52,0,42,31,62,161)
+
+	//Tails Blinking
+	SpriteFrame(52,0,27,22,1,227)
+	SpriteFrame(52,0,27,22,1,227)
+	SpriteFrame(52,0,27,22,1,227)
+
+	SpriteFrame(52,0,27,22,1,250)
+	SpriteFrame(52,0,27,22,1,250)
+	SpriteFrame(52,0,27,22,1,250)
+
+	SpriteFrame(52,0,27,22,1,273)
+	SpriteFrame(52,0,27,22,1,273)
+	SpriteFrame(52,0,27,22,1,273)
+
+	SpriteFrame(52,0,27,22,1,250)
+	SpriteFrame(52,0,27,22,1,250)
+	SpriteFrame(52,0,27,22,1,250)
+
+	SpriteFrame(52,0,27,22,1,227)
+	SpriteFrame(52,0,27,22,1,227)
+	SpriteFrame(52,0,27,22,1,227)
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusTitle/Logo.gif")
+	SetEditorIcon(Icon1,0,-128,-80,256,160,0,0)
+end sub

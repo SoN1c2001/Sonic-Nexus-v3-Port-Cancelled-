@@ -1,0 +1,458 @@
+//-------------Sonic Nexus Title Card-----------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias 3 : TYPE_TITLECARD
+#alias 4 : TYPE_HUD
+
+sub ObjectPlayerInteraction
+	Player.Timer=0
+end sub
+
+sub ObjectDraw
+	switch Object.State
+	case 0 //Fade Up
+
+		//Freeze Control
+		Player.ControlMode=-1
+		Player.Up=false
+		Player.Down=false
+		Player.Left=false
+		Player.Right=false
+		Player.JumpPress=false
+		Player.JumpHold=false
+
+		if Object.Value0>0
+			
+			if Object.Value0==256
+				//Play the Level's Music
+				PlayMusic(0)
+
+				//Create the Downwards Sonic Nexus Text
+				Object[25].Type=TYPE_TITLECARD
+				Object[25].State=6
+				Object[25].XPos=44
+				Object[25].YPos=0
+				Object[25].Priority=1
+				Object[25].InkEffect=1
+				Object[25].DrawOrder=6
+
+				//Create the Upwards Sonic Nexus Text
+				Object[26].Type=TYPE_TITLECARD
+				Object[26].State=7
+				Object[26].XPos=250
+				Object[26].YPos=-256
+				Object[26].Priority=1
+				Object[26].InkEffect=1
+				Object[26].DrawOrder=6
+
+				//Create the Side Bar
+				Object[27].Type=TYPE_TITLECARD
+				Object[27].State=1
+				Object[27].YPos=-512
+				Object[27].Priority=1
+				Object[27].DrawOrder=6
+
+				//Create the First Word
+				Object[28].Type=TYPE_TITLECARD
+				Object[28].State=2
+				Object[28].XPos=-538
+				Object[28].Priority=1
+				Object[28].DrawOrder=6
+				
+				//Create the Second Word
+				Object[29].Type=TYPE_TITLECARD
+				Object[29].State=3
+				Object[29].XPos=-602
+				Object[29].Priority=1
+				Object[29].DrawOrder=6
+
+				//Create the 'Zone' Word
+				Object[30].Type=TYPE_TITLECARD
+				Object[30].State=4
+				Object[30].XPos=640
+				Object[30].Priority=1
+				Object[30].DrawOrder=6
+
+				//Create the Bouncing Act Ball :)
+				Object[31].Type=TYPE_TITLECARD
+				Object[31].State=5
+				Object[31].iXPos=-256
+				Object[31].iYPos=-896
+				Object[31].Priority=1
+				Object[31].DrawOrder=6
+				Object[31].Rotation=80
+				Object[31].Value2=Stage.ActNo
+				Object[31].Value2+=105
+			end if
+
+			Object.Value0-=8
+			SetScreenFade(0,0,0,Object.Value0,0,255)
+		else
+			Object.State=8
+		end if
+		DrawTintRect(0,0,424,240,0)
+		break
+
+	case 1 //Entering Black Side Bar
+		if Object.YPos<0
+			Object.YPos+=16
+		end if
+		DrawSpriteScreenXY(104,280,Object.YPos)
+		break
+
+	case 2 //Entering First Word
+		if Object.XPos<160
+			Object.XPos+=16
+		end if
+		DrawActName(0,Object.XPos,32,1,1,24,-2)
+		break
+
+	case 3 //Entering Second Word
+		if Object.XPos<160
+			Object.XPos+=16
+		end if
+		DrawActName(52,Object.XPos,90,2,1,24,-2)
+		break
+
+	case 4 //Entering "Zone"
+		if Object.XPos>172
+			Object.XPos-=8
+			if Object.XPos<248
+				Object.XPos=248
+			end if
+			Object.Scale=Object.XPos
+			Object.Scale-=248
+			Object.Scale<<=4
+			Object.Scale+=512
+		end if
+		DrawSpriteScreenFX(105,FX_SCALE,Object.XPos,146)
+		//DrawSpriteScreenXY(105,Object.XPos,140)
+		break
+
+	case 5 //Entering Bouncing Act Ball
+		if Object.Value0<2
+			Object.Rotation+=16
+			Object.Rotation&=511
+
+			Object.Value1+=24576
+			Object.YPos+=Object.Value1
+			if Object.YPos>8912896
+				Object.YPos=8912896
+				FlipSign(Object.Value1)
+				Object.Value1/=3
+				Object.Value0++
+				if Object.Value0==2
+					Object[24].State=9
+					Object[24].Scale=0
+					Object[24].InkEffect=2
+				end if
+			end if
+			Object.XPos+=303094
+		end if
+		DrawSpriteScreenFX(Object[31].Value2,FX_ROTATE,Object.iXPos,Object.iYPos)
+		break
+
+	case 6 //Vertical Sonic Nexus Text Downwards
+		Object.XPos++
+		Object.YPos+=2
+		if Object.YPos>0
+			Object.YPos-=516
+		end if
+		TempValue0=Object.YPos
+		DrawSpriteScreenFX(109,FX_INK,Object.XPos,TempValue0)
+		DrawSpriteScreenFX(110,FX_INK,Object.XPos,TempValue0)
+		TempValue0+=516
+		DrawSpriteScreenFX(109,FX_INK,Object.XPos,TempValue0)
+		DrawSpriteScreenFX(110,FX_INK,Object.XPos,TempValue0)
+		break
+	
+	case 7 //Vertical Sonic Nexus Text Upwards
+		Object.XPos--
+		Object.YPos-=2
+		if Object.YPos<-516
+			Object.YPos+=516
+		end if
+		TempValue0=Object.YPos
+		DrawSpriteScreenFX(109,FX_INK,Object.XPos,TempValue0)
+		DrawSpriteScreenFX(110,FX_INK,Object.XPos,TempValue0)
+		TempValue0+=516
+		DrawSpriteScreenFX(109,FX_INK,Object.XPos,TempValue0)
+		DrawSpriteScreenFX(110,FX_INK,Object.XPos,TempValue0)
+		break
+
+	case 8 //GreyScale BG
+		DrawTintRect(0,0,424,240,0)
+		break
+
+	case 9 //Expanding Colour Circle
+
+		if Object.Scale<1408
+
+			Object.Scale+=12
+		else
+			//Change the Side Bar
+			Object[27].State=10
+			//Change the First Word
+			Object[28].State=11
+			//Change the Second Word
+			Object[29].State=12
+			//Change the "Zone"
+			Object[30].State=13
+			//Change the Bouncing Act Ball
+			Object[31].State=14
+		end if
+
+		TempValue0=128
+		TempValue0*=Object.Scale
+		TempValue0>>=9
+
+		TempValue5=256
+		TempValue5*=Object.Scale
+		TempValue5>>=9
+
+		TempValue1=212 //Moves to the right?
+		TempValue1-=TempValue0
+
+		TempValue2=TempValue1
+		TempValue2+=TempValue5
+
+		TempValue3=121 //Moves up I think?
+		TempValue3-=TempValue0
+
+		TempValue4=TempValue3
+		TempValue4+=TempValue5
+
+		DrawTintRect(0,0,TempValue1,240,0)
+		DrawTintRect(TempValue2,0,424,240,0)
+		DrawTintRect(TempValue1,0,TempValue5,TempValue3,0)
+		DrawTintRect(TempValue1,TempValue4,TempValue5,240,0)
+		
+		DrawSpriteScreenFX(111,3,212,120)
+		break
+
+	case 10 //Exiting Black Side Bar
+		Object[25].XPos+=7
+		Object[26].XPos-=7
+		if Object.YPos>-192
+			Object.YPos-=16
+		end if
+		DrawSpriteScreenXY(104,280,Object.YPos)
+		break
+
+	case 11 //Exiting First Word
+		TempValue0=Object[24].PropertyValue
+		TempValue0-=64
+		Object.XPos-=16
+		DrawActName(0,Object.XPos,32,1,1,24,-2)
+		break
+
+	case 12 //Exiting Second Word
+		Object.XPos-=16
+		DrawActName(52,Object.XPos,90,2,1,24,-2)
+		break
+
+	case 13 //Exiting Act Number
+		Object.XPos+=8
+		DrawSpriteScreenXY(105,Object.XPos,140)
+
+		if Object.XPos>384
+
+			LoadPalette("Data/Palettes/BShieldTint.act",0,0,80,96)
+			//SetBlendTable(128,1,16,80)
+
+			//Restore Control
+			Player.ControlMode=0
+
+			//Remove all the Title Card Objects and Replace with the HUD
+			ResetObjectEntity(24,0,0,0,0)
+			ResetObjectEntity(25,0,0,0,0)
+			ResetObjectEntity(26,0,0,0,0)
+			ResetObjectEntity(27,0,0,0,0)
+			ResetObjectEntity(28,0,0,0,0)
+			ResetObjectEntity(29,0,0,0,0)
+			ResetObjectEntity(30,0,0,0,0)
+			ResetObjectEntity(31,TYPE_HUD,0,0,0)
+			Object[31].Priority=1
+			Object[31].State=1
+			Object[31].DrawOrder=6
+			Object[31].Value0=-113
+			Object[31].Value1=-145
+			Object[31].Value2=-177
+			Object[31].Value3=-209
+		end if
+
+		break
+
+	case 14 //Exiting Bouncing Act Ball
+		Object.Rotation+=32
+		Object.Rotation&=511
+		Object.XPos+=524288
+		DrawSpriteScreenFX(Object[31].Value2,FX_ROTATE,Object.iXPos,Object.iYPos)
+		break
+
+	end switch
+
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Display.gif")
+	LoadPalette("Data/Palettes/TCardTint.act",0,0,80,96)
+	//SetTintTable(0,0,0,8,86,0)
+	//SetBlendTable(128,1,16,80)
+	
+	//Setup the Title Card if it is present in the level
+	ArrayPos0=32
+	while ArrayPos0<1056
+		//Check The Type of each Object Entity
+		if Object[ArrayPos0].Type==TYPE_TITLECARD
+			Object[ArrayPos0].Type=0
+
+			//Create the Fade up Component
+			Object[24].Type=TYPE_TITLECARD
+			Object[24].Value0=384
+			Object[24].PropertyValue=Object[ArrayPos0].PropertyValue
+			Object[24].Priority=1
+			Object[24].DrawOrder=6
+
+		end if
+		ArrayPos0++
+	loop
+
+	//Big Letters A-Z For the first word
+	SpriteFrame(0,0,31,54,1,1)
+	SpriteFrame(0,0,31,54,33,1)
+	SpriteFrame(0,0,31,54,65,1)
+	SpriteFrame(0,0,31,54,97,1)
+	SpriteFrame(0,0,31,54,129,1)
+	SpriteFrame(0,0,31,54,161,1)
+	SpriteFrame(0,0,31,54,193,1)
+	SpriteFrame(0,0,31,54,225,1)
+	SpriteFrame(0,0,21,54,1,56)
+	SpriteFrame(0,0,31,54,23,56)
+	SpriteFrame(0,0,31,54,55,56)
+	SpriteFrame(0,0,27,54,87,56)
+	SpriteFrame(0,0,42,54,115,56)
+	SpriteFrame(0,0,31,54,158,56)
+	SpriteFrame(0,0,31,54,190,56)
+	SpriteFrame(0,0,31,54,222,56)
+	SpriteFrame(0,0,33,54,1,111)
+	SpriteFrame(0,0,31,54,35,111)
+	SpriteFrame(0,0,31,54,67,111)
+	SpriteFrame(0,0,28,54,99,111)
+	SpriteFrame(0,0,31,54,128,111)
+	SpriteFrame(0,0,32,54,160,111)
+	SpriteFrame(0,0,42,54,193,111)
+	SpriteFrame(0,0,31,54,160,166)
+	SpriteFrame(0,0,31,54,192,166)
+	SpriteFrame(0,0,31,54,224,166)
+
+	//Small Letters A-Z For the first word
+	SpriteFrame(0,13,24,41,1,166)
+	SpriteFrame(0,13,24,41,26,166)
+	SpriteFrame(0,13,24,41,51,166)
+	SpriteFrame(0,13,24,41,76,166)
+	SpriteFrame(0,13,24,41,101,166)
+	SpriteFrame(0,13,24,41,126,166)
+	SpriteFrame(0,13,24,41,1,208)
+	SpriteFrame(0,13,24,41,26,208)
+	SpriteFrame(0,13,16,41,51,208)
+	SpriteFrame(0,13,24,41,68,208)
+	SpriteFrame(0,13,24,41,93,208)
+	SpriteFrame(0,13,21,41,118,208)
+	SpriteFrame(0,13,32,41,1,250)
+	SpriteFrame(0,13,24,41,34,250)
+	SpriteFrame(0,13,24,41,59,250)
+	SpriteFrame(0,13,24,41,84,250)
+	SpriteFrame(0,13,25,41,109,250)
+	SpriteFrame(0,13,24,41,135,250)
+	SpriteFrame(0,13,24,41,182,221)
+	SpriteFrame(0,13,23,41,207,221)
+	SpriteFrame(0,13,24,41,231,221)
+	SpriteFrame(0,13,24,41,173,263)
+	SpriteFrame(0,13,32,41,198,263)
+	SpriteFrame(0,13,24,41,231,263)
+	SpriteFrame(0,13,24,41,206,305)
+	SpriteFrame(0,13,24,41,231,305)
+
+	//Big Letters A-Z For the second word
+	SpriteFrame(0,0,31,54,1,1)
+	SpriteFrame(0,0,31,54,33,1)
+	SpriteFrame(0,0,31,54,65,1)
+	SpriteFrame(0,0,31,54,97,1)
+	SpriteFrame(0,0,31,54,129,1)
+	SpriteFrame(0,0,31,54,161,1)
+	SpriteFrame(0,0,31,54,193,1)
+	SpriteFrame(0,0,31,54,225,1)
+	SpriteFrame(0,0,21,54,1,56)
+	SpriteFrame(0,0,31,54,23,56)
+	SpriteFrame(0,0,31,54,55,56)
+	SpriteFrame(0,0,27,54,87,56)
+	SpriteFrame(0,0,42,54,115,56)
+	SpriteFrame(0,0,31,54,158,56)
+	SpriteFrame(0,0,31,54,190,56)
+	SpriteFrame(0,0,31,54,222,56)
+	SpriteFrame(0,0,33,54,1,111)
+	SpriteFrame(0,0,31,54,35,111)
+	SpriteFrame(0,0,31,54,67,111)
+	SpriteFrame(0,0,28,54,99,111)
+	SpriteFrame(0,0,31,54,128,111)
+	SpriteFrame(0,0,32,54,160,111)
+	SpriteFrame(0,0,42,54,193,111)
+	SpriteFrame(0,0,31,54,160,166)
+	SpriteFrame(0,0,31,54,192,166)
+	SpriteFrame(0,0,31,54,224,166)
+
+	//Small Letters A-Z For the second word
+	SpriteFrame(0,0,24,41,1,166)
+	SpriteFrame(0,0,24,41,26,166)
+	SpriteFrame(0,0,24,41,51,166)
+	SpriteFrame(0,0,24,41,76,166)
+	SpriteFrame(0,0,24,41,101,166)
+	SpriteFrame(0,0,24,41,126,166)
+	SpriteFrame(0,0,24,41,1,208)
+	SpriteFrame(0,0,24,41,26,208)
+	SpriteFrame(0,0,16,41,51,208)
+	SpriteFrame(0,0,24,41,68,208)
+	SpriteFrame(0,0,24,41,93,208)
+	SpriteFrame(0,0,21,41,118,208)
+	SpriteFrame(0,0,32,41,1,250)
+	SpriteFrame(0,0,24,41,34,250)
+	SpriteFrame(0,0,24,41,59,250)
+	SpriteFrame(0,0,24,41,84,250)
+	SpriteFrame(0,0,25,41,109,250)
+	SpriteFrame(0,0,24,41,135,250)
+	SpriteFrame(0,0,24,41,182,221)
+	SpriteFrame(0,0,23,41,207,221)
+	SpriteFrame(0,0,24,41,231,221)
+	SpriteFrame(0,0,24,41,173,263)
+	SpriteFrame(0,0,32,41,198,263)
+	SpriteFrame(0,0,24,41,231,263)
+	SpriteFrame(0,0,24,41,206,305)
+	SpriteFrame(0,0,24,41,231,305)
+
+	//Black Side Bar
+	SpriteFrame(0,0,80,192,1,292)
+
+	//"Zone"
+	SpriteFrame(0,-6,36,13,140,221)
+
+	//Act Numbers
+	SpriteFrame(-24,-24,48,48,82,292)
+	SpriteFrame(-24,-24,48,48,82,341)
+	SpriteFrame(-24,-24,48,48,82,390)
+
+	//Vertical Sonic Text
+	SpriteFrame(0,0,48,219,257,1)
+
+	//Vertical Nexus Text
+	SpriteFrame(0,252,48,232,306,1)
+
+	//Circle Tint Mask
+	SpriteFrame(-128,-128,256,256,256,256)
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-17,-7,38,15,131,382)
+end sub

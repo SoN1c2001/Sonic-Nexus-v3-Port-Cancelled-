@@ -1,0 +1,142 @@
+//------------Sonic Nexus Broken Monitor--------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.PowerupPos
+#alias Object.Value1 : Object.PSpeed
+
+//----Player Movement States----//
+#alias 8 : GETTINGHURT
+#alias Object.Value4 : Player.Invincibility
+
+sub ObjectMain
+	
+	switch Object.State
+	case 0
+		if Object.PSpeed<0
+			Object.PowerupPos+=Object.PSpeed
+		end if
+		
+		Object.PSpeed+=8192
+		
+		if Object.PSpeed==0
+			Object.State=1
+			
+			//Deliver the Goods!
+			switch Object.PropertyValue
+			case 1 //10 Ring
+				Object[0].Value0+=10
+				if RingPan==0
+					SetSfxAttributes(1,-1,-100)
+					RingPan=1
+				else
+					SetSfxAttributes(2,-1,100)
+					RingPan=0
+				end if
+				break
+
+			case 2 //Blue Shield
+				PlayStageSfx(0,false)
+				Object[2].PropertyValue=1
+				if Object[2].Type!=20
+					Object[2].Type=25
+					Object[2].Priority=1
+					Object[2].DrawOrder=4
+					Object[2].InkEffect=1
+					Object[2].XPos=Player.XPos
+					Object[2].YPos=Player.YPos
+				end if
+				break
+
+			case 3 //Invincibility
+				//Set Player.Invincibility
+				Object[2].Type=20
+				Object[2].Priority=1
+				Object[2].DrawOrder=4
+				Object[2].XPos=Player.XPos
+				Object[2].YPos=Player.YPos
+
+				Object[0].Value4=1080
+				PlayMusic(2)
+				break
+
+			case 4 //Speed Shoes
+				PlayMusic(3)
+				Player.Acceleration<<=1
+				Player.AirAcceleration<<=1
+				Player.TopSpeed<<=1
+				//Set Player.SpeedShoes
+				Object[0].Value3=1320
+				break
+
+			case 5 //Extra Life
+				PLives++
+				PlaySfx(17,false)
+				break
+
+			case 6 //Robotnik
+				ArrayPos0=Player.EntityNo
+				if Player[ArrayPos0].Invincibility==0
+					Player.State=GETTINGHURT
+					if Player.XPos>Object.XPos
+						Player.Speed=131072
+					else
+						Player.Speed=-131072
+					end if
+				end if
+				break
+			end switch
+			
+		end if
+		break
+		
+	case 1
+		Object.Value1++
+		if Object.Value1==30
+			Object.Value1=0
+			Object.State=2
+			Object.PropertyValue=0
+			Object.Priority=0
+		end if
+		break
+	end switch
+	
+end sub
+
+sub ObjectDraw
+	DrawSprite(0)
+	
+	if Object.PropertyValue>0
+		DrawSpriteXY(Object.PropertyValue,Object.XPos,Object.PowerupPos)
+	end if
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Broken Monitor Frame
+	SpriteFrame(-16,-16,32,32,183,133)
+	
+	//Ring Powerup
+	SpriteFrame(-8,-7,16,14,26,40)
+	
+	//Blue "Wong" Shield Powerup
+	SpriteFrame(-8,-7,16,14,26,73)
+	
+	//Invincibility Powerup
+	SpriteFrame(-8,-7,16,14,26,106)
+	
+	//SpeedShoes Powerup
+	SpriteFrame(-8,-7,16,14,26,139)
+
+	//Lives Powerup
+	SpriteFrame(-8,-7,16,14,26,172)
+
+	//Robotnik Powerdown
+	SpriteFrame(-8,-7,16,14,26,205)
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,183,133)
+end sub

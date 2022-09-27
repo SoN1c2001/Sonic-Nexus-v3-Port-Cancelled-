@@ -1,0 +1,64 @@
+//-----------------Sonic Nexus Ring-------------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Rings
+#alias 9 : HURT_RECOIL
+
+sub ObjectPlayerInteraction
+
+	if Player.State!=HURT_RECOIL
+		//Did the player collide with the ring?
+		PlayerObjectCollision(C_TOUCH,-8,-8,8,8)
+
+		if CheckResult==1
+			Object.Type+=2
+			Object.DrawOrder=4
+			Rings[0]++
+
+			if Rings[0]>999
+				Rings[0]=999
+			end if
+
+			if Rings[0]>=RingExtraLife
+				PLives++
+				PlaySfx(17,false)
+				RingExtraLife+=100
+				if RingExtraLife>300
+					RingExtraLife=1000
+				end if
+			end if
+
+			if RingPan==0
+				SetSfxAttributes(1,-1,-100)
+				RingPan=1
+			else
+				SetSfxAttributes(2,-1,100)
+				RingPan=0
+			end if
+		end if
+	end if
+
+end sub
+
+sub ObjectDraw
+	DrawSprite(RingFrame)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Ring Frames
+	SpriteFrame(-8,-8,16,16,1,1)
+	SpriteFrame(-8,-8,16,16,1,18)
+	SpriteFrame(-8,-8,16,16,1,35)
+	SpriteFrame(-8,-8,16,16,1,52)
+	SpriteFrame(-8,-8,16,16,1,69)
+	SpriteFrame(-8,-8,16,16,1,86)
+	SpriteFrame(-8,-8,16,16,1,103)
+	SpriteFrame(-8,-8,16,16,1,120)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,1,1)
+end sub

@@ -1,0 +1,101 @@
+//---------------RetroSonic Menu Recreation--------------//
+//----------------Scripted by LanceReborn---------------//
+
+sub ObjectMain
+	switch Object.State
+	case 0
+		LoadPalette("TitlePalette.act",0,0,0,256)
+		Object.State=1
+		Object.Value0=256
+		SetScreenFade(0,0,0,255,0,255)
+		break
+		
+	case 1
+		if Object.Value0>0
+			Object.Value0-=8
+		else
+			Object.State=2
+		end if
+		SetScreenFade(0,0,0,Object.Value0,0,255)
+		break
+	case 2
+		Stage.PlayerListPos=0
+		if KeyPress.Down==true
+			Object.State=3
+		endif
+		if KeyPress.Up==true
+			Object.State=4
+		endif
+		if KeyPress.Start==true
+			Object.State=5
+		endif
+		break
+	case 3
+		Stage.PlayerListPos=1
+		if KeyPress.Down==true
+			Object.State=4
+		endif
+		if KeyPress.Up==true
+			Object.State=2
+		endif
+		if KeyPress.Start==true
+			Object.State=5
+		endif
+		break
+	case 4
+		Stage.PlayerListPos=2
+		if KeyPress.Down==true
+			Object.State=2
+		endif
+		if KeyPress.Up==true
+			Object.State=3
+		endif
+		if KeyPress.Start==true
+			Object.State=5
+		endif
+		break
+	case 5
+		break
+	endswitch
+
+end sub
+
+sub ObjectDraw
+	Object.DrawOrder=3 //Im probably gonna try to improve this script// //EDIT:I did//
+	DrawSpriteXY(0,0x1C0000,0x1E0000)
+	DrawSpriteXY(1,0x1C0000,0x1E0000)
+	if Stage.PlayerListPos==0
+		DrawSpriteXY(3,0xB30000,0x5E0000)
+	else
+		DrawSpriteXY(2,0xB30000,0x5E0000)
+	endif
+	if Stage.PlayerListPos==1
+		DrawSpriteXY(5,0xB30000,0x689000)
+	else
+		DrawSpriteXY(4,0xB30000,0x689000)
+	endif
+	if Stage.PlayerListPos==2
+		DrawSpriteXY(7,0xB30000,0x720000)
+	else
+		DrawSpriteXY(6,0xB30000,0x720000)
+	endif
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("RetroMenu/Menus.gif")
+	SpriteFrame(-28,-30,258,39,1,481)
+	SpriteFrame(114,26,162,67,1,561)
+	SpriteFrame(-28,-30,40,8,164,561) //Sonic//
+	SpriteFrame(-28,-30,40,8,164,570) //Yellow Sonic//
+	SpriteFrame(-28,-30,40,8,164,579) //Tails//
+	SpriteFrame(-28,-30,40,8,164,588) //Yellow Tails//
+	SpriteFrame(-28,-30,64,8,164,597) //Knuckles//
+	SpriteFrame(-28,-30,64,8,164,606) //Yellow Knuckles//
+	SetMusicTrack("RetroSonic/RetroMenu.ogg",0,67914)
+	PlayMusic(0)	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("RetroMenu/Menus.gif")
+	SetEditorIcon(Icon1,0,-128,-80,256,160,0,0)
+end sub

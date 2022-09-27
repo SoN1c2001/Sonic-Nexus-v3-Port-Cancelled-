@@ -1,0 +1,18 @@
+//---------------RetroSonic Spin thing Recreation--------------//
+//-------------------Scripted by LanceReborn-------------------//
+
+
+sub ObjectDraw
+	Object.Rotation-=1
+	DrawSpriteFX(0,1,0x500000,0x900000)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("RetroMenu/Spin.gif")
+	SpriteFrame(-40,-45,80,90,131,1) //i cant find the exact value but it should work anyway//
+end sub
+
+sub RSDK
+	LoadSpriteSheet("RetroMenu/Spin.gif")
+	SetEditorIcon(Icon1,0,-128,-80,90,80,0,0)
+end sub

@@ -1,0 +1,62 @@
+//-----------------Sonic Nexus SSZ Fan----------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectDraw
+	Object.AnimationTimer++
+	if Object.AnimationTimer==2
+		Object.AnimationTimer=0
+		Object.Frame++
+		if Object.Frame>4
+			Object.Frame=0
+		endif
+	endif
+	
+	DrawSprite(Object.Frame)
+endsub
+
+sub ObjectPlayerInteraction
+	ArrayPos0=Player.EntityNo
+	//Nexus originally checked for the player's property value
+	//this has been changed to be less hacky + debug mode uses the property value
+	CheckEqual(Object[ArrayPos0].Animation,ANI_CORKSCREW_V) //Hanging animation
+	TempValue0=CheckResult
+	CheckEqual(Object[ArrayPos0].State,PlayerObject_HandleKnuxGlide)
+	TempValue0|=CheckResult
+	if TempValue0==1
+		PlayerObjectCollision(C_TOUCH,-32,-480,32,8)
+		if CheckResult==1
+			if Player.YVelocity>-262144
+				Player.YVelocity-=12288
+			endif
+		endif
+	endif
+endsub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Fan Frames
+	SpriteFrame(-14,-8,26,16,221,170)
+	SpriteFrame(-11,-8,20,16,221,187)
+	SpriteFrame(-6,-8,14,16,221,204)
+	SpriteFrame(-7,-8,20,16,221,221)
+	SpriteFrame(-10,-8,26,16,221,238)
+
+	//Setup any fans that are present in the level
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TypeName[Fan]
+			//Set as always active so the full wind box can be utilized
+			Object[ArrayPos0].Priority=1
+			//Set the fan to be drawn infront of the player
+			Object[ArrayPos0].DrawOrder=Player.DrawOrder
+			Object[ArrayPos0].DrawOrder++
+		endif
+		ArrayPos0++
+	loop
+endsub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-14,-8,26,16,221,170)
+endsub

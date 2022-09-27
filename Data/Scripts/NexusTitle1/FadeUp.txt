@@ -1,0 +1,78 @@
+//--------------Sonic Nexus Fade Up Script------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectMain
+
+	switch Object.State
+	case 0 //Initialise
+		
+		Object.State=1
+		Object.Value0=896
+		Object.Value1=512
+
+		if Object[1].PropertyValue==1
+			SetScreenFade(255,255,255,255,0,255)
+		else
+			SetScreenFade(0,0,0,255,0,255)
+		end if
+
+		break
+		
+	case 1 //Fade from White
+		if Object.Value0>0
+			Object.Value0-=4
+		else
+			ResetObjectEntity(Object.EntityNo,5,0,0,0)
+			ArrayPos0=Object.EntityNo
+			Object[ArrayPos0].iXPos=160
+			Object[ArrayPos0].iYPos=200
+		end if
+		if Object.Value1>0
+			Object.Value1-=4
+		end if
+		if Object.Value0==128
+			PlayMusic(0)
+		end if
+		SetScreenFade(0,0,0,Object.Value0,0,111)
+		SetScreenFade(255,255,255,Object.Value1,112,255)
+		break
+		
+	end switch
+	
+end sub
+
+sub ObjectStartup
+	LoadPalette("NexusTitle.act",0,0,0,255)
+	Object.State=2
+	Object[1].Type=3
+	Object[1].iXPos=212
+	Object[1].Priority=1
+
+	Object[1].PropertyValue=1
+
+	if Object[1].PropertyValue==1
+		Object[1].iYPos=108
+		Object[1].Scale=2048
+		Object[1].Value1=-24
+	else
+		Object[1].iYPos=-320
+	end if
+
+	//Setup the any FadeUp
+	//Objects that are present in the level
+	
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==2
+			Object[ArrayPos0].Priority=1
+		end if
+		ArrayPos0++
+	loop
+
+	SetMusicTrack("TitleScreen.ogg",0,0)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusTitle/Menu.gif")
+	SetEditorIcon(Icon1,0,-10,-10,21,21,43,0)
+end sub

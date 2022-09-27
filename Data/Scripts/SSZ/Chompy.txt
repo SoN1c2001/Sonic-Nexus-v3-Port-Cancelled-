@@ -1,0 +1,86 @@
+//--------------Sonic Nexus Chompy Fish---------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectMain
+	switch Object.State
+	case 0
+		Object.Value4++
+		if Object.Value4==1
+			Object.Value4=0
+			Object.Value3=Object.YPos
+			if Object.PropertyValue==0
+				Object.Value0=-131072
+				Object.Rotation=512
+			else
+				Object.Value0=131072
+				Object.Rotation=0
+			end if
+			Object.Value1=-638976
+			Object.State=1
+			Object.Priority=1
+		end if
+		break
+	case 1
+		Object.XPos+=Object.Value0
+		Object.YPos+=Object.Value1
+
+		Object.Value1+=12288
+
+		if Object.PropertyValue==0
+			Object.Rotation-=3
+		else
+			Object.Rotation+=3
+		end if
+
+		if Object.Value1>638976
+			Object.Priority=0
+			Object.State=0
+			Object.YPos=Object.Value3
+			if Object.PropertyValue==0
+				Object.PropertyValue=2
+			else
+				Object.PropertyValue=0
+			end if
+		end if
+		break
+	end switch
+end sub
+
+sub ObjectPlayerInteraction
+	if Object.State<5
+		ArrayPos0=Player.EntityNo
+		ArrayPos0+=2
+		if Object[ArrayPos0].Type==TypeName[Ring Sparkle]
+			PlayerObjectCollision(C_TOUCH,-24,-24,24,24)
+		else
+			PlayerObjectCollision(C_TOUCH,-15,-10,15,10)
+		endif
+		if CheckResult==1
+			CallFunction(PlayerObject_BadnikBreak)
+		endif
+	endif
+endsub
+
+sub ObjectDraw
+	TempValue0=Object.Frame
+	TempValue0>>=3
+	DrawSpriteFX(TempValue0,FX_ROTATE,Object.XPos,Object.YPos)
+	Object.Frame++
+
+	if Object.Frame>15
+		Object.Frame=0
+	end if
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Fish Frames
+	SpriteFrame(-16,-16,32,32,1,91)
+	SpriteFrame(-16,-16,32,31,34,91)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,91)
+end sub

@@ -1,0 +1,165 @@
+//-------------Sonic Nexus SSZ Corkscrew--------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectPlayerInteraction
+	//if player runs into the corkscrew, start corkscrew running
+	if Player.State==PlayerObject_HandleGround
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==0
+					if Player.XPos>Object.XPos
+						Player.State=PlayerObject_CorkscrewRun
+					end if
+				end if
+			else
+				if Object.PropertyValue==1
+					if Player.XPos<Object.XPos
+						Player.State=PlayerObject_CorkscrewRun
+					end if
+				end if
+			end if
+		end if
+	end if
+	
+	//if player runs into the corkscrew, start corkscrew rolling
+	if Player.State==PlayerObject_HandleRolling
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==0
+					if Player.XPos>Object.XPos
+						Player.State=PlayerObject_CorkscrewRoll
+					end if
+				end if
+			else
+				if Object.PropertyValue==1
+					if Player.XPos<Object.XPos
+						Player.State=PlayerObject_CorkscrewRoll
+					end if
+				end if
+			end if
+		end if
+	end if
+	
+	//handle corkscrew running
+	if Player.State==PlayerObject_CorkscrewRun
+		if Player.XPos>Object.XPos
+			TempValue1=Player.XPos
+			TempValue1-=Object.XPos
+		else
+			TempValue0=Object.XPos
+			TempValue0-=50331648
+			TempValue1=Player.XPos
+			TempValue1-=TempValue0
+		end if
+
+		TempValue1>>=8
+		TempValue1/=192
+
+		TempValue0=TempValue1
+		TempValue0&=511
+		TempValue0*=12
+		TempValue0>>=9
+
+		//handle animation
+		if Player.Animation==ANI_CORKSCREW_H
+			Player.Frame=TempValue0
+			if Player.Speed>0
+				Player.Rotation=0
+			else
+				Player.Rotation=128
+			end if
+		else
+			Player.Rotation=0
+		end if
+
+		Cos(TempValue0,TempValue1)
+		TempValue0>>=4
+		TempValue1=-32
+		TempValue1-=Player.CollisionBottom
+		TempValue1+=TempValue0
+		TempValue1<<=16
+		Player.YPos=Object.YPos
+		Player.YPos+=TempValue1
+		
+		//if on the other side of the corkscrew, end corkscrew run
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==1
+					if Player.XPos>Object.XPos
+						Player.State=PlayerObject_HandleGround
+						Player.Gravity=0
+						Player.Direction=FACING_RIGHT
+					end if
+				end if
+			else
+				if Object.PropertyValue==0
+					if Player.XPos<Object.XPos
+						Player.State=PlayerObject_HandleGround
+						Player.Gravity=false
+						Player.Direction=FACING_LEFT
+					end if
+				end if
+			end if
+		end if
+	endif
+	
+	//handle corkscrew rolling
+	if Player.State==PlayerObject_CorkscrewRoll
+		if Player.XPos>Object.XPos
+			TempValue1=Player.XPos
+			TempValue1-=Object.XPos
+		else
+			TempValue1=Object.XPos
+			TempValue1-=Player.XPos
+		end if
+		TempValue1>>=8
+		TempValue1/=192
+		Cos(TempValue0,TempValue1)
+		TempValue0>>=4
+		TempValue1=-32
+		TempValue1-=Player.CollisionBottom
+		TempValue1+=TempValue0
+		TempValue1<<=16
+		Player.YPos=Object.YPos
+		Player.YPos+=TempValue1
+
+		//if on the other side of the corkscrew, end corkscrew roll
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==1
+					Player.State=PlayerObject_HandleRolling
+					Player.Animation=ANI_JUMPING
+					Player.Gravity=0
+					Player.Direction=FACING_RIGHT
+				end if
+			else
+				if Object.PropertyValue==0
+					Player.State=PlayerObject_HandleRolling
+					Player.Animation=ANI_JUMPING
+					Player.Gravity=0
+					Player.Direction=FACING_LEFT
+				end if
+			end if
+		end if
+	end if
+end sub
+
+sub ObjectDraw
+	if Stage.DebugMode==1
+		DrawSprite(0)
+	endif
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SpriteFrame(-8,-8,16,16,83,59)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,83,59)
+end sub

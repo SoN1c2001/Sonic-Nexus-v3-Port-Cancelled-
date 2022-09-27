@@ -1,0 +1,19 @@
+//---------------RetroSonic Decoration Recreation--------------//
+//-------------------Scripted by LanceReborn-------------------//
+
+
+sub ObjectDraw
+	Object.DrawOrder=2
+	DrawSpriteXY(1,0x550000,0x3B0000)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("RetroMenu/Menus.gif")
+	SpriteFrame(0,0,77,88,1,629)
+	SpriteFrame(0,0,77,88,79,629)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("RetroMenu/Spin.gif")
+	SetEditorIcon(Icon1,0,-128,-80,90,80,0,0)
+end sub

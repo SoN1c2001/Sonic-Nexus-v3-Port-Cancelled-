@@ -1,0 +1,28 @@
+//-------------Sonic Nexus Zip Line Track-------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectDraw
+	DrawSprite(Object.PropertyValue)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects2.gif")
+	
+	//Zip Line Frames
+	SpriteFrame(-30,-128,59,256,0,0)
+	SpriteFrame(-49,-64,98,128,120,0)
+	SpriteFrame(-47,-24,94,48,219,0)
+	SpriteFrame(-47,-24,94,48,219,49)
+	SpriteFrame(-49,-64,98,128,120,128)
+	SpriteFrame(-30,-128,59,256,60,0)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects2.gif")
+	SetEditorIcon(Icon0,0,-30,-128,59,256,0,0)
+	SetEditorIcon(Icon1,0,-49,-64,98,128,120,0)
+	SetEditorIcon(Icon2,0,-47,-24,94,48,219,0)
+	SetEditorIcon(Icon3,0,-47,-24,94,48,219,49)
+	SetEditorIcon(Icon4,0,-49,-64,98,128,120,128)
+	SetEditorIcon(Icon5,0,-30,-128,59,256,60,0)
+end sub

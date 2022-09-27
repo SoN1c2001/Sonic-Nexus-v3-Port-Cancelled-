@@ -1,0 +1,21 @@
+//---------------RetroSonic Players Recreation--------------//
+//-----------------Scripted by LanceReborn-----------------//
+
+
+sub ObjectDraw
+	Object.DrawOrder=4
+	DrawSpriteXY(Stage.PlayerListPos,0x400000,0x6E0000)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("RetroMenu/CharS.gif")
+	SpriteFrame(-32,-30,96,128,0,0) //God//
+	SpriteFrame(-40,-30,96,128,0,128) //Tails//
+	SpriteFrame(-32,-30,96,128,0,256)  //Knuckles//
+	SpriteFrame(-32,-30,96,128,0,384) //Satan//
+end sub
+
+sub RSDK
+	LoadSpriteSheet("RetroMenu/CharS.gif")
+	SetEditorIcon(Icon1,0,-128,-80,256,160,0,0)
+end sub

@@ -1,0 +1,106 @@
+//----------Sonic Nexus SSZ Swinging Platform---------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.Angle
+#alias Object.Value1 : Object.PlatformX
+#alias Object.Value2 : Object.PlatformY
+#alias Object.Value3 : Object.ChangeX
+#alias Object.Value4 : Object.ChangeY
+
+sub ObjectMain
+	TempValue0=Oscillation
+	TempValue0<<=1
+	Sin(Object.Angle,TempValue0)
+	Object.Angle>>=2
+	Object.Angle+=128
+	
+	TempValue1=Object.PropertyValue
+	TempValue1++
+	TempValue1<<=4
+	
+	Cos(Object.ChangeX,Object.Angle)
+	Object.ChangeX*=TempValue1
+	Object.ChangeX<<=7
+	Object.ChangeX+=Object.XPos
+	Object.ChangeX&=4294901760
+	Object.ChangeX-=Object.PlatformX
+	
+	Sin(Object.ChangeY,Object.Angle)
+	Object.ChangeY*=TempValue1
+	Object.ChangeY<<=7
+	Object.ChangeY+=Object.YPos
+	Object.ChangeY&=4294901760
+	Object.ChangeY-=Object.PlatformY
+end sub
+
+sub ObjectPlayerInteraction
+	TempValue0=Object.XPos
+	TempValue1=Object.YPos
+	
+	Object.XPos=Object.PlatformX
+	Object.YPos=Object.PlatformY
+	
+	PlayerObjectCollision(C_PLATFORM,-24,-6,24,8)
+	if CheckResult==1
+		Player.XPos+=Object.ChangeX
+		Player.YPos+=Object.ChangeY
+	end if
+	
+	Object.XPos=TempValue0
+	Object.YPos=TempValue1
+end sub
+
+sub ObjectDraw
+	DrawSprite(0)
+	
+	TempValue0=0
+	TempValue1=16
+	while TempValue0<Object.PropertyValue
+		Cos(TempValue2,Object.Angle)
+		TempValue2*=TempValue1
+		TempValue2<<=7
+		TempValue2+=Object.XPos
+		
+		Sin(TempValue3,Object.Angle)
+		TempValue3*=TempValue1
+		TempValue3<<=7
+		TempValue3+=Object.YPos
+		
+		DrawSpriteXY(1,TempValue2,TempValue3)
+		
+		TempValue0++
+		TempValue1+=16
+	loop
+	
+	Cos(Object.PlatformX,Object.Angle)
+	Object.PlatformX*=TempValue1
+	Object.PlatformX<<=7
+	Object.PlatformX+=Object.XPos
+	Object.PlatformX&=4294901760
+	
+	Sin(Object.PlatformY,Object.Angle)
+	Object.PlatformY*=TempValue1
+	Object.PlatformY<<=7
+	Object.PlatformY+=Object.YPos
+	Object.PlatformY&=4294901760
+	
+	DrawSpriteXY(2,Object.PlatformX,Object.PlatformY)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Pivot Ball Frame
+	SpriteFrame(-8,-8,16,16,1,124)
+	
+	//Chain Frame
+	SpriteFrame(-8,-8,16,16,18,124)
+	
+	//Platform Frame
+	SpriteFrame(-24,-8,48,16,35,124)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,1,124)
+end sub

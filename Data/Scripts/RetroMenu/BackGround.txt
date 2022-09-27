@@ -1,0 +1,20 @@
+//---------------RetroSonic Menu Recreation--------------//
+//----------------Scripted by LanceReborn---------------//
+
+
+sub ObjectDraw
+	Object.DrawOrder=1 //I dont fully understand how this works//
+	DrawSpriteXY(0,0x1C0000,0x1E0000)
+	DrawSpriteXY(1,0x15C0000,0x1E0000)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("RetroMenu/Menus.gif")
+	SpriteFrame(-28,-30,424,240,104,0)
+	SpriteFrame(-28,-30,424,240,0,240)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("RetroMenu/Menus.gif")
+	SetEditorIcon(Icon1,0,-128,-80,256,160,0,0)
+end sub

@@ -1,0 +1,42 @@
+//----------Sonic Nexus Hell-i-bomber Bullet----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectMain
+	Object.XPos+=Object.Value0
+	Object.YPos+=Object.Value1
+
+	if Object.OutOfBounds==true
+		Object.Type=0
+	end if
+end sub
+
+sub ObjectPlayerInteraction
+	PlayerObjectCollision(C_TOUCH,-4,-4,4,4)
+	if CheckResult==1
+		CallFunction(PlayerObject_Hit)
+	endif
+end sub
+
+sub ObjectDraw
+	TempValue0=Object.Frame
+	TempValue0>>=2
+	DrawSprite(TempValue0)
+	Object.Frame++
+
+	if Object.Frame>7
+		Object.Frame=0
+	end if
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Bullet Frames
+	SpriteFrame(-4,-4,8,8,85,41)
+	SpriteFrame(-4,-4,8,8,85,50)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-4,-4,8,8,85,41)
+end sub

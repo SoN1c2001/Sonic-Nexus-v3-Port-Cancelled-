@@ -1,0 +1,209 @@
+//------------Sonic Nexus Zip Line Object-------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.Angle
+#alias Object.Value1 : Object.HandleX
+#alias Object.Value2 : Object.HandleY
+#alias Object.Value3 : Object.Speed
+#alias Object.Value4 : Object.TrackPos
+#alias Object.Value5 : Object.OriginX
+#alias Object.Value6 : Object.OriginY
+#alias Object.Value7 : Object.PlayerNo
+#alias Object.Scale : Object.LastY
+
+sub ObjectMain
+	Object.LastY=Object.YPos
+
+	switch Object.State
+	case 0	//Stopped on the Left
+		Object.Speed+=2560
+		Object.TrackPos+=Object.Speed
+		if Object.TrackPos>0
+			Object.TrackPos=0
+			Object.Speed=0
+		end if
+		break
+	case 1	//Moving
+		if Object.XPos<Object.OriginX
+			Object.Speed+=5120
+		else
+			Object.Speed-=5120
+		end if
+		Object.TrackPos+=Object.Speed
+		break
+	case 2	//Return
+		if Object.XPos<Object.OriginX
+			Object.Speed+=2560
+		else
+			Object.Speed-=5120
+		end if
+		Object.TrackPos+=Object.Speed
+		if Object.TrackPos<1
+			Object.State=0
+			if Object.Speed<-65536
+				Object.Speed=-65536
+			end if
+		end if
+		break
+	end switch
+
+	TempValue0=Object.TrackPos
+	TempValue0>>=8
+	TempValue0/=404
+
+	Object.Angle=256
+	Object.Angle-=TempValue0
+
+	TempValue0=Object.Angle
+	if TempValue0>256
+		TempValue0=256
+		Object.Angle-=256
+		Object.Angle<<=3
+		Object.Angle+=256
+	end if
+	if TempValue0<0
+		TempValue0=0
+		Object.Angle<<=3
+		Object.Angle+=512
+	end if
+
+	Cos(Object.XPos,TempValue0)
+	Object.XPos*=25856
+	Object.XPos+=Object.OriginX
+		
+	Sin(Object.YPos,TempValue0)
+	Object.YPos*=53760
+	Object.YPos+=Object.OriginY
+
+	Cos(Object.HandleX,Object.Angle)
+	Object.HandleX*=4608
+	Object.HandleX+=Object.XPos
+	Object.HandleX&=4294901760
+	
+	Sin(Object.HandleY,Object.Angle)
+	Object.HandleY*=4608
+	Object.HandleY+=Object.YPos
+	Object.HandleY&=4294901760
+
+end sub
+
+sub ObjectPlayerInteraction
+	TempValue0=Object.XPos
+	TempValue1=Object.YPos
+
+	Object.XPos=Object.HandleX
+	Object.YPos=Object.HandleY
+
+	//Originally a state check, but this should work too
+	if Player.Animation==ANI_CORKSCREW_V
+		if Object.PlayerNo==Player.EntityNo
+			Player.XPos=Object.XPos
+			TempValue2=Player.CollisionTop
+			TempValue2<<=16
+			Player.YPos=Object.YPos
+			Player.YPos-=TempValue2
+			Player.YPos+=786432
+
+			if Player.JumpPress==true
+				Player.State=PlayerObject_StartJump
+				Player.Angle=0
+				Player.Speed=Object.Speed
+				Object.State=2
+				Object.PlayerNo=-1
+				TempValue2=TempValue1
+				TempValue2-=Object.LastY
+				TempValue2>>=1
+				Player.YVelocity+=TempValue2
+			end if
+		end if
+	else
+		if Object.State==0
+			if Object.TrackPos>-1
+				PlayerObjectCollision(C_TOUCH,-8,2,8,16)
+				if CheckResult==1
+					Player.XPos=Object.XPos
+					TempValue2=Player.CollisionTop
+					TempValue2<<=16
+					Player.YPos=Object.YPos
+					Player.YPos-=TempValue2
+					Player.YPos+=786432
+					Player.State=PlayerObject_Blank
+					Player.Animation=ANI_CORKSCREW_V
+					Object.State=1
+					Object.Priority=1
+					Object.PlayerNo=Player.EntityNo
+
+					if Player.YVelocity>0
+						Object.Speed=81920
+						if TempValue0<Object.OriginX
+							TempValue2=Player.YVelocity
+							TempValue2>>=3
+						else
+							TempValue2=Player.YVelocity
+							TempValue2>>=3
+							FlipSign(TempValue2)
+						end if
+						Object.Speed+=TempValue2
+					else
+						Object.Speed=81920
+					end if
+
+					PlaySfx(SfxName[Catch],false)
+				end if
+			end if
+		end if
+	end if
+
+	Object.XPos=TempValue0
+	Object.YPos=TempValue1
+end sub
+
+sub ObjectDraw
+	DrawSprite(0)
+
+	TempValue0=0
+	TempValue1=8
+	while TempValue0<3
+		Cos(TempValue2,Object.Angle)
+		TempValue2*=TempValue1
+		TempValue2<<=7
+		TempValue2+=Object.XPos
+		
+		Sin(TempValue3,Object.Angle)
+		TempValue3*=TempValue1
+		TempValue3<<=7
+		TempValue3+=Object.YPos
+		
+		DrawSpriteXY(0,TempValue2,TempValue3)
+		
+		TempValue0++
+		TempValue1+=8
+	loop
+	
+	DrawSpriteXY(1,Object.HandleX,Object.HandleY)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Zip Line Frames
+	SpriteFrame(-4,-4,8,8,18,141)
+	SpriteFrame(-8,-8,16,25,1,141)
+
+	//Initialise any instances of the object
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TypeName[ZipLine]
+			Object[ArrayPos0].OriginX=Object[ArrayPos0].XPos
+			Object[ArrayPos0].OriginX+=13238272
+			Object[ArrayPos0].OriginY=Object[ArrayPos0].YPos
+			Object[ArrayPos0].PlayerNo=-1
+		end if
+		ArrayPos0++
+	loop
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-4,-4,8,8,18,141)
+end sub

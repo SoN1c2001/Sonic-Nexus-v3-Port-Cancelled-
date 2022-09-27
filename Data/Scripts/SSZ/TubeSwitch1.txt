@@ -1,0 +1,92 @@
+//-------Sonic Nexus Plane Switcher: Plane A----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias 37 : TYPE_TUBESWITCH
+
+//----Player Animations----//
+#alias 10 : ANI_JUMPING
+
+//----Player Movement States----//
+#alias 2 : ROLLING
+#alias 15 : TUBE_ROLLING
+
+//----Player Object Variables----//
+#alias Object.Value6 : Player.MinRollSpeed
+
+sub ObjectPlayerInteraction
+		
+	//Is the Player Colliding with the switcher?
+	PlayerObjectCollision(C_TOUCH,-16,-16,16,16)
+		
+	if CheckResult==1
+		switch Object.PropertyValue
+		case 0
+			if Player.Speed>0
+				if Player.State!=TUBE_ROLLING
+					PlaySfx(7,false)
+				end if
+				Player.State=TUBE_ROLLING
+				Player.Animation=ANI_JUMPING
+				ArrayPos0=Player.EntityNo
+				Player[ArrayPos0].MinRollSpeed=786432
+			else
+				Player.State=ROLLING
+				Player.Animation=ANI_JUMPING
+			end if
+			break
+
+		case 1
+			if Player.Speed<0
+				if Player.State!=TUBE_ROLLING
+					PlaySfx(7,false)
+				end if
+				Player.State=TUBE_ROLLING
+				Player.Animation=ANI_JUMPING
+				ArrayPos0=Player.EntityNo
+				Player[ArrayPos0].MinRollSpeed=786432
+			else
+				Player.State=ROLLING
+				Player.Animation=ANI_JUMPING
+			end if
+			break
+
+		case 2
+			if Player.State!=TUBE_ROLLING
+				PlaySfx(7,false)
+			end if
+			Player.State=TUBE_ROLLING
+			Player.Animation=ANI_JUMPING
+			ArrayPos0=Player.EntityNo
+			Player[ArrayPos0].MinRollSpeed=786432
+			Player.CollisionMode=1
+			Player.Gravity=false
+			Player.Speed=786432
+			break
+
+		case 3
+			Player.State=ROLLING
+			Player.Animation=ANI_JUMPING
+			break
+		case 4
+			Player.CollisionPlane=0
+			break
+
+		case 5
+			if Player.State!=TUBE_ROLLING
+				PlaySfx(7,false)
+			end if
+			Player.State=TUBE_ROLLING
+			Player.Animation=ANI_JUMPING
+			ArrayPos0=Player.EntityNo
+			Player[ArrayPos0].MinRollSpeed=786432
+			break
+
+		end switch
+	end if
+		
+end sub
+		
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-15,-15,30,30,193,378)
+end sub

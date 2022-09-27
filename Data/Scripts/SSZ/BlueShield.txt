@@ -1,0 +1,40 @@
+//-------------Sonic Nexus SSZ Blue Shield------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias 25 : TYPE_BLUESHIELD
+
+sub ObjectDraw
+	
+	Object.Value0++
+	if Object.Value0==2
+		Object.Value0=0
+		Object.Frame++
+		if Object.Frame>7
+			Object.Frame=0
+		end if
+	end if
+	
+	DrawSpriteFX(Object.Frame,FX_INK,Player.XPos,Player.YPos)
+	
+end sub
+
+sub ObjectStartup
+	
+	LoadSpriteSheet("SSZ/Shield.gif")
+	
+	//Shield Frames
+	SpriteFrame(-24,-24,48,48,1,1)
+	SpriteFrame(-24,-24,48,48,50,1)
+	SpriteFrame(-24,-24,48,48,1,50)
+	SpriteFrame(-24,-24,48,48,50,50)
+	SpriteFrame(-24,-24,48,48,1,99)
+	SpriteFrame(-24,-24,48,48,50,99)
+	SpriteFrame(-24,-24,48,48,1,148)
+	SpriteFrame(-24,-24,48,48,50,148)
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Shield.gif")
+	SetEditorIcon(Icon0,SingleIcon,-24,-24,48,48,1,1)
+end sub

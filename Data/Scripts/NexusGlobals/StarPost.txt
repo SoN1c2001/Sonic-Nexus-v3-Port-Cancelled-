@@ -1,0 +1,100 @@
+//---------------Sonic Nexus StarPost-----------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectPlayerInteraction
+
+	if Object.State==0
+		PlayerObjectCollision(C_TOUCH,-8,-32,8,32)
+
+		if CheckResult==1
+
+			//Remember the Entity No for Restart Pos
+			StarPost=Object.EntityNo
+
+			//Record the Time
+			RecMilliSeconds=Stage.MilliSeconds
+			RecSeconds=Stage.Seconds
+			RecMinutes=Stage.Minutes
+
+			Object.State=1
+			Object.Value0=384
+
+			PlaySfx(10,false)
+		end if
+	end if
+
+end sub
+
+sub ObjectDraw
+
+	switch Object.State
+	case 0 //Normal
+		DrawSprite(0)
+		break
+
+	case 1 //Swinging
+		DrawSprite(1)
+		
+		Cos(TempValue0,Object.Value0)
+		TempValue0*=1280
+
+		Sin(TempValue1,Object.Value0)
+		TempValue1*=1280
+
+		TempValue0+=Object.XPos
+		TempValue1+=Object.YPos
+		TempValue1-=917504
+
+		DrawSpriteXY(2,TempValue0,TempValue1)
+
+		Object.Value0+=24
+
+		if Object.Value0>1408
+			Object.Value0=0
+			Object.State=2
+		end if
+
+		break
+
+	case 2 //Flashing
+		DrawSprite(1)
+		
+		Object.Value0++
+		if Object.Value0==8
+			Object.Value0=0
+		end if
+
+		TempValue0=Object.YPos
+		TempValue0-=1572864
+
+		if Object.Value0>3
+			DrawSpriteXY(3,Object.XPos,TempValue0)
+		else
+			DrawSpriteXY(2,Object.XPos,TempValue0)
+		end if
+
+		break
+
+	end switch
+
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Untouched StarPost
+	SpriteFrame(-8,-32,16,64,1,205)
+
+	//StarPost Pole Only
+	SpriteFrame(-8,-16,16,48,1,221)
+
+	//StarPost Flashing Star
+	SpriteFrame(-8,-8,16,16,1,270)
+	SpriteFrame(-8,-8,16,16,1,287)
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-32,16,64,1,205)
+end sub

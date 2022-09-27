@@ -1,0 +1,111 @@
+//----------------Sonic Nexus Monitor-----------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias 10 : ANI_JUMPING
+#alias 15 : TYPE_EXPLOSION
+
+#alias Object.Value1 : Object.YVelocity
+
+sub ObjectPlayerInteraction
+	
+	if Player.YVelocity>=0
+		
+		if Player.Animation==ANI_JUMPING
+			PlayerObjectCollision(C_TOUCH,-15,-16,15,16)
+			
+			if CheckResult==1
+				
+				Object.State=0
+
+				CreateTempObject(TYPE_EXPLOSION,0,Object.XPos,Object.YPos)
+				Object[TempObjectPos].DrawOrder=4
+				
+				FlipSign(Player.YVelocity)
+				
+				//Change to Broken Monitor
+				//(Where the action happens)
+				Object.Type++
+				Object.Priority=1
+				
+				//Setup The Starting point for
+				//Power up that Pops out
+				Object.Value0=Object.YPos
+				Object.Value1=-229376
+
+				PlaySfx(11,false)
+			end if
+			
+		else
+			PlayerObjectCollision(C_BOX,-15,-16,15,16)
+		end if
+		
+	else
+		PlayerObjectCollision(C_BOX,-15,-16,15,16)
+
+		if CheckResult==4
+			Object.State=1
+			Object.YVelocity=-131072
+		end if
+	end if
+
+	if Object.State==1
+
+		Object.YVelocity+=14336
+		Object.YPos+=Object.YVelocity
+
+		if Object.YVelocity>=0
+			ObjectTileCollision(0,0,16,0)
+
+			if CheckResult==1
+				Object.YVelocity=0
+				Object.State=0
+			end if
+		end if
+
+	end if
+	
+end sub
+
+sub ObjectDraw
+	
+	if Object.Value0<2
+		Rand(Object.Value0,16)
+	else
+		Object.Value0--
+	end if
+	
+	switch Object.Value0
+	case 4
+	case 5
+		DrawSprite(0)
+		break
+		
+		default
+		DrawSprite(Object.PropertyValue)
+	end switch
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Monitor Frames
+	SpriteFrame(-16,-16,32,32,18,1) //Static
+	SpriteFrame(-16,-16,32,32,18,34) //Ring
+	SpriteFrame(-16,-16,32,32,18,67) //Shield
+	SpriteFrame(-16,-16,32,32,18,100) //Invincibility
+	SpriteFrame(-16,-16,32,32,18,133) //Power Sneakers
+	SpriteFrame(-16,-16,32,32,18,166) //Extra Life
+	SpriteFrame(-16,-16,32,32,18,199) //Robotnik
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,0,-16,-16,32,32,18,1)
+	SetEditorIcon(Icon1,0,-16,-16,32,32,18,34)
+	SetEditorIcon(Icon2,0,-16,-16,32,32,18,67)
+	SetEditorIcon(Icon3,0,-16,-16,32,32,18,100)
+	SetEditorIcon(Icon4,0,-16,-16,32,32,18,133)
+	SetEditorIcon(Icon5,0,-16,-16,32,32,18,166)
+	SetEditorIcon(Icon6,0,-16,-16,32,32,18,199)
+end sub

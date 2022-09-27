@@ -1,0 +1,54 @@
+//----------Sonic Nexus SSZ Vertical Platform---------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value1 : Object.PlatformY
+#alias Object.Value2 : Object.ChangeY
+#alias Object.Value3 : Object.Angle
+
+sub ObjectMain
+	Object.Angle=Oscillation
+	Object.Angle<<=1
+
+	if Object.PropertyValue==1
+		Object.Angle+=256
+	end if
+
+	Sin(Object.ChangeY,Object.Angle)
+	Object.ChangeY<<=13
+	Object.ChangeY+=Object.YPos
+	Object.ChangeY&=4294901760
+	Object.ChangeY-=Object.PlatformY
+end sub
+
+sub ObjectPlayerInteraction
+	TempValue0=Object.YPos
+	Object.YPos=Object.PlatformY
+	
+	PlayerObjectCollision(C_PLATFORM,-32,-16,32,8)
+	if CheckResult==1
+		Player.YPos+=Object.ChangeY
+	end if
+
+	Object.YPos=TempValue0
+end sub
+
+sub ObjectDraw
+	Sin(Object.PlatformY,Object.Angle)
+	Object.PlatformY<<=13
+	Object.PlatformY+=Object.YPos
+	Object.PlatformY&=4294901760
+
+	DrawSpriteXY(0,Object.XPos,Object.PlatformY)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Platform Frame
+	SpriteFrame(-35,-18,70,36,160,1)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-35,-18,70,36,160,1)
+end sub

@@ -1,0 +1,20 @@
+//------------Sonic Nexus SSZ Palette Rotate----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectMain
+	Object.Value0++
+	if Object.Value0==4
+		Object.Value0=0
+		RotatePalette(128,131,1)
+	endif
+endsub
+
+sub ObjectStartup
+	Object[19].Type=TypeName[RotatePalette]
+	Object[19].Priority=1
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

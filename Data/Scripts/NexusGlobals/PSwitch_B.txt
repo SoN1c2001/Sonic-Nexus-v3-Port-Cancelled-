@@ -1,0 +1,45 @@
+//-------Sonic Nexus Plane Switcher: Plane B----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+	
+sub ObjectPlayerInteraction
+	//Is the Player Colliding with the switcher?
+	PlayerObjectCollision(C_TOUCH,-12,Object.Value0,12,Object.Value1)
+	if CheckResult==1
+		if Player.Speed>0
+			Player.CollisionPlane=1
+		else
+			Player.CollisionPlane=0
+		end if
+	end if
+end sub
+	
+sub ObjectDraw
+	if Stage.DebugMode==1
+		DrawSprite(0)
+	endif
+end sub
+	
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SpriteFrame(-8,-8,16,16,231,42)
+	
+	//Setup the collision sizes for any Switcher
+	//Objects that are present in the level
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TypeName[PSwitchB]
+			Object[ArrayPos0].Value0=Object[ArrayPos0].PropertyValue
+			Object[ArrayPos0].Value0<<=3
+			Object[ArrayPos0].Value1=Object[ArrayPos0].Value0
+			FlipSign(Object[ArrayPos0].Value0)
+			Object[ArrayPos0].Value0-=8
+			Object[ArrayPos0].Value1+=8
+		end if
+		ArrayPos0++
+	loop
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,RepeatV,-8,-8,16,16,231,42)
+end sub

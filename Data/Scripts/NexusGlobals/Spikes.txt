@@ -1,0 +1,102 @@
+//----------------Sonic Nexus Spikes------------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+//----Player Movement States----//
+#alias 8 : GETTINGHURT
+#alias Object.Value4 : Player.Invincibility
+
+sub ObjectPlayerInteraction
+
+	switch Object.PropertyValue
+	case 0 //Up Spikes
+
+		PlayerObjectCollision(C_BOX,-16,-16,16,16)
+
+		ArrayPos0=Player.EntityNo
+		if Player[ArrayPos0].Invincibility==0
+			PlayerObjectCollision(C_TOUCH,-15,-18,15,-12)
+			if CheckResult==1
+				Player.State=GETTINGHURT
+				if Player.XPos>Object.XPos
+					Player.Speed=131072
+				else
+					Player.Speed=-131072
+				end if
+			end if
+		end if
+
+		break
+	case 1 //Right Spikes
+
+		PlayerObjectCollision(C_BOX,-16,-16,16,16)
+
+		ArrayPos0=Player.EntityNo
+		if Player[ArrayPos0].Invincibility==0
+			PlayerObjectCollision(C_TOUCH,12,-15,18,15)
+			if CheckResult==1
+				Player.State=GETTINGHURT
+				Player.Speed=131072
+			end if
+		end if
+
+		break
+	case 2 //Left Spikes
+
+		PlayerObjectCollision(C_BOX,-16,-16,16,16)
+
+		ArrayPos0=Player.EntityNo
+		if Player[ArrayPos0].Invincibility==0
+			PlayerObjectCollision(C_TOUCH,-18,-15,-12,15)
+			if CheckResult==1
+				Player.State=GETTINGHURT
+				Player.Speed=-131072
+			end if
+		end if
+
+		break
+
+	case 3 //Down Spikes
+
+		PlayerObjectCollision(C_BOX,-16,-16,16,16)
+
+		ArrayPos0=Player.EntityNo
+		if Player[ArrayPos0].Invincibility==0
+			PlayerObjectCollision(C_TOUCH,-15,12,15,18)
+			if CheckResult==1
+				Player.State=GETTINGHURT
+				if Player.XPos>Object.XPos
+					Player.Speed=131072
+				else
+					Player.Speed=-131072
+				end if
+			end if
+		end if
+
+		break
+
+	end switch
+
+end sub
+
+sub ObjectDraw
+	DrawSprite(Object.PropertyValue)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Spike Directions
+	SpriteFrame(-16,-16,32,32,183,1)
+	SpriteFrame(-16,-16,32,32,183,34)
+	SpriteFrame(-16,-16,32,32,183,67)
+	SpriteFrame(-16,-16,32,32,183,100)
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,0,-16,-16,32,32,183,1)
+	SetEditorIcon(Icon1,0,-16,-16,32,32,183,34)
+	SetEditorIcon(Icon2,0,-16,-16,32,32,183,67)
+	SetEditorIcon(Icon3,0,-16,-16,32,32,183,100)
+end sub

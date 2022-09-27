@@ -1,0 +1,91 @@
+//---------Sonic Nexus SSZ Horizontal Platform--------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.Pressed
+#alias Object.Value1 : Object.PlatformY
+#alias Object.Value2 : Object.ChangeY
+
+#alias Object.Value3 : Object.PlatformX
+#alias Object.Value4 : Object.ChangeX
+#alias Object.Value5 : Object.Angle
+
+sub ObjectMain
+	Object.Angle=Oscillation
+	Object.Angle<<=1
+
+	if Object.PropertyValue==1
+		Object.Angle+=256
+	end if
+
+	Cos(Object.ChangeX,Object.Angle)
+	Object.ChangeX<<=13
+	Object.ChangeX+=Object.XPos
+	Object.ChangeX&=4294901760
+	Object.ChangeX-=Object.PlatformX
+
+	if Object.Pressed==true
+		if Object.PlatformY<16
+			Object.PlatformY++
+			TempValue0=Object.PlatformY
+			TempValue0&=3
+			if TempValue0==3
+				Object.ChangeY=65536
+			else
+				Object.ChangeY=0
+			end if
+		else
+			Object.ChangeY=0
+		end if
+	else
+		if Object.PlatformY>0
+			Object.PlatformY--
+			TempValue0=Object.PlatformY
+			TempValue0&=3
+			if TempValue0==3
+				Object.ChangeY=-65536
+			else
+				Object.ChangeY=0
+			end if
+		else
+			Object.ChangeY=0
+		end if
+	end if
+
+	Object.Pressed=false
+end sub
+
+sub ObjectPlayerInteraction
+	TempValue0=Object.XPos
+	Object.XPos=Object.PlatformX
+	
+	PlayerObjectCollision(C_PLATFORM,-32,-16,32,8)
+	if CheckResult==1
+		Object.Pressed=true
+		Player.XPos+=Object.ChangeX
+		Player.YPos+=Object.ChangeY
+	end if
+
+	Object.XPos=TempValue0
+end sub
+
+sub ObjectDraw
+	Cos(Object.PlatformX,Object.Angle)
+	Object.PlatformX<<=13
+	Object.PlatformX+=Object.XPos
+	Object.PlatformX&=4294901760
+
+	Object.YPos+=Object.ChangeY
+	DrawSpriteXY(0,Object.PlatformX,Object.YPos)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Platform Frame
+	SpriteFrame(-35,-18,70,36,160,1)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-35,-18,70,36,160,1)
+end sub

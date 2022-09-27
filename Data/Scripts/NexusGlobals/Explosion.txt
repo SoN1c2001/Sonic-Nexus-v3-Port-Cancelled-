@@ -1,0 +1,35 @@
+//---------------Sonic Nexus Explosion----------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectDraw
+
+	DrawSprite(Object.Frame)
+
+	Object.Value0++
+	if Object.Value0>5
+		Object.Value0=0
+		Object.Frame++
+		if Object.Frame>4
+			Object.Type=0
+			Object.Frame=0
+		end if
+	end if
+end sub
+
+sub ObjectStartup
+
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Explosion Frames
+	SpriteFrame(-16,-16,32,32,216,1)
+	SpriteFrame(-16,-16,32,32,216,34)
+	SpriteFrame(-16,-16,32,32,216,67)
+	SpriteFrame(-19,-19,38,38,216,100)
+	SpriteFrame(-19,-19,38,38,216,139)
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,216,1)
+end sub

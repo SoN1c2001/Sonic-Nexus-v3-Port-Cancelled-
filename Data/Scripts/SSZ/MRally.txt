@@ -1,0 +1,116 @@
+//-----------Sonic Nexus Moto Rally Badnik------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.Timer
+
+sub ObjectMain
+	switch Object.State
+	case 0	//Moving Left
+		Object.XPos-=65536
+		Object.Frame++
+		if Player.XPos<Object.XPos
+			TempValue0=Object.XPos
+			TempValue0-=Player.XPos
+			if TempValue0<4194304
+				Object.State=2
+			end if
+		end if
+		ObjectTileGrip(0,-8,16,0)
+		if CheckResult==0
+			Object.Timer=0
+			Object.State=4
+		end if
+		break
+	case 1	//Moving Right
+		Object.XPos+=65536
+		Object.Frame++
+		if Player.XPos>Object.XPos
+			TempValue0=Player.XPos
+			TempValue0-=Object.XPos
+			if TempValue0<4194304
+				Object.State=3
+			end if
+		end if
+		ObjectTileGrip(0,8,16,0)
+		if CheckResult==0
+			Object.Timer=0
+			Object.State=5
+		end if
+		break
+	case 2	//Moving Left Fast
+		Object.XPos-=131072
+		Object.Frame+=2
+		ObjectTileGrip(0,-8,16,0)
+		if CheckResult==0
+			Object.Timer=0
+			Object.State=4
+		end if
+		break
+	case 3	//Moving Right Fast
+		Object.XPos+=131072
+		Object.Frame+=2
+		ObjectTileGrip(0,8,16,0)
+		if CheckResult==0
+			Object.Timer=0
+			Object.State=5
+		end if
+		break
+	case 4	//Waiting Left
+		Object.Timer++
+		if Object.Timer==30
+			Object.Timer=0
+			Object.State=1
+			Object.Direction=2
+		end if
+		break
+	case 5	//Waiting Right
+		Object.Timer++
+		if Object.Timer==30
+			Object.Timer=0
+			Object.State=0
+			Object.Direction=0
+		end if
+		break
+	end switch
+end sub
+
+sub ObjectPlayerInteraction
+	if Object.State<5
+		ArrayPos0=Player.EntityNo
+		ArrayPos0+=2
+		if Object[ArrayPos0].Type==TypeName[Ring Sparkle]
+			PlayerObjectCollision(C_TOUCH,-24,-24,24,24)
+		else
+			PlayerObjectCollision(C_TOUCH,-15,-10,15,10)
+		endif
+		if CheckResult==1
+			CallFunction(PlayerObject_BadnikBreak)
+		endif
+	endif
+endsub
+
+sub ObjectDraw
+	if Object.Frame>15
+		Object.Frame=0
+	end if
+	TempValue0=Object.Frame
+	TempValue0>>=3
+	TempValue0+=Object.Direction
+	DrawSprite(TempValue0)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Objects.gif")
+	
+	//Moto Rally Frames
+	SpriteFrame(-24,-16,47,32,112,1)
+	SpriteFrame(-24,-16,47,32,112,34)
+
+	SpriteFrame(-24,-16,47,32,112,67)
+	SpriteFrame(-24,-16,47,32,112,100)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Objects.gif")
+	SetEditorIcon(Icon0,SingleIcon,-24,-16,47,32,112,1)
+end sub

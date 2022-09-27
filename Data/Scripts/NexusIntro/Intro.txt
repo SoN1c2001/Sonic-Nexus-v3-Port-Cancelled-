@@ -1,0 +1,92 @@
+//---------------Sonic Nexus Intro Script-------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias 3: TYPE_INTRO
+
+sub ObjectMain
+
+	switch Object.State
+	case 0 //Load the Video
+		ClearScreen(0)
+		Object.State=1
+		Object.Value0=512
+		SetScreenFade(0,0,0,255,0,255)
+		break
+		
+	case 1 //Fade from Black
+		if Object.Value0>0
+			Object.Value0-=2
+		else
+			Object.State=2
+			Object.Value1=0
+		end if
+		if Object.Value0==432
+			PlayMusic(0)
+			LoadVideo("Videos/Intro.rsv")
+			NextVideoFrame()
+		end if
+		SetScreenFade(0,0,0,Object.Value0,0,255)
+		break
+	
+	case 2 //Play Video
+		Object.Value0++
+		if Object.Value0==4
+			Object.Value1++
+			Object.Value0=0
+			NextVideoFrame()
+		end if
+		if Object.Value1==1008
+			Object.State=3
+		end if
+		if KeyPress.Start==true
+			Object.State=3
+			Object.Value0=0
+		end if
+		break
+
+	case 3 //Fade to White
+		if Object.Value1<1008
+			Music.Volume-=2
+		end if
+		Object.Value0+=4
+		Object.Scale+=16
+		if Object.Value0==320
+			StopMusic()
+			Stage.ListPos=1
+			LoadStage()
+		end if
+		SetScreenFade(255,255,255,Object.Value0,0,255)
+		break
+		
+	end switch
+	
+end sub
+
+sub ObjectDraw
+	if Object.State<3
+		DrawSprite(0)
+		Object.iXpos=Screen.CenterX
+		Object.iypos=Screen.CenterY
+	else
+		DrawSpriteFX(0,FX_SCALE,Object.XPos,Object.YPos)
+	end if
+end sub
+
+sub ObjectStartup
+
+	//Setup any Intro
+	//Objects that are present in the level
+	
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TYPE_INTRO
+			Object[ArrayPos0].Priority=1
+		end if
+		ArrayPos0++
+	loop
+
+	SpriteFrame(-128,-80,256,160,0,0)
+
+	SetMusicTrack("Intro.ogg",0,0)
+
+end sub

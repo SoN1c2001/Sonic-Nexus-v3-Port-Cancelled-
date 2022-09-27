@@ -1,0 +1,155 @@
+//-------------Sonic Nexus SSZ Corkscrew--------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias 36 : TYPE_CORKSCREW
+
+sub ObjectPlayerInteraction
+	
+	switch Player.State
+	case PlayerObject_HandleGround
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==0
+					if Player.XPos>TempValue3
+						Player.State=PlayerObject_CorkscrewRun
+					end if
+				end if
+			else
+				if Object.PropertyValue==1
+					if Player.XPos<TempValue3
+						Player.State=PlayerObject_CorkscrewRun
+					end if
+				end if
+			end if
+		end if
+		break
+	case PlayerObject_HandleRolling
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==0
+					if Player.XPos>TempValue3
+						Player.State=PlayerObject_CorkscrewRoll
+					end if
+				end if
+			else
+				if Object.PropertyValue==1
+					if Player.XPos<TempValue3
+						Player.State=PlayerObject_CorkscrewRoll
+					end if
+				end if
+			end if
+		end if
+		break
+	case PlayerObject_CorkscrewRun
+		if Player.XPos>TempValue3
+			TempValue1=Player.XPos
+			TempValue1-=TempValue3
+		else
+			TempValue0=TempValue3
+			TempValue0-=50331648
+			TempValue1=Player.XPos
+			TempValue1-=TempValue0
+		end if
+
+		TempValue1>>=8
+		TempValue1/=192
+
+		TempValue0=TempValue1
+		TempValue0&=511
+		TempValue0*=12
+		TempValue0>>=9
+
+		if Player.Animation==33
+			Player.Direction=0
+
+			if Player.Speed>0
+				Player.Frame=TempValue0
+				Player.Rotation=0
+			else
+				TempValue2=5
+				TempValue2-=TempValue0
+				if TempValue2<0
+					TempValue2+=12
+				end if
+				Player.Frame=TempValue2
+				Player.Rotation=128
+			end if
+		else
+			Player.Rotation=0
+		end if
+
+		Cos(TempValue0,TempValue1)
+		TempValue0>>=4
+		TempValue1=-32
+		TempValue1-=Player.CollisionBottom
+		TempValue1+=TempValue0
+		TempValue1<<=16
+		Player.YPos=TempValue4
+		Player.YPos+=TempValue1
+
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==1
+					if Player.XPos>TempValue3
+						Player.State=PlayerObject_HandleGround
+						Player.Gravity=0
+						Player.Direction=0
+					end if
+				end if
+			else
+				if Object.PropertyValue==0
+					if Player.XPos<TempValue3
+						Player.State=PlayerObject_HandleGround
+						Player.Gravity=0
+						Player.Direction=1
+					end if
+				end if
+			end if
+		end if
+		break
+
+	case PlayerObject_CorkscrewRoll
+		if Player.XPos>TempValue3
+			TempValue1=Player.XPos
+			TempValue1-=TempValue3
+		else
+			TempValue1=TempValue3
+			TempValue1-=Player.XPos
+		end if
+		TempValue1>>=8
+		TempValue1/=192
+		Cos(TempValue0,TempValue1)
+		TempValue0>>=4
+		TempValue1=-32
+		TempValue1-=Player.CollisionBottom
+		TempValue1+=TempValue0
+		TempValue1<<=16
+		Player.YPos=TempValue4
+		Player.YPos+=TempValue1
+
+		PlayerObjectCollision(C_TOUCH,-8,-64,8,64)
+		if CheckResult==1
+			if Player.Speed>0
+				if Object.PropertyValue==1
+					Player.State=PlayerObject_HandleRolling
+					Player.Gravity=0
+				end if
+			else
+				if Object.PropertyValue==0
+					Player.State=PlayerObject_HandleRolling
+					Player.Gravity=0
+				end if
+			end if
+		end if
+		break
+	end switch
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Gimmicks.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,101,1)
+end sub

@@ -1,0 +1,39 @@
+//-------------Sonic Nexus Ring Sparkle---------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+sub ObjectMain
+	//Advance the Animation
+	Object.Value0++
+
+	if Object.Value0==6
+		Object.Value0=0
+		Object.Frame++
+
+		//Have we reached the end?
+		if Object.Frame==4
+			//Destroy
+			Object.Type=0
+			Object.Frame=0
+		end if
+	end if
+end sub
+
+sub ObjectDraw
+	DrawSprite(Object.Frame)
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	
+	//Sparkle Frames
+	SpriteFrame(-8,-8,16,16,1,137)
+	SpriteFrame(-8,-8,16,16,1,154)
+	SpriteFrame(-8,-8,16,16,1,171)
+	SpriteFrame(-8,-8,16,16,1,188)
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,1,137)
+end sub

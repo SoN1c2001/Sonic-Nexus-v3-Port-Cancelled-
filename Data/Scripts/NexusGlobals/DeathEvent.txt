@@ -1,0 +1,111 @@
+//------------Sonic Nexus Death Event Script----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value1 : Object.LeftText
+#alias Object.Value2 : Object.RightText
+#alias Object.Value3 : Object.Timer
+
+sub ObjectMain
+
+	switch Object.State
+	case 0 //Game Over
+	case 1 //Time Over
+		if Object.LeftText<203
+			Object.LeftText+=16
+			if Object.LeftText>203
+				Object.LeftText=203
+			end if
+		end if
+
+		if Object.RightText>221
+			Object.RightText-=16
+			if Object.RightText<221
+				Object.RightText=221
+			end if
+		end if
+
+		if Object.Timer<288
+			Object.Timer+=4
+		else
+			//Restart the Act
+			if Object.State==0
+				Stage.ActiveList=PRESENTATION_STAGE
+				Stage.ListPos=0
+			end if
+			if Object.State==1
+				Rec_MilliSeconds=0
+				Rec_Seconds=0
+				Rec_Minutes=0
+			end if
+			LoadStage()
+		end if
+
+		if Object.Timer>0
+			Music.Volume-=2
+			//SetFade(0,0,0,Object.Timer,0,256)
+		else
+			if KeyPress.ButtonA==true
+				Object.Timer=0
+			end if
+			if KeyPress.ButtonB==true
+				Object.Timer=0
+			end if
+			if KeyPress.ButtonC==true
+				Object.Timer=0
+			end if
+		end if
+
+		break
+		
+	case 2 //Fade to Black
+		if Object.Timer<288
+			Music.Volume-=2
+			Object.Timer+=4
+		else
+			//Restart the Act
+			LoadStage()
+		end if
+
+		
+		//SetFade(0,0,0,Object.Timer,0,256)
+
+		break
+		
+	end switch
+	
+end sub
+
+sub ObjectDraw
+
+	switch Object.State
+	case 0 //Game Over
+		DrawSpriteScreenXY(0,Object.LeftText,118)
+		DrawSpriteScreenXY(2,Object.RightText,118)
+		break
+	case 1 //Time Over
+		DrawSpriteScreenXY(1,Object.LeftText,118)
+		DrawSpriteScreenXY(2,Object.RightText,118)
+		break
+	end switch
+
+end sub
+
+sub ObjectStartup
+
+	LoadSpriteSheet("NexusGlobals/Display.gif")
+
+	//Game Text
+	SpriteFrame(-64,-9,64,18,355,79)
+
+	//Time Text
+	SpriteFrame(-56,-9,56,18,355,98)
+
+	//Over Text
+	SpriteFrame(0,-9,64,18,355,117)
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-15,-15,30,30,224,347)
+end sub

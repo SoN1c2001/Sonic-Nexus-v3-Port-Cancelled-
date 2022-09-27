@@ -1,0 +1,91 @@
+//--------------Sonic Nexus Frog Badnik---------------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+
+#alias 29 : TYPE_FROG
+
+sub ObjectMain
+
+	Object.Value1+=12288
+
+	Object.XPos+=Object.Value0
+	Object.YPos+=Object.Value1
+
+	if Object.Value1>=0
+		ObjectTileCollision(0,0,20,0)
+		if CheckResult==1
+			Object.Value1=-262144
+			Object.Value2++
+			if Object.Value2==4
+				Object.Value2=0
+				FlipSign(Object.Value0)
+			end if
+		end if
+	end if
+
+end sub
+
+sub ObjectPlayerInteraction
+	if Object.State<5
+		PlayerObjectCollision(C_TOUCH,-15,-10,15,10)
+		if CheckResult==1
+			CallFunction(PlayerObject_BadnikBreak)
+		endif
+	endif
+endsub
+
+sub ObjectDraw
+
+	if Object.Value0>0
+		Object.Frame=3
+	else
+		Object.Frame=0
+	end if
+
+	if Object.Value1>131072
+		Object.Frame+=2
+	else
+		if Object.Value1>32768
+			Object.Frame++
+		end if
+	end if
+
+	if Object.Value1<-196608
+		Object.Frame+=2
+	else
+		if Object.Value1<-131072
+			Object.Frame++
+		end if
+	end if
+
+	DrawSprite(Object.Frame)
+
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Enemies.gif")
+	
+	//Frog Left Frames
+	SpriteFrame(-8,-16,16,53,1,1)
+	SpriteFrame(-8,-16,16,44,18,1)
+	SpriteFrame(-8,-16,16,35,35,1)
+
+	//Frog Right Frames
+	SpriteFrame(-8,-16,16,53,35,37)
+	SpriteFrame(-8,-16,16,44,18,46)
+	SpriteFrame(-8,-16,16,35,1,55)
+
+	ArrayPos0=32
+	while ArrayPos0<1056
+		if Object[ArrayPos0].Type==TYPE_FROG
+			Object[ArrayPos0].XPos=-65536
+		end if
+		ArrayPos0++
+	loop
+	
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Enemies.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-16,16,35,35,1)
+end sub

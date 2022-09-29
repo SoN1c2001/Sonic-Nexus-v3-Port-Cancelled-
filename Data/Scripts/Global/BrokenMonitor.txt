@@ -165,7 +165,7 @@ sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
 	
 	//Icons
-	SpriteFrame(-16,0,32,16,18,147) //Broken Monitor Frame  //This is -8 but im putting 0 because it looks better
+	SpriteFrame(-16,0,32,16,18,147) //Broken Monitor Frame
 	SpriteFrame(-8,-10,16,14,34,34) //Ring Monitor
 	SpriteFrame(-8,-10,16,14,18,48) //Blue Shield Monitor
 	SpriteFrame(-8,-10,16,14,34,48) //Invincibility Monitor

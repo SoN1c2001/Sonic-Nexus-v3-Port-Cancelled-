@@ -82,12 +82,12 @@ endsub
 
 
 sub ObjectStartup
-	LoadSpriteSheet("Global/Items.gif")
-	SpriteFrame(-8,-40,16,64,1,137) //Lamp Post Full
-	SpriteFrame(-8,-24,16,48,1,153) //Lamp Post Base Only
-	SpriteFrame(-8,-8,16,16,1,137) //Blue Ball
-	SpriteFrame(-8,-8,16,16,1,236) //Yellow Ball
-	SpriteFrame(-8,-8,16,16,18,236) //Red Ball
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SpriteFrame(-8,-40,16,64,1,205) //Lamp Post Full
+	SpriteFrame(-8,-25,16,49,1,220) //Lamp Post Base Only
+	SpriteFrame(-8,-8,16,16,1,205) //Blue Ball
+	SpriteFrame(-8,-8,16,16,1,287) //Yellow Ball
+	SpriteFrame(-8,-8,16,16,1,270) //Red Ball
 	if Warp.XPos==0
 		if Object[24].PropertyValue==0
 			if LampPost.Check>31

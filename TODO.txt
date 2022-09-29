@@ -8,8 +8,8 @@
                                                         
 Everything lol
 
-Priority:
-SpriteSheet Limit
+Medium Priority:
+SpriteSheet Limit (Is not very bad now, but its still broken sometimes)
 
 Intro and stuff:
 Finish RetroMenu

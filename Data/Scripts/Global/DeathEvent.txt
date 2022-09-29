@@ -108,14 +108,10 @@ endsub
 
 
 sub ObjectStartup
-	if Stage.PlayerListPos==0
-		LoadSpriteSheet("Global/Display.gif")
-	else
-		LoadSpriteSheet("Global/Display_t.gif")
-	endif
-	SpriteFrame(0,0,64,16,0,189)
-	SpriteFrame(0,0,56,16,65,189)
-	SpriteFrame(0,0,64,16,122,189)
+	LoadSpriteSheet("NexusGlobals/Display.gif")
+	SpriteFrame(0,0,64,18,355,79)
+	SpriteFrame(0,0,56,18,355,98)
+	SpriteFrame(0,0,64,18,355,117)
 endsub
 
 sub RSDK

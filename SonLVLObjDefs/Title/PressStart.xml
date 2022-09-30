@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="start">
+  <Images>
+    <ImageFromSheet id="press" sheet="NexusTitle/Menu.gif" sourcex="1" sourcey="1" width="41" height="13">
+      <Offset X="-46" Y="-6"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="start" sheet="NexusTitle/Menu.gif" sourcex="1" sourcey="15" width="41" height="13">
+      <Offset X="5" Y="-6"/>
+    </ImageFromSheet>
+  </Images>
+  <ImageSets>
+    <ImageSet id="PressStart">
+      <ImageRef image="press" />
+      <ImageRef image="start" />
+    </ImageSet>
+  </ImageSets>
+  <DefaultImage>
+    <ImageSetRef set="PressStart" />
+  </DefaultImage>
+</ObjDef>

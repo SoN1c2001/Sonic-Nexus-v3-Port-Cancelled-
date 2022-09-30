@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="Value1">
+  <Images>
+    <ImageFromSheet id="Value1" sheet="SSZ/Objects2.gif" sourcex="0" sourcey="0" width="59" height="256">
+      <Offset X="-30" Y="-128"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="Value2" sheet="SSZ/Objects2.gif" sourcex="120" sourcey="0" width="98" height="128">
+      <Offset X="-49" Y="-64"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="Value3" sheet="SSZ/Objects2.gif" sourcex="219" sourcey="0" width="94" height="48">
+      <Offset X="-47" Y="-24"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="Value4" sheet="SSZ/Objects2.gif" sourcex="219" sourcey="49" width="94" height="48">
+      <Offset X="-47" Y="-24"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="Value5" sheet="SSZ/Objects2.gif" sourcex="120" sourcey="128" width="98" height="128">
+      <Offset X="-49" Y="-64"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="Value6" sheet="SSZ/Objects2.gif" sourcex="60" sourcey="0" width="59" height="256">
+      <Offset X="-30" Y="-128"/>
+    </ImageFromSheet>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Value 1" image="Value1" />
+      <Subtype id="01" name="Value 2" image="Value2" />
+      <Subtype id="02" name="Value 3" image="Value3" />
+      <Subtype id="03" name="Value 4" image="Value4" />
+      <Subtype id="04" name="Value 5" image="Value5" />
+      <Subtype id="05" name="Value 6" image="Value6" />
+  </Subtypes>
+</ObjDef>

@@ -12,6 +12,7 @@ endsub
 sub ObjectStartup
 	Object[19].Type=TypeName[RotatePalette]
 	Object[19].Priority=1
+	SetMusicTrack("SunsetShore.ogg",0,142428) //*This goes here in the original script*//
 endsub
 
 sub RSDK

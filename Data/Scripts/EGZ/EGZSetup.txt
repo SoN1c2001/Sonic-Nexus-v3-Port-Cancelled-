@@ -11,13 +11,6 @@ sub ObjectMain
 		object.value2=0
 		RotatePalette(252, 255, 1)
 	endif
-	//Crying emoji
-	TileLayer[3].Type=4
-	TileLayer[3].Angle=90
-	TileLayer[3].XPos=127
-	TileLayer[3].YPos=127
-	TileLayer[3].ZPos=80
-
 endsub
 
 
@@ -35,6 +28,7 @@ sub ObjectStartup
 	Object[5].Type=TypeName[EGZSetup]
 	Object[5].Priority=1
 	Object[5].DrawOrder=0
+	SetMusicTrack("RetroSonic/EggGarden.ogg",0,1)
 	SetLayerDeformation(2,128,4,0,0,0)
 endsub
 

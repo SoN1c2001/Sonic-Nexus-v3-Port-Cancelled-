@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="normal">
+  <Images>
+    <ImageFromSheet id="normal" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-8"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="normal2" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-24"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="normal3" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-40"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="normal4" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-56"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="gray" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-8"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="gray2" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-24"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="gray3" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-40"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="gray4" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
+      <Offset X="-8" Y="-56"/>
+    </ImageFromSheet>
+  </Images>
+  <Properties>
+    <Property name="Blocks" type="BlockType" startbit="0" length="5" />
+  </Properties>
+  <Enums>
+    <Enum name="BlockType">
+      <EnumMember name="Normal" />
+      <EnumMember name="Knuckles Only" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Blocks" value="Normal" />
+      <ImageRef image="normal" />
+      <ImageRef image="normal2" />
+      <ImageRef image="normal3" />
+      <ImageRef image="normal4" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Blocks" value="Knuckles Only" />
+      <ImageRef image="gray" />
+      <ImageRef image="gray2" />
+      <ImageRef image="gray3" />
+      <ImageRef image="gray4" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

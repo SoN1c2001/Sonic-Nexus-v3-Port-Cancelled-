@@ -392,22 +392,6 @@ sub ObjectStartup
 		end if
 		ArrayPos0++
 	loop
-	switch Stage.ListPos //*Because every stage uses the same titlecard, i have to do this//
-	case 0 //*Sunset Shore Act 1/Egg Garden Act 1//
-		if Stage.ActiveList==REGULAR_STAGE
-			SetMusicTrack("SunsetShore.ogg",0,142428)
-		else
-			SetMusicTrack("RetroSonic/EggGarden.ogg",0,1)
-		endif
-		break
-	case 1 //*Sunset Shore Act 2//
-		SetMusicTrack("SunsetShore.ogg",0,142428)
-		break
-	case 2 //*This one is a example, you can put the music for the next zone or for Sunset Shore Act 3!//
-	
-		break
-	endswitch //*If you want to add more music for more stages, add another case (case 3,4,5,etc) //
-	
 	//Big Letters A-Z For the first word
 	SpriteFrame(0,0,31,54,1,1)
 	SpriteFrame(0,0,31,54,33,1)

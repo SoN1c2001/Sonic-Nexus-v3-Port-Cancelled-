@@ -1007,29 +1007,15 @@ function PlayerObject_StartKnuxGlide
 			Player.YVelocity=0
 		endif
 		Player.State=PlayerObject_HandleKnuxGlide
-		switch Player.Value14
-		case 0
-			if Player.Direction==FACING_RIGHT
-				Player.Timer=0
-				Player.Rotation=0
-				Player.XVelocity=262144
-			else
-				Player.Timer=256
-				Player.Rotation=1
-				Player.XVelocity=-262144
-			endif
-			break
-		case 1
-				Player.Timer=0
-				Player.Rotation=0
-				Player.XVelocity=262144
-			break
-		case 2
-				Player.Timer=256
-				Player.Rotation=1
-				Player.XVelocity=-262144
-			break
-			endswitch
+		if Player.Direction==FACING_RIGHT
+			Player.Timer=0
+			Player.Rotation=0
+			Player.XVelocity=262144
+		else
+			Player.Timer=256
+			Player.Rotation=1
+			Player.XVelocity=-262144
+		endif
 		Player.Animation=ANI_GLIDING
 		Player.Frame=2
 	endif

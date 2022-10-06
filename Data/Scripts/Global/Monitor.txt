@@ -22,19 +22,25 @@ endsub
 
 sub ObjectPlayerInteraction
 	if Player.CollisionPlane==Object.Value2
-#platform: Mobile
 		TempValue0=0
-		if Player.Gravity==1
-			if Player.YVelocity<0
-				TempValue0=1
-			endif
-		endif
-		if TempValue0==0		
+#platform: Mobile
+		CheckEqual(Player.Gravity,1)
+		TempValue0=CheckResult
+		CheckLower(Player.YVelocity,0)
+		TempValue0&=CheckResult
 #endplatform
 #platform: Standard	  
-		if Player.YVelocity>=0
+		CheckLower(Player.YVelocity,0)
+		TempValue0=CheckResult
 #endplatform				
-			if Player.Animation==ANI_JUMPING
+		if TempValue0==0		
+			CheckEqual(Player.Animation,ANI_JUMPING)
+			TempValue1=CheckResult
+			CheckEqual(Player.Animation,ANI_GLIDING)
+			TempValue1|=CheckResult
+			CheckEqual(Player.Animation,ANI_GLIDING_STOP)
+			TempValue1|=CheckResult			
+			if TempValue1==1
 				PlayerObjectCollision(C_TOUCH,-16,-14,16,16)
 				if CheckResult==1
 					Object.State=0

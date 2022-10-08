@@ -38,10 +38,19 @@ sub ObjectMain
 		if Object.Value1==1008
 			Object.State=3
 		end if
+#platform: Standard
 		if KeyPress.Start==true
 			Object.State=3
 			Object.Value0=0
 		end if
+#endplatform
+#platform: Mobile
+		CheckTouchRect(0,0,Screen.XSize,240)
+		if CheckResult>-1
+			Object.State=3
+			Object.Value0=0
+		end if
+#endplatform
 		break
 
 	case 3 //Fade to White

@@ -332,26 +332,26 @@ sub ObjectStartup
 #platform: Mobile
 	if Options.AttractMode==0
 		LoadSpriteSheet("Global/DPad.gif")
-		Object[25].Type=TypeName[DebugMode]
-		Object[25].Priority=1
-		Object[25].DrawOrder=6
-		Object[25].InkEffect=2
-		Object[25].Value0=0
-		Object[25].Value1=0
-		Object[25].Value2=Screen.XSize
-		Object[25].Value2-=68
-		Object[25].Value3=Screen.XSize
+		Object[32].Type=TypeName[DebugMode]
+		Object[32].Priority=1
+		Object[32].DrawOrder=6
+		Object[32].InkEffect=2
+		Object[32].Value0=0
+		Object[32].Value1=0
+		Object[32].Value2=Screen.XSize
+		Object[32].Value2-=68
+		Object[32].Value3=Screen.XSize
 		if Engine.PlatformID==RETRO_WP7
-			Object[25].Value3-=69
-			Object[25].Value4=24
+			Object[32].Value3-=69
+			Object[32].Value4=24
 			Options.DPadX=56
 		else
-			Object[25].Value3-=61
-			Object[25].Value4=16
+			Object[32].Value3-=61
+			Object[32].Value4=16
 			Options.DPadX=48
 		endif
 		if Stage.ActiveList==SPECIAL_STAGE
-			Object[25].Value2+=42
+			Object[32].Value2+=42
 		endif
 		SpriteFrame(0,0,64,64,0,64) //Corners and Middle Piece of DPad
 		SpriteFrame(26,0,12,25,26,0) //Up

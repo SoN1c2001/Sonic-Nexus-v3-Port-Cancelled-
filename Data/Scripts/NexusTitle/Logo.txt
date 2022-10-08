@@ -57,47 +57,68 @@ end sub
 sub ObjectDraw
 	object.iYpos=Screen.centerY
 	object.iXpos=Screen.centerX
-	if Object.PropertyValue==1
-		DrawSpriteFX(0,FX_SCALE,Object.XPos,Object.YPos)
+	if object[5].value2==0
+		if Object.PropertyValue==1
+			DrawSpriteFX(0,FX_SCALE,Object.XPos,Object.YPos)
+		else
+			Object.Value2+=8
+			if Object.Value2>511
+				Object.Value2-=512
+			end if
+
+			Sin(Object.Rotation,Object.Value2)
+			Object.Rotation>>=4
+
+			DrawSprite(1)
+			DrawSprite(2)
+			DrawSpriteScreenFX(3,FX_ROTATE,160,108)
+
+			SonicBlink--
+
+			if SonicBlink>3
+				if SonicBlink<19
+					DrawSpriteScreenXY(SonicBlink,169,64)
+				end if
+			end if
+
+			if SonicBlink==4
+				Rand(SonicBlink,256)
+				SonicBlink+=19
+			end if
+
+			TailsBlink--
+
+			if TailsBlink>18
+				if TailsBlink<34
+					DrawSpriteScreenXY(TailsBlink,227,72)
+				end if
+			end if
+
+			if TailsBlink==19
+				Rand(TailsBlink,256)
+				TailsBlink+=34
+			endif
+		endif
 	else
-		Object.Value2+=8
-		if Object.Value2>511
-			Object.Value2-=512
-		end if
-
-		Sin(Object.Rotation,Object.Value2)
-		Object.Rotation>>=4
-
 		DrawSprite(1)
 		DrawSprite(2)
 		DrawSpriteScreenFX(3,FX_ROTATE,160,108)
-
-		SonicBlink--
-
 		if SonicBlink>3
 			if SonicBlink<19
 				DrawSpriteScreenXY(SonicBlink,169,64)
 			end if
 		end if
-
-		if SonicBlink==4
-			Rand(SonicBlink,256)
-			SonicBlink+=19
-		end if
-
-		TailsBlink--
-
+		
 		if TailsBlink>18
 			if TailsBlink<34
 				DrawSpriteScreenXY(TailsBlink,227,72)
 			end if
 		end if
-
 		if TailsBlink==19
 			Rand(TailsBlink,256)
 			TailsBlink+=34
-		end if
-	end if
+		endif
+	endif
 end sub
 
 sub ObjectStartup

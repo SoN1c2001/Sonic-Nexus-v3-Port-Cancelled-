@@ -1,0 +1,1 @@
+These are here just for reference so i dont have to change the palette everytime

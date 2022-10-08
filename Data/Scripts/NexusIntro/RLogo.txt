@@ -53,12 +53,12 @@ end sub
 
 sub ObjectStartup
 	if Screen.XSize>320
-		LoadSpriteSheet("NexusTitle/RetroLogo2.gif")
+		LoadSpriteSheet("NexusTitle/RetroLogo.gif")
 		SpriteFrame(-212,-120,424,240,0,0)
 	else
 		LoadSpriteSheet("NexusTitle/RetroLogo2.gif")
 		SpriteFrame(-160,-120,320,240,0,0)
-
+	endif
 	//Setup any Retro Logo
 	//Objects that are present in the level
 	

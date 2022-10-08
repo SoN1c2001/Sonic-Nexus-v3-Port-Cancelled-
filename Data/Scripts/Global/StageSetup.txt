@@ -175,15 +175,20 @@ endsub
 
 sub ObjectStartup
 	switch Stage.ListPos //*If the Level should use Global music From Nexus or RetroSonic//
-	case 0 //*Sunset Shore Act 1/Egg Garden Act 1//
-		if Stage.ActiveList==REGULAR_STAGE
-			Game.RetroSonic=0
-		else
-			Game.RetroSonic=1
-		endif
+	case 0 //*Sunset Shore Act 1//
+		Game.RetroSonic=0
 		break
 	case 1 //*Sunset Shore Act 2//
 		Game.RetroSonic=0
+		break
+	case 2 //*Egg Garden Act 1//
+		Game.RetroSonic=1
+		break
+	case 3 //*Egg Garden Act 2//
+		Game.RetroSonic=1
+		break
+	case 4 //*Egg Garden Act 3//
+		Game.RetroSonic=1
 		break
 	endswitch
 	//Setup The common Music Tracks that are always used in a Level

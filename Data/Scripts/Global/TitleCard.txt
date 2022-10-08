@@ -349,6 +349,7 @@ sub ObjectDraw //*Good luck trying to understand this lol//
 			ResetObjectEntity(29,0,0,0,0)
 			ResetObjectEntity(30,0,0,0,0)
 			ResetObjectEntity(31,TYPE_HUD,0,0,0)
+			Stage.TimeEnabled=true
 			Object[31].Priority=1
 			Object[31].State=1
 			Object[31].DrawOrder=6

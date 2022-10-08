@@ -8,6 +8,7 @@ sub ObjectMain
 		LoadPalette("NexusTitle.act",0,0,0,255)
 		Object.State=1
 		Object.Value0=896
+		Object[5].Value0=0
 		Object.Value1=512
 
 		if Object[1].PropertyValue==1

@@ -1,0 +1,137 @@
+//----------Sonic Nexus "Press Start Script-----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+
+sub ObjectMain
+	switch Object.State
+	case 0
+		if KeyPress.Up==true
+			TempValue0=1
+		endif
+		if KeyPress.Down==true
+			if TempValue0==1
+				TempValue0=2
+			else
+				TempValue0=0
+			endif
+		endif
+		if KeyPress.Left==true
+			if TempValue0==2
+				TempValue0=3
+			else
+				TempValue0=0
+			endif
+		endif
+		if KeyPress.Right==true
+			if TempValue0==3
+				TempValue0=7
+				Object.State=1
+				PlaySfx(1,false)
+			else
+				TempValue0=0
+			endif
+		endif
+		if KeyPress.Start==true
+			Object.State=4
+		end if
+		break
+	case 1
+		Stage.PlayerListPos=0
+		if KeyPress.Down==true
+			Object.State=2
+		endif
+		if KeyPress.Up==true
+			Object.State=3
+		endif
+		if KeyPress.Start==true
+			Object.State=4
+		endif
+		break
+	case 2
+		Stage.PlayerListPos=1
+		if KeyPress.Down==true
+			Object.State=3
+		endif
+		if KeyPress.Up==true
+			Object.State=1
+		endif
+		if KeyPress.Start==true
+			Object.State=4
+		endif
+		break
+	case 3
+		Stage.PlayerListPos=2
+		if KeyPress.Down==true
+			Object.State=1
+		endif
+		if KeyPress.Up==true
+			Object.State=2
+		endif
+		if KeyPress.Start==true
+			Object.State=4
+		endif
+		break
+	case 4
+		Object.State=5
+		PlayStageSfx(1,false)
+		break
+	case 5
+		Music.Volume-=2
+		Object.Value1+=4
+		if Object.Value1==384
+			Player.Lives=3
+			Player.Score=0
+			StopMusic()
+			if TempValue0==7
+				Stage.ActiveList=BONUS_STAGE
+				Stage.ListPos=0
+			else
+				Stage.ListPos=2
+			endif
+			LoadStage()
+		end if
+		SetScreenFade(0,0,0,Object.Value1,0,255)
+		break
+	end switch
+
+end sub
+
+sub ObjectDraw
+	Object.iXpos=Screen.CenterX
+	Object.Value0++
+	if Object.Value0>29
+		Object.Value0=0
+	end if
+	if Object.State==0
+		if Object.Value0>14
+			DrawSprite(0)
+			DrawSprite(1)
+		endif
+	end if
+	switch Object.State
+	case 1
+		DrawSprite(2)
+		break
+	case 2
+		DrawSprite(3)
+		break
+	case 3
+		DrawSprite(4)
+		break
+	endswitch
+
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusTitle/Menu.gif")
+	SpriteFrame(-46,-6,41,13,1,1)
+	SpriteFrame(5,-6,41,13,1,15)
+	SpriteFrame(-20,6,40,7,0,45)
+	SpriteFrame(-20,6,40,7,0,37)
+	SpriteFrame(-30,6,64,7,0,29)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusTitle/Menu.gif")
+	SetEditorIcon(Icon1,0,-46,-6,41,13,1,1)
+end sub

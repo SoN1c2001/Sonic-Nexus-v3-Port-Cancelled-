@@ -9,7 +9,7 @@
 
 sub ObjectPlayerInteraction
 	switch Object.PropertyValue
-	case 0
+	case 0 //Up Spring
 		TempValue0=0
 		if Player.Gravity==1
 			TempValue0=1
@@ -67,7 +67,7 @@ sub ObjectPlayerInteraction
 			endif
 		endif
 		break
-	case 1
+	case 1 //Right Spring
 		PlayerObjectCollision(C_BOX,-8,-16,8,16)
 		if Player.Gravity==0
 			PlayerObjectCollision(C_TOUCH,6,-15,10,15)
@@ -85,7 +85,7 @@ sub ObjectPlayerInteraction
 			endif
 		endif
 		break
-	case 2
+	case 2 //Left Spring
 		PlayerObjectCollision(C_BOX,-8,-16,8,16)
 		if Player.Gravity==0
 			PlayerObjectCollision(C_TOUCH,-10,-15,-6,15)
@@ -103,7 +103,7 @@ sub ObjectPlayerInteraction
 			endif
 		endif
 		break
-	case 3
+	case 3 //Down Spring
 		PlayerObjectCollision(C_BOX,-16,-8,16,8)
 		PlayerObjectCollision(C_TOUCH,-15,6,15,10)
 		if CheckResult==1
@@ -122,7 +122,7 @@ sub ObjectPlayerInteraction
 #endplatform
 		endif
 		break
-	case 4
+	case 4 //Up Right Diagonal Spring
 		PlayerObjectCollision(C_TOUCH,-12,-16,12,12)
 		if Player.Gravity==0
 			if CheckResult==1
@@ -157,7 +157,7 @@ sub ObjectPlayerInteraction
 			endif
 		endif
 		break
-	case 5
+	case 5 //Up Left Diagonal Spring
 		PlayerObjectCollision(C_TOUCH,-12,-16,12,12)
 		if Player.Gravity==0
 			if CheckResult==1
@@ -192,7 +192,7 @@ sub ObjectPlayerInteraction
 			endif
 		endif
 		break
-	case 6
+	case 6 //Down Right Diagonal Spring
 		PlayerObjectCollision(C_TOUCH,-12,-12,12,12)
 		if CheckResult==1
 			Object.Value0=1
@@ -207,7 +207,7 @@ sub ObjectPlayerInteraction
 #endplatform
 		endif
 		break
-	case 7
+	case 7 //Down Left Diagonal Spring
 		PlayerObjectCollision(C_TOUCH,-12,-12,12,12)
 		if CheckResult==1
 			Object.Value0=1
@@ -284,15 +284,15 @@ sub ObjectStartup
 	SpriteFrame(-16,-16,32,32,84,232)
 	
 	//Spring 'Pre-Boing' Frames
-	SpriteFrame(-16,0,32,8,84,183) //Yellow Spring Up
-	SpriteFrame(-8,-16,8,32,223,116) //Yellow Spring Right
-	SpriteFrame(0,-16,8,32,232,116) //Yellow Spring Left
-	SpriteFrame(-16,-8,32,8,215,107) //Yellow Spring Down
+	SpriteFrame(-16,0,32,8,84,17) //Yellow Spring Up
+	SpriteFrame(-8,-16,8,32,92,34) //Yellow Spring Right
+	SpriteFrame(0,-16,8,32,100,67) //Yellow Spring Left
+	SpriteFrame(-16,-8,32,8,84,108) //Yellow Spring Down
 	
-	SpriteFrame(-16,-16,32,32,315,174) //Diagonal Spring Right
-	SpriteFrame(-16,-16,32,32,218,215) //Diagonal Spring Left
-	SpriteFrame(-16,-16,32,32,216,149) //Diagonal Spring Right (Upside Down)
-	SpriteFrame(-16,-16,32,32,218,215) //Diagonal Spring Left (Upside Down)
+	SpriteFrame(-16,-16,32,32,174,315) //Diagonal Spring Right
+	SpriteFrame(-16,-16,32,32,174,348) //Diagonal Spring Left
+	SpriteFrame(-16,-16,32,32,174,381) //Diagonal Spring Right (Upside Down)
+	SpriteFrame(-16,-16,32,32,174,414) //Diagonal Spring Left (Upside Down)
 	
 	//Spring 'Boing' Frames
 	SpriteFrame(-16,-16,32,32,150,1) //Yellow Spring Up 
@@ -300,10 +300,10 @@ sub ObjectStartup
 	SpriteFrame(-16,-16,32,32,150,67) //Yellow Spring Left
 	SpriteFrame(-16,-16,32,32,150,100) //Yellow Spring Down
 	
-	SpriteFrame(-16,-32,48,48,117,83) //Diagonal Spring Right
-	SpriteFrame(-32,-32,48,48,166,83) //Diagonal Spring Left
-	SpriteFrame(-16,-32,48,48,117,83) //Diagonal Spring Right (Upside Down)
-	SpriteFrame(-32,-32,48,48,166,83) //Diagonal Spring Left (Upside Down)
+	SpriteFrame(-16,-32,41,40,85,298) //Diagonal Spring Right
+	SpriteFrame(-32,-32,41,40,85,339) //Diagonal Spring Left
+	SpriteFrame(-16,-32,41,40,85,380) //Diagonal Spring Right (Upside Down)
+	SpriteFrame(-32,-32,41,40,85,421) //Diagonal Spring Left (Upside Down)
 endsub
 
 sub RSDK

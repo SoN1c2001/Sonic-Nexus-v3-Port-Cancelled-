@@ -3128,8 +3128,6 @@ endsub
 
 
 sub ObjectStartup
-	Options.GenBehaviour=0
-	Options.RunAnim=0
 	#platform: Standard
 		Warp.MaxTimer=220
 	#endplatform

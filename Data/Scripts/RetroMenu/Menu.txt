@@ -7,84 +7,68 @@ sub ObjectMain
 		LoadPalette("TitlePalette.act",0,0,0,256)
 		Object.State=1
 		Object.Value0=256
+		Stage.PlayerListPos=0
 		SetScreenFade(0,0,0,255,0,255)
 		break
 		
 	case 1
 		if Object.Value0>0
 			Object.Value0-=8
-		else
-			Object.State=2
 		end if
 		SetScreenFade(0,0,0,Object.Value0,0,255)
 		break
-	case 2
-		Stage.PlayerListPos=0
-		if KeyPress.Down==true
-			Object.State=3
-		endif
-		if KeyPress.Up==true
-			Object.State=4
-		endif
-		if KeyPress.Start==true
-			Object.State=5
-		endif
-		break
-	case 3
-		Stage.PlayerListPos=1
-		if KeyPress.Down==true
-			Object.State=4
-		endif
-		if KeyPress.Up==true
-			Object.State=2
-		endif
-		if KeyPress.Start==true
-			Object.State=5
-		endif
-		break
-	case 4
-		Stage.PlayerListPos=2
-		if KeyPress.Down==true
-			Object.State=2
-		endif
-		if KeyPress.Up==true
-			Object.State=3
-		endif
-		if KeyPress.Start==true
-			Object.State=5
-		endif
-		break
-	case 5
-		break
+	case 2 //if i had a programming job i would be fired Instantly lol
+		Object[+1].XPos-=600000
+		Object[+2].XPos-=600000
+		Object[+3].XPos-=700000
+		Object[+4].XPos-=700000
+		Object[+5].XPos-=700000
+		Object[+6].XPos-=700000
+		Object[+7].XPos-=700000
+		Object[+8].XPos-=700000
+		Object[+9].XPos-=700000
+		Object[+10].XPos-=700000
+	break
 	endswitch
+	if KeyPress.Up==1
+		Stage.PlayerListPos--
+	endif
+	if KeyPress.Down==1
+		Stage.PlayerListPos++
+	endif
+	if Stage.PlayerListPos==4
+		Stage.PlayerListPos=0
+	endif
+	if Stage.PlayerListPos<0
+		Stage.PlayerListPos=3
+	endif
+	if KeyPress.Start==1
+		Object.State=2
+	endif
 
 end sub
 
 sub ObjectDraw
-	Object.DrawOrder=3 //Im probably gonna try to improve this script// //EDIT:I did//
-	DrawSpriteXY(0,0x1C0000,0x1E0000)
-	DrawSpriteXY(1,0x1C0000,0x1E0000)
-	if Stage.PlayerListPos==0
-		DrawSpriteXY(3,0xB30000,0x5E0000)
+	Object.DrawOrder=4
+	if Stage.PlayerListPos==0 //I have to make this not be hardcoded
+		DrawSpriteXY(1,0xB30000,0x5E0000)
 	else
-		DrawSpriteXY(2,0xB30000,0x5E0000)
+		DrawSpriteXY(0,0xB30000,0x5E0000)
 	endif
 	if Stage.PlayerListPos==1
-		DrawSpriteXY(5,0xB30000,0x689000)
+		DrawSpriteXY(3,0xB30000,0x689000)
 	else
-		DrawSpriteXY(4,0xB30000,0x689000)
+		DrawSpriteXY(2,0xB30000,0x689000)
 	endif
 	if Stage.PlayerListPos==2
-		DrawSpriteXY(7,0xB30000,0x720000)
+		DrawSpriteXY(5,0xB30000,0x720000)
 	else
-		DrawSpriteXY(6,0xB30000,0x720000)
+		DrawSpriteXY(4,0xB30000,0x720000)
 	endif
 end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("RetroMenu/Menus.gif")
-	SpriteFrame(-28,-30,258,39,1,481)
-	SpriteFrame(114,26,162,67,1,561)
 	SpriteFrame(-28,-30,40,8,164,561) //Sonic//
 	SpriteFrame(-28,-30,40,8,164,570) //Yellow Sonic//
 	SpriteFrame(-28,-30,40,8,164,579) //Tails//

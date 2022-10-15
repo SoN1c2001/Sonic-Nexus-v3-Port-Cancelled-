@@ -165,7 +165,6 @@ sub ObjectMain
 #endplatform
 endsub
 
-
 sub ObjectDraw
 	switch Object.Rotation // 10/10 code, won the REMS best code award
 	case 1
@@ -331,7 +330,7 @@ sub ObjectStartup
 
 #platform: Mobile
 	if Options.AttractMode==0
-		LoadSpriteSheet("Global/DPad.gif")
+		LoadSpriteSheet("NexusGlobals/Display.gif")
 		Object[32].Type=TypeName[DebugMode]
 		Object[32].Priority=1
 		Object[32].DrawOrder=6
@@ -353,18 +352,21 @@ sub ObjectStartup
 		if Stage.ActiveList==SPECIAL_STAGE
 			Object[32].Value2+=42
 		endif
-		SpriteFrame(0,0,64,64,0,64) //Corners and Middle Piece of DPad
-		SpriteFrame(26,0,12,25,26,0) //Up
-		SpriteFrame(26,38,12,26,26,38) //Down
-		SpriteFrame(0,25,26,13,0,25) //Left
-		SpriteFrame(38,25,26,13,38,25) //Right
-		SpriteFrame(26,0,12,25,116,64) //Up Pressed
-		SpriteFrame(26,38,12,26,116,102) //Down Pressed
-		SpriteFrame(0,25,26,13,89,101) //Left Pressed
-		SpriteFrame(38,25,26,13,89,115) //Right Pressed
-		SpriteFrame(0,0,48,48,65,0) //A Button
-		SpriteFrame(0,0,48,48,65,49) //A Button Pressed
-		SpriteFrame(0,0,16,16,72,111) //Pause Button
+		SpriteFrame(0,0,64,64,131,382) //Corners and Middle Piece of DPad
+		SpriteFrame(26,0,12,25,217,447) //Up
+		SpriteFrame(26,38,12,26,217,485) //Down
+		SpriteFrame(0,25,26,13,191,472) //Left
+		SpriteFrame(38,25,26,13,229,472) //Right
+		SpriteFrame(26,0,12,25,193,305) //Up Pressed
+		SpriteFrame(26,38,12,26,193,343) //Down Pressed
+		SpriteFrame(0,25,26,13,82,471) //Left Pressed
+		SpriteFrame(38,25,26,13,82,457) //Right Pressed
+		SpriteFrame(0,0,48,48,207,347) //A Button
+		SpriteFrame(0,0,48,48,207,396) //A Button Pressed
+		SpriteFrame(0,0,16,16,174,495) //Pause Button
+		SpriteFrame(0,0,16,16,174,478) //Unused Debug Button
+		SpriteFrame(0,0,8,8,182,460) // +
+		SpriteFrame(0,0,8,8,182,469) // -
 	endif
 #endplatform
 endsub

@@ -3,16 +3,15 @@
 
 
 sub ObjectDraw
-	Object.DrawOrder=4
-	DrawSpriteXY(Stage.PlayerListPos,0x400000,0x6E0000)
+	DrawSprite(Stage.PlayerListPos)
 end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("RetroMenu/CharS.gif")
-	SpriteFrame(-32,-30,96,128,0,0) //God//
-	SpriteFrame(-40,-30,96,128,0,128) //Tails//
-	SpriteFrame(-32,-30,96,128,0,256)  //Knuckles//
-	SpriteFrame(-32,-30,96,128,0,384) //Satan//
+	SpriteFrame(-48,-64,96,128,16,0) //God
+	SpriteFrame(-56,-64,96,128,16,128) //Tails
+	SpriteFrame(-48,-64,96,128,16,256)  //Knuckles
+	SpriteFrame(-48,-64,96,128,16,384) //?
 end sub
 
 sub RSDK

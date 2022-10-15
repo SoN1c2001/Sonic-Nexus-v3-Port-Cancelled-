@@ -5,6 +5,7 @@
 sub ObjectMain //Welcome to switch case hell//
 	switch Object.State
 	case 0
+#platform: Standard
 		if KeyPress.Up==true
 			if KeyDown.ButtonA==true
 				Object.Value1=1
@@ -51,6 +52,14 @@ sub ObjectMain //Welcome to switch case hell//
 		else
 			Object.Value1=0
 		endif
+#endplatform
+
+#platform: Mobile
+		CheckTouchRect(0,100,200,0)
+		if CheckResult>-1
+			Object.Value1=1
+#endplatform
+
 #platform: Standard
 		if KeyPress.Start==true
 			if Object.Value1<4
@@ -59,7 +68,7 @@ sub ObjectMain //Welcome to switch case hell//
 #endplatform
 
 #platform: Mobile
-		CheckTouchRect(0,0,Screen.XSize,240)
+		//CheckTouchRect(0,0,Screen.XSize,240)
 		if CheckResult>-1
 			Object.State=1
 #endplatform
@@ -91,8 +100,8 @@ sub ObjectMain //Welcome to switch case hell//
 	case 3
 		LoadPalette("LSelect.act",0,0,0,255)
 		PlayMusic(0)
-		object.state=4
 		object[5].value2=1
+		ResetObjectEntity(Object.EntityNo,6,0,0,0)
 		break
 	end switch
 end sub

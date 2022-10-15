@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="player">
+  <Images>
+    <ImageFromSheet id="player" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="481" width="258" height="39">
+      <Offset X="-19" Y="-129"/>
+    </ImageFromSheet>
+	<ImageFromSheet id="zone" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="521" width="258" height="39">
+      <Offset X="-19" Y="-129"/>
+    </ImageFromSheet>
+	<ImageFromSheet id="text" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="561" width="162" height="67">
+      <Offset X="-81" Y="-33"/>
+    </ImageFromSheet>
+	<ImageFromSheet id="diag1" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="629" width="77" height="88">
+      <Offset X="-38" Y="-44"/>
+    </ImageFromSheet>
+	<ImageFromSheet id="diag2" sheet="RetroMenu/Menus.gif" sourcex="79" sourcey="629" width="77" height="88">
+      <Offset X="-38" Y="-44"/>
+    </ImageFromSheet>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Player Select" image="player" />
+	  <Subtype id="01" name="Zone Select" image="zone" />
+	  <Subtype id="02" name="Text Box" image="text" />
+	  <Subtype id="03" name="Diagonal 1" image="diag1" />
+	  <Subtype id="04" name="Diagonal 2" image="diag2" />
+  </Subtypes>
+</ObjDef>

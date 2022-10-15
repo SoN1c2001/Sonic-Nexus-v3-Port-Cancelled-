@@ -4,12 +4,14 @@
 
 sub ObjectDraw
 	Object.Rotation-=1
-	DrawSpriteFX(0,1,0x500000,0x900000)
+	DrawSpriteFX(Object.PropertyValue,1,object.Xpos,object.Ypos)
 end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("RetroMenu/Spin.gif")
-	SpriteFrame(-40,-45,80,90,131,1) //i cant find the exact value but it should work anyway//
+	SpriteFrame(-32,-37,64,74,1,1)
+	SpriteFrame(-32,-37,64,74,66,1)
+	SpriteFrame(-40,-45,80,90,131,1)
 end sub
 
 sub RSDK

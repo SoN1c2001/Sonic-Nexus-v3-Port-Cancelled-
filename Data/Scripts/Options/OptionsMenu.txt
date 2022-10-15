@@ -1,0 +1,86 @@
+//----------------Custom Menu Text Script---------------//
+//----------------Scripted by LanceReborn---------------//
+
+//-------Aliases-------//
+#alias 1: TYPE_STAGESELECT
+
+sub ObjectMain
+	if KeyPress.Down==true
+		menu1.selection+=3
+	endif
+	if menu1.selection>16
+		menu1.selection=4
+	endif
+	if KeyPress.Up==true
+		menu1.selection-=3
+	endif
+	if menu1.selection<4
+		menu1.selection=16
+	endif
+	switch menu1.selection
+	case 13
+		if KeyPress.Left==true
+			Options.OriginalControls--
+		endif
+		if Options.OriginalControls<0
+			Options.OriginalControls=1
+		endif
+		if KeyPress.Right==true
+			Options.OriginalControls++
+		endif
+		if Options.OriginalControls>1
+			Options.OriginalControls=0
+		endif
+		break
+	endswitch
+	if Options.OriginalControls==0
+		EditMenuEntry(MENU_1,"Spindash type@@@@@@@@@@@* S2 *", 13,0)
+	else
+		EditMenuEntry(MENU_1,"Spindash type@@@@@@@@@@@* CD *", 13,0)
+	endif
+endsub
+
+sub ObjectDraw
+
+	tempvalue0 = screen.centerx
+	tempvalue0 -= 10
+	DrawMenu(MENU_1, tempvalue0, 16)
+	DrawMenu(MENU_2, tempvalue0, 16)
+
+
+endsub
+
+
+sub ObjectStartup
+	LoadSpriteSheet("Options/Text.gif")
+	//SetMusicTrack("US/DAGarden.ogg",1,117382)
+	PlayMusic(1)
+	SetupMenu(MENU_1,0,3,2)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, "Sonic Walk Animation @@@*Nexus*", 0)  //4 Rsonic
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, "Sonic Run Animation @@@@*Nexus*", 0) //7
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, "Knuckles Glide Behavior@*@@@@*", 0) //10
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, "Spindash type@@@@@@@@@@@* @@ *", 0) //13
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, "Sound Test  @@@@@@@@@@@@*@@@@*", 0) //16
+	SetupMenu(MENU_2,0,3,2)
+	AddMenuEntry(MENU_2, "@@@*OPTIONS*", 1)
+	menu2.selection=0
+	menu1.selection=4
+
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

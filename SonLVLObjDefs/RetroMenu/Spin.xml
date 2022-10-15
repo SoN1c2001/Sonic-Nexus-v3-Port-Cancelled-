@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="green">
+  <Images>
+    <ImageFromSheet id="green" sheet="RetroMenu/Spin.gif" sourcex="1" sourcey="1" width="64" height="74">
+      <Offset X="-32" Y="-37"/>
+    </ImageFromSheet>
+	<ImageFromSheet id="red" sheet="RetroMenu/Spin.gif" sourcex="66" sourcey="1" width="64" height="74">
+      <Offset X="-32" Y="-37"/>
+    </ImageFromSheet>
+	<ImageFromSheet id="yellow" sheet="RetroMenu/Spin.gif" sourcex="131" sourcey="1" width="80" height="90">
+      <Offset X="-40" Y="-45"/>
+    </ImageFromSheet>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Green Circle" image="green" />
+	  <Subtype id="01" name="Red Circle" image="red" />
+	  <Subtype id="02" name="Big Yellow Circle" image="yellow" />
+  </Subtypes>
+</ObjDef>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="left">
+  <Images>
+    <ImageFromSheet id="left" sheet="RetroMenu/Menus.gif" sourcex="104" sourcey="0" width="320" height="240">
+      <Offset X="-160" Y="-120"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="right" sheet="RetroMenu/Menus.gif" sourcex="0" sourcey="240" width="320" height="240">
+      <Offset X="-160" Y="-120"/>
+    </ImageFromSheet>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Left" image="left" />
+      <Subtype id="01" name="Right" image="right" />
+  </Subtypes>
+</ObjDef>

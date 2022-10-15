@@ -78,6 +78,12 @@
 #function PlayerObject_DebugMode
 #function PlayerObject_SizeChange
 
+#alias SaveRAM[67]:Options.Spindash
+#alias SaveRAM[275]:Options.WalkAnim
+#alias SaveRAM[276]:Options.RunAnim
+#alias SaveRAM[278]:Options.VictoryAnim
+#alias SaveRAM[279]:Options.GenBehaviour
+
 function PlayerObject_BadnikBreak
 	CheckEqual(Player.Animation,ANI_JUMPING)
 	TempValue0=CheckResult
@@ -561,23 +567,61 @@ endfunction
 
 
 function PlayerObject_WalkAnimSpeed
-	Player.AnimationSpeed=Player.Speed
-	if Player.AnimationSpeed<0
-		FlipSign(Player.AnimationSpeed)
+	if Stage.PlayerListPos==0
+		if Options.WalkAnim==0
+			Player.AnimationSpeed=Player.Speed
+			if Player.AnimationSpeed<0
+				FlipSign(Player.AnimationSpeed)
+			endif
+			Player.AnimationSpeed*=40
+			Player.AnimationSpeed/=196608
+			Player.AnimationSpeed+=20
+		else
+			Player.AnimationSpeed=Player.Speed
+			if Player.AnimationSpeed<0
+				FlipSign(Player.AnimationSpeed)
+			endif
+			Player.AnimationSpeed*=60
+			Player.AnimationSpeed/=393216
+			Player.AnimationSpeed+=20
+		endif
+	else
+		Player.AnimationSpeed=Player.Speed
+		if Player.AnimationSpeed<0
+			FlipSign(Player.AnimationSpeed)
+		endif
+		Player.AnimationSpeed*=60
+		Player.AnimationSpeed/=393216
+		Player.AnimationSpeed+=20
 	endif
-	Player.AnimationSpeed*=60
-	Player.AnimationSpeed/=393216
-	Player.AnimationSpeed+=20
 endfunction
 
 
 function PlayerObject_RunAnimSpeed
-	Player.AnimationSpeed=Player.Speed
-	if Player.AnimationSpeed<0
-		FlipSign(Player.AnimationSpeed)
+	if Stage.PlayerListPos==0
+		if Options.RunAnim==0
+			Player.AnimationSpeed=Player.Speed
+			if Player.AnimationSpeed<0
+				FlipSign(Player.AnimationSpeed)
+			endif
+			Player.AnimationSpeed*=80
+			Player.AnimationSpeed/=393216
+		else
+			Player.AnimationSpeed=Player.Speed
+			if Player.AnimationSpeed<0
+				FlipSign(Player.AnimationSpeed)
+			endif
+			Player.AnimationSpeed*=100
+			Player.AnimationSpeed/=393216
+		endif
+	else
+		Player.AnimationSpeed=Player.Speed
+		if Player.AnimationSpeed<0
+			FlipSign(Player.AnimationSpeed)
+		endif
+		Player.AnimationSpeed*=80
+		Player.AnimationSpeed/=393216
 	endif
-	Player.AnimationSpeed*=80
-	Player.AnimationSpeed/=393216
 endfunction
 
 
@@ -1321,7 +1365,15 @@ function PlayerObject_HandleKnuxClimb
 			endif
 		endif
 	else
-		Player.Animation=ANI_WALKING
+		if Stage.PlayerListPos==0
+			if Options.WalkAnim==0
+				Player.Animation=ANI_WALKING
+			else
+				Player.Animation=ANI_ALTWALK
+			endif
+		else
+				Player.Animation=ANI_WALKING
+		endif
 		Player.State=PlayerObject_HandleGround
 		CallFunction(PlayerObject_ResetOnFloor)
 	endif
@@ -1399,7 +1451,15 @@ function PlayerObject_HandleGround
 			Player.Timer=0
 			if Player.Speed>0
 				if Player.Speed<390594
-					Player.Animation=ANI_WALKING
+					if Stage.PlayerListPos==0
+						if Options.WalkAnim==0
+							Player.Animation=ANI_WALKING
+						else
+							Player.Animation=ANI_ALTWALK
+						endif
+					else
+							Player.Animation=ANI_WALKING
+					endif
 					CallFunction(PlayerObject_WalkAnimSpeed)
 					if Warp.Destination>0
 						if Warp.Timer>99
@@ -1421,13 +1481,29 @@ function PlayerObject_HandleGround
 					if Player.Speed>655359
 						Player.Animation=ANI_PEELOUT
 					else
-						Player.Animation=ANI_RUNNING
+						if Stage.PlayerListPos==0
+							if Options.RunAnim==0
+								Player.Animation=ANI_RUNNING
+							else
+								Player.Animation=ANI_ALTRUN
+							endif
+						else
+								Player.Animation=ANI_RUNNING
+						endif
 					endif
 					CallFunction(PlayerObject_RunAnimSpeed)
 				endif
 			else
 				if Player.Speed>-390594
-					Player.Animation=ANI_WALKING
+					if Stage.PlayerListPos==0
+						if Options.WalkAnim==0
+							Player.Animation=ANI_WALKING
+						else
+							Player.Animation=ANI_ALTWALK
+						endif
+					else
+							Player.Animation=ANI_WALKING
+					endif
 					CallFunction(PlayerObject_WalkAnimSpeed)
 					if Warp.Destination>0
 						if Warp.Timer>99
@@ -1450,7 +1526,15 @@ function PlayerObject_HandleGround
 					if Player.Speed<-655359
 						Player.Animation=ANI_PEELOUT
 					else
-						Player.Animation=ANI_RUNNING
+						if Stage.PlayerListPos==0
+							if Options.RunAnim==0
+								Player.Animation=ANI_RUNNING
+							else
+								Player.Animation=ANI_ALTRUN
+							endif
+						else
+								Player.Animation=ANI_RUNNING
+						endif
 					endif
 					CallFunction(PlayerObject_RunAnimSpeed)
 				endif
@@ -1566,16 +1650,40 @@ function PlayerObject_HandleAir
 		endif
 		if Player.YVelocity>131072
 			if Player.Animation==ANI_FLAILINGLEFT
-				Player.Animation=ANI_WALKING
+				if Stage.PlayerListPos==0
+					if Options.WalkAnim==0
+						Player.Animation=ANI_WALKING
+					else
+						Player.Animation=ANI_ALTWALK
+					endif
+				else
+						Player.Animation=ANI_WALKING
+				endif
 			endif
 			if Player.Animation==ANI_FLAILINGRIGHT
-				Player.Animation=ANI_WALKING
+				if Stage.PlayerListPos==0
+					if Options.WalkAnim==0
+						Player.Animation=ANI_WALKING
+					else
+						Player.Animation=ANI_ALTWALK
+					endif
+				else
+						Player.Animation=ANI_WALKING
+				endif
 			endif
 		endif
 		if Player.Animation==ANI_BOUNCING
 			if Player.YVelocity>=0
 				if Player.AnimationCheck==ANI_STOPPED
-					Player.AnimationCheck=ANI_WALKING
+					if Stage.PlayerListPos==0
+						if Options.WalkAnim==0
+							Player.Animation=ANI_WALKING
+						else
+							Player.Animation=ANI_ALTWALK
+						endif
+					else
+							Player.Animation=ANI_WALKING
+					endif
 				endif
 				Player.Animation=Player.AnimationCheck
 			endif
@@ -1583,7 +1691,15 @@ function PlayerObject_HandleAir
 		if Player.Animation==ANI_HURT
 			if Player.YVelocity>=0
 				if Player.AnimationCheck==ANI_STOPPED
-					Player.AnimationCheck=ANI_WALKING
+					if Stage.PlayerListPos==0
+						if Options.WalkAnim==0
+							Player.Animation=ANI_WALKING
+						else
+							Player.Animation=ANI_ALTWALK
+						endif
+					else
+							Player.Animation=ANI_WALKING
+					endif
 				endif
 				Player.Animation=Player.AnimationCheck
 			endif
@@ -1806,7 +1922,15 @@ function PlayerObject_HandlePeeloutS2
 		endif
 	endif
 	if Player.AbilityTimer<390594
-		Player.Animation=ANI_WALKING
+		if Stage.PlayerListPos==0
+			if Options.WalkAnim==0
+				Player.Animation=ANI_WALKING
+			else
+				Player.Animation=ANI_ALTWALK
+			endif
+		else
+				Player.Animation=ANI_WALKING
+		endif
 		TempValue0=Player.AbilityTimer
 		TempValue0>>=16
 		TempValue0*=80
@@ -1820,7 +1944,15 @@ function PlayerObject_HandlePeeloutS2
 		if Player.AbilityTimer>655359
 			Player.Animation=ANI_PEELOUT
 		else
-			Player.Animation=ANI_RUNNING
+			if Stage.PlayerListPos==0
+				if Options.RunAnim==0
+					Player.Animation=ANI_RUNNING
+				else
+					Player.Animation=ANI_ALTRUN
+				endif
+			else
+					Player.Animation=ANI_RUNNING
+			endif
 		endif
 	endif
 	if Player.Up==0
@@ -1866,7 +1998,15 @@ function PlayerObject_HandlePeeloutCD
 		endif
 	endif
 	if Player.AbilityTimer<390594
-		Player.Animation=ANI_WALKING
+		if Stage.PlayerListPos==0
+			if Options.WalkAnim==0
+				Player.Animation=ANI_WALKING
+			else
+				Player.Animation=ANI_ALTWALK
+			endif
+		else
+				Player.Animation=ANI_WALKING
+		endif
 		TempValue0=Player.AbilityTimer
 		TempValue0>>=16
 		TempValue0*=80
@@ -1880,7 +2020,15 @@ function PlayerObject_HandlePeeloutCD
 		if Player.AbilityTimer>655359
 			Player.Animation=ANI_PEELOUT
 		else
-			Player.Animation=ANI_RUNNING
+			if Stage.PlayerListPos==0
+				if Options.RunAnim==0
+					Player.Animation=ANI_RUNNING
+				else
+					Player.Animation=ANI_ALTRUN
+				endif
+			else
+					Player.Animation=ANI_RUNNING
+			endif
 		endif
 	endif
 	if Player.Up==0
@@ -2446,7 +2594,15 @@ function PlayerObject_CorkscrewRun
 	Player.Animation=ANI_CORKSCREW_H
 	if Player.Speed<393216
 		if Player.Speed>-393216
-			Player.Animation=ANI_WALKING
+			if Stage.PlayerListPos==0
+				if Options.WalkAnim==0
+					Player.Animation=ANI_WALKING
+				else
+					Player.Animation=ANI_ALTWALK
+				endif
+			else
+					Player.Animation=ANI_WALKING
+			endif
 			Player.State=PlayerObject_HandleAir
 			Player.Rotation=0
 			if Player.Speed<0
@@ -2600,7 +2756,15 @@ function PlayerObject_SpinningTop
 	Player.Timer+=Player.MinRollSpeed
 	if Player.Gravity==1
 		Player.State=PlayerObject_HandleAir
-		Player.Animation=ANI_WALKING
+		if Stage.PlayerListPos==0
+			if Options.WalkAnim==0
+				Player.Animation=ANI_WALKING
+			else
+				Player.Animation=ANI_ALTWALK
+			endif
+		else
+				Player.Animation=ANI_WALKING
+		endif
 		Player.Timer=0
 		CallFunction(PlayerObject_HandleAirMovement)
 	else
@@ -2612,7 +2776,15 @@ endfunction
 function PlayerObject_Hugged
 	if Player.Gravity==1
 		Player.State=PlayerObject_HandleAir
-		Player.Animation=ANI_WALKING
+		if Stage.PlayerListPos==0
+			if Options.WalkAnim==0
+				Player.Animation=ANI_WALKING
+			else
+				Player.Animation=ANI_ALTWALK
+			endif
+		else
+				Player.Animation=ANI_WALKING
+		endif
 		Player.Timer=0
 		CallFunction(PlayerObject_HandleAirMovement)
 	else
@@ -2648,7 +2820,7 @@ function PlayerObject_Handle3DRampAnims
 			if Player.Animation==ANI_RAMP_RUNNING3
 				Player.Animation=ANI_RAMP_RUNNING5
 			endif
-			if Player.Animation==ANI_RAMP_RUNNING2
+			if Player.Animation==ANI_ALTRUN
 				Player.Animation=ANI_RAMP_RUNNING6
 			endif
 		endif
@@ -2671,7 +2843,7 @@ function PlayerObject_Handle3DRampAnims
 			endif
 		else
 			if Player.Angle==0
-				Player.Animation=ANI_RAMP_RUNNING1
+				Player.Animation=ANI_ALTWALK
 			endif
 			if Player.Angle>200
 				if Player.Direction==FACING_RIGHT
@@ -2682,13 +2854,13 @@ function PlayerObject_Handle3DRampAnims
 			endif
 			if Player.Angle>216
 				if Player.Direction==FACING_RIGHT
-					Player.Animation=ANI_RAMP_RUNNING2
+					Player.Animation=ANI_ALTRUN
 				else
 					Player.Animation=ANI_RAMP_RUNNING6
 				endif
 			endif
 			if Player.Angle>232
-				Player.Animation=ANI_RAMP_RUNNING1
+				Player.Animation=ANI_ALTWALK
 			endif
 			if Player.Angle==192
 				Player.Animation=ANI_RAMP_RUNNING4
@@ -2844,7 +3016,15 @@ sub ObjectMain
 			if CheckResult==true
 				if Player.Animation==ANI_JUMPING
 					if Player.Down==false
-						Player.Animation=ANI_WALKING
+						if Stage.PlayerListPos==0
+							if Options.WalkAnim==0
+								Player.Animation=ANI_WALKING
+							else
+								Player.Animation=ANI_ALTWALK
+							endif
+						else
+								Player.Animation=ANI_WALKING
+						endif
 						Screen.AdjustCameraY=0
 						Player.iYPos+=Player.CameraOffset
 					endif
@@ -2875,7 +3055,15 @@ sub ObjectMain
 		if CheckResult==true
 			if Player.Animation==ANI_JUMPING
 				if Player.Down==false
-					Player.Animation=ANI_WALKING
+					if Stage.PlayerListPos==0
+						if Options.WalkAnim==0
+							Player.Animation=ANI_WALKING
+						else
+							Player.Animation=ANI_ALTWALK
+						endif
+					else
+							Player.Animation=ANI_WALKING
+					endif
 					Screen.AdjustCameraY=0
 					Player.iYPos+=Player.CameraOffset
 				endif
@@ -2908,7 +3096,15 @@ sub ObjectMain
 	if CheckResult==true
 		if Player.Animation==ANI_JUMPING
 			if Player.Down==false
-				Player.Animation=ANI_WALKING
+				if Stage.PlayerListPos==0
+					if Options.WalkAnim==0
+						Player.Animation=ANI_WALKING
+					else
+						Player.Animation=ANI_ALTWALK
+					endif
+				else
+						Player.Animation=ANI_WALKING
+				endif
 				Screen.AdjustCameraY=0
 				Player.iYPos+=Player.CameraOffset
 			endif
@@ -2932,7 +3128,8 @@ endsub
 
 
 sub ObjectStartup
-	Options.GenBehaviour=1
+	Options.GenBehaviour=0
+	Options.RunAnim=0
 	#platform: Standard
 		Warp.MaxTimer=220
 	#endplatform
@@ -3031,8 +3228,8 @@ sub ObjectStartup
 			GetAnimationByName(ANI_CLINGING,"Clinging On")
 			GetAnimationByName(ANI_LAUNCHER,"Launcher")
 			GetAnimationByName(ANI_SPINNING_TOP,"Spinning Top")
-			GetAnimationByName(ANI_RAMP_RUNNING1,"3D Ramp 1")
-			GetAnimationByName(ANI_RAMP_RUNNING2,"3D Ramp 2")
+			GetAnimationByName(ANI_ALTWALK,"AltWalk")
+			GetAnimationByName(ANI_ALTRUN,"AltRun")
 			GetAnimationByName(ANI_RAMP_RUNNING3,"3D Ramp 3")
 			GetAnimationByName(ANI_RAMP_RUNNING4,"3D Ramp 4")
 			GetAnimationByName(ANI_RAMP_RUNNING5,"3D Ramp 5")

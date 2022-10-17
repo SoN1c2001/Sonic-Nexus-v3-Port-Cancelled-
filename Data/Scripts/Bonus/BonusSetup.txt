@@ -1,0 +1,36 @@
+//-------Retro Sonic Bonus Setup Script Recreation--------//
+//--------------Scripted by LanceReborn-------------//
+
+//-------Aliases-------//
+#alias 2: TYPE_BONUSSETUP
+
+
+sub ObjectMain
+
+endsub
+
+
+sub ObjectDraw
+	Object.Value0++
+	if Object.Value0>1
+		TileLayer[0].DeformationOffsetW++
+		TileLayer[1].DeformationOffset++
+		Object.Value0=0
+	endif
+endsub
+
+
+sub ObjectStartup
+	Object[5].Type=TypeName[BonusSetup]
+	Object[5].Priority=1
+	Object[5].DrawOrder=0
+	Screen.CameraTarget=0
+	SetMusicTrack("RetroSonic/BonusStage.ogg",0,71380)
+	PlayMusic(0)
+	SetLayerDeformation(2,128,12,0,0,0)
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

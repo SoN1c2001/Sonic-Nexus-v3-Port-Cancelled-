@@ -21,55 +21,53 @@ endsub
 
 
 sub ObjectPlayerInteraction
-	if Player.CollisionPlane==Object.Value2
-		TempValue0=0
+	TempValue0=0
 #platform: Mobile
-		CheckEqual(Player.Gravity,1)
-		TempValue0=CheckResult
-		CheckLower(Player.YVelocity,0)
-		TempValue0&=CheckResult
+	CheckEqual(Player.Gravity,1)
+	TempValue0=CheckResult
+	CheckLower(Player.YVelocity,0)
+	TempValue0&=CheckResult
 #endplatform
 #platform: Standard	  
-		CheckLower(Player.YVelocity,0)
-		TempValue0=CheckResult
+	CheckLower(Player.YVelocity,0)
+	TempValue0=CheckResult
 #endplatform				
-		if TempValue0==0		
-			CheckEqual(Player.Animation,ANI_JUMPING)
-			TempValue1=CheckResult
-			CheckEqual(Player.Animation,ANI_GLIDING)
-			TempValue1|=CheckResult
-			CheckEqual(Player.Animation,ANI_GLIDING_STOP)
-			TempValue1|=CheckResult			
-			if TempValue1==1
-				PlayerObjectCollision(C_TOUCH,-16,-14,16,16)
-				if CheckResult==1
-					Object.State=0
-					CreateTempObject(TypeName[SmokePuff],0,Object.XPos,Object.YPos)
-					Object[TempObjectPos].DrawOrder=4
-					FlipSign(Player.YVelocity)
-					if Player.YVelocity>-131072
-						Player.YVelocity=-131072
-					endif
-					Object.Type=TypeName[BrokenMonitor]
-					Object.Priority=1
-					Object.Alpha=255
-					Object.Value0=Object.YPos
-					Object.Value1=-196608
-					PlaySfx(8,0)
-#platform: Use_Haptics
-					HapticEffect(16,0,0,0)
-#endplatform
+	if TempValue0==0		
+		CheckEqual(Player.Animation,ANI_JUMPING)
+		TempValue1=CheckResult
+		CheckEqual(Player.Animation,ANI_GLIDING)
+		TempValue1|=CheckResult
+		CheckEqual(Player.Animation,ANI_GLIDING_STOP)
+		TempValue1|=CheckResult			
+		if TempValue1==1
+			PlayerObjectCollision(C_TOUCH,-16,-14,16,16)
+			if CheckResult==1
+				Object.State=0
+				CreateTempObject(TypeName[SmokePuff],0,Object.XPos,Object.YPos)
+				Object[TempObjectPos].DrawOrder=4
+				FlipSign(Player.YVelocity)
+				if Player.YVelocity>-131072
+					Player.YVelocity=-131072
 				endif
-			else
-				PlayerObjectCollision(C_BOX,-15,-16,15,16)
+				Object.Type=TypeName[BrokenMonitor]
+				Object.Priority=1
+				Object.Alpha=255
+				Object.Value0=Object.YPos
+				Object.Value1=-196608
+				PlaySfx(8,0)
+#platform: Use_Haptics
+				HapticEffect(16,0,0,0)
+#endplatform
 			endif
 		else
 			PlayerObjectCollision(C_BOX,-15,-16,15,16)
-			if CheckResult==4
-				Object.State=1
-				Object.Value1=-131072
-				Player.YVelocity=131072
-			endif
+		endif
+	else
+		PlayerObjectCollision(C_BOX,-15,-16,15,16)
+		if CheckResult==4
+			Object.State=1
+			Object.Value1=-131072
+			Player.YVelocity=131072
 		endif
 	endif
 endsub

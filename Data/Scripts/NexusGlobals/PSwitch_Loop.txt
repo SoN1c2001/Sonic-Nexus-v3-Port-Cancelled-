@@ -4,6 +4,8 @@
 sub ObjectPlayerInteraction
 	//Is the Player moving on the ground?
 	if Player.Gravity==false
+		switch Object.PropertyValue
+		case0 //Vertical
 		//Is the Player Colliding with the switcher?
 		PlayerObjectCollision(C_TOUCH,-12,Object.Value0,12,Object.Value1)
 		if CheckResult==1
@@ -13,6 +15,20 @@ sub ObjectPlayerInteraction
 				Player.CollisionPlane=0
 			end if
 		end if
+		break
+		
+		case1 //Horizontal
+		//Is the Player Colliding with the switcher?
+		PlayerObjectCollision(C_TOUCH,Object.Value0,-12,Object.Value1,12)
+		if CheckResult==1
+			if Player.Speed>0
+				Player.CollisionPlane=1
+			else
+				Player.CollisionPlane=0
+			end if
+		end if
+		break
+		endswitch
 	end if
 end sub
 

@@ -4,6 +4,7 @@
 
 sub ObjectDraw
 	DrawSprite(Object.PropertyValue)
+	Object.Priority=1
 end sub
 
 sub ObjectStartup

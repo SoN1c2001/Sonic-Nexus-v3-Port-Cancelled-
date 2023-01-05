@@ -77,6 +77,7 @@
 #function PlayerObject_Handle3DRampAnims
 #function PlayerObject_DebugMode
 #function PlayerObject_SizeChange
+#function PlayerObject_VictoryAni
 
 #alias SaveRAM[67]:Options.Spindash
 #alias SaveRAM[275]:Options.WalkAnim
@@ -2977,6 +2978,16 @@ function PlayerObject_SizeChange
 	endif
 endfunction
 
+function PlayerObject_VictoryAni
+	Player.ControlMode=-1
+	Player.Animation=ANI_FINISH_POSE
+	Player.XVelocity=0
+	Player.Up=false
+	Player.Down=false
+	Player.Left=false
+	Player.JumpPress=false
+	Player.JumpHold=false
+endfunction
 
 sub ObjectMain
 #platform: Standard
@@ -3225,9 +3236,6 @@ sub ObjectStartup
 			GetAnimationByName(ANI_DROPPING,"Dropping")
 			GetAnimationByName(ANI_CLINGING,"Clinging On")
 			GetAnimationByName(ANI_LAUNCHER,"Launcher")
-			GetAnimationByName(ANI_SPINNING_TOP,"Spinning Top")
-			GetAnimationByName(ANI_ALTWALK,"AltWalk")
-			GetAnimationByName(ANI_ALTRUN,"AltRun")
 			GetAnimationByName(ANI_RAMP_RUNNING3,"3D Ramp 3")
 			GetAnimationByName(ANI_RAMP_RUNNING4,"3D Ramp 4")
 			GetAnimationByName(ANI_RAMP_RUNNING5,"3D Ramp 5")

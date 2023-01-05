@@ -2,9 +2,57 @@
 //----------------Scripted by LanceReborn---------------//
 
 //-------Aliases-------//
-#alias 1: TYPE_STAGESELECT
+#alias 1: TYPE_OPTIONS
 
-sub ObjectMain
+sub ObjectMain //Welcome! to "if" hell!
+	switch Object.State
+	case 0 //Initialise
+		Rand(Object.Value0,6)
+		switch Object.value0 //Trying to make all the BG have the same chance to appear
+		case 0
+			Stage.ActiveLayer[0]=1
+			Stage.ActiveLayer[1]=2
+			SetMusicTrack("Options.ogg",0,1)
+			break
+		case 1
+			Stage.ActiveLayer[1]=1
+			Stage.ActiveLayer[1]=2
+			SetMusicTrack("Options.ogg",0,1)
+			break
+		case 2
+			Stage.ActiveLayer[0]=1
+			Stage.ActiveLayer[1]=2
+			SetMusicTrack("Options.ogg",0,1)
+			break
+		case 3
+			Stage.ActiveLayer[0]=3
+			Stage.ActiveLayer[1]=0
+			SetMusicTrack("JP/R5A.ogg",0,1)
+			break
+		case 4
+			Stage.ActiveLayer[0]=3
+			Stage.ActiveLayer[1]=0
+			SetMusicTrack("JP/R5A.ogg",0,1)
+			break
+		case 5
+			Stage.ActiveLayer[0]=3
+			Stage.ActiveLayer[1]=0
+			SetMusicTrack("JP/R5A.ogg",0,1)
+			break
+		endswitch
+		Object.Value1=256
+		Object.State=1
+		SetScreenFade(0,0,0,Object.Value1,0,255)
+		playmusic(0)
+		break
+	case 1 //Fade In
+		if Object.Value1>0
+			Object.Value1-=8
+			SetScreenFade(0,0,0,0,0,255)
+		endif
+		SetScreenFade(0,0,0,Object.Value1,0,255)
+		break
+	endswitch
 	if KeyPress.Down==true
 		menu1.selection+=3
 	endif
@@ -18,6 +66,34 @@ sub ObjectMain
 		menu1.selection=16
 	endif
 	switch menu1.selection
+	case 4
+		if KeyPress.Left==true
+			Options.WalkAnim--
+		endif
+		if Options.WalkAnim<0
+			Options.WalkAnim=1
+		endif
+		if KeyPress.Right==true
+			Options.WalkAnim++
+		endif
+		if Options.WalkAnim>1
+			Options.WalkAnim=0
+		endif
+		break
+	case 7
+		if KeyPress.Left==true
+			Options.RunAnim--
+		endif
+		if Options.RunAnim<0
+			Options.RunAnim=1
+		endif
+		if KeyPress.Right==true
+			Options.RunAnim++
+		endif
+		if Options.RunAnim>1
+			Options.RunAnim=0
+		endif
+		break
 	case 13
 		if KeyPress.Left==true
 			Options.OriginalControls--
@@ -33,7 +109,19 @@ sub ObjectMain
 		endif
 		break
 	endswitch
-	if Options.OriginalControls==0
+	if Options.WalkAnim==0
+		EditMenuEntry(MENU_1,"Sonic Walk Animation @@@*Nexus*", 4,0)
+	else
+		EditMenuEntry(MENU_1,"Sonic Walk Animation @@@*Retro*", 4,0)
+	endif
+
+	if Options.RunAnim==0
+		EditMenuEntry(MENU_1,"Sonic Run Animation @@@@*Nexus*", 7,0)
+	else
+		EditMenuEntry(MENU_1,"Sonic Run Animation @@@@*Retro*", 7,0)
+	endif
+
+	if Options.OriginalControls==0 //Options.WalkAnim
 		EditMenuEntry(MENU_1,"Spindash type@@@@@@@@@@@* S2 *", 13,0)
 	else
 		EditMenuEntry(MENU_1,"Spindash type@@@@@@@@@@@* CD *", 13,0)
@@ -41,29 +129,22 @@ sub ObjectMain
 endsub
 
 sub ObjectDraw
-
-	tempvalue0 = screen.centerx
-	tempvalue0 -= 10
-	DrawMenu(MENU_1, tempvalue0, 16)
-	DrawMenu(MENU_2, tempvalue0, 16)
-
-
+	DrawMenu(MENU_1,screen.centerx, 16)
+	DrawMenu(MENU_2,screen.centerx, 16)
 endsub
 
 
 sub ObjectStartup
 	LoadSpriteSheet("Options/Text.gif")
-	//SetMusicTrack("US/DAGarden.ogg",1,117382)
-	PlayMusic(1)
 	SetupMenu(MENU_1,0,3,2)
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, " ", 0)
-	AddMenuEntry(MENU_1, "Sonic Walk Animation @@@*Nexus*", 0)  //4 Rsonic
+	AddMenuEntry(MENU_1, "Sonic Walk Animation @@@*@@@@*", 0)  //4 Rsonic
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, " ", 0)
-	AddMenuEntry(MENU_1, "Sonic Run Animation @@@@*Nexus*", 0) //7
+	AddMenuEntry(MENU_1, "Sonic Run Animation @@@@*@@@@*", 0) //7
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, "Knuckles Glide Behavior@*@@@@*", 0) //10
@@ -72,7 +153,10 @@ sub ObjectStartup
 	AddMenuEntry(MENU_1, "Spindash type@@@@@@@@@@@* @@ *", 0) //13
 	AddMenuEntry(MENU_1, " ", 0)
 	AddMenuEntry(MENU_1, " ", 0)
-	AddMenuEntry(MENU_1, "Sound Test  @@@@@@@@@@@@*@@@@*", 0) //16
+	AddMenuEntry(MENU_1, "Victory Animation@@@@@@@* @@ *", 0) //16
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, " ", 0)
+	AddMenuEntry(MENU_1, "Sound Test  @@@@@@@@@@@@*@@@@*", 0) //19
 	SetupMenu(MENU_2,0,3,2)
 	AddMenuEntry(MENU_2, "@@@*OPTIONS*", 1)
 	menu2.selection=0

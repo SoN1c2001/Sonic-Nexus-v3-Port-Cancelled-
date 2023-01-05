@@ -18,16 +18,19 @@ sub ObjectMain
 		SetScreenFade(0,0,0,Object.Value0,0,255)
 		break
 	case 2 //if i had a programming job i would be fired Instantly lol
-		Object[+1].XPos-=600000
-		Object[+2].XPos-=600000
-		Object[+3].XPos-=700000
-		Object[+4].XPos-=700000
-		Object[+5].XPos-=700000
-		Object[+6].XPos-=700000
-		Object[+7].XPos-=700000
-		Object[+8].XPos-=700000
-		Object[+9].XPos-=700000
-		Object[+10].XPos-=700000
+		Object[+1].iXPos-=1
+		Object[+2].iXPos-=2
+		Object[+3].iXPos-=2
+		Object[+4].iXPos-=2
+		Object[+5].iXPos-=2
+		Object[+6].iXPos-=2
+		Object[+7].iXPos-=2
+		Object[+8].iXPos-=2
+		Object[+9].iXPos-=2
+		Object.Value1+=1
+		if Object.value1==320
+			Object.State=3
+		endif
 	break
 	endswitch
 	if KeyPress.Up==1

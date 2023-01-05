@@ -5,6 +5,7 @@
 sub ObjectDraw
 	Object.Rotation-=1
 	DrawSpriteFX(Object.PropertyValue,1,object.Xpos,object.Ypos)
+	Object.Priority=1
 end sub
 
 sub ObjectStartup

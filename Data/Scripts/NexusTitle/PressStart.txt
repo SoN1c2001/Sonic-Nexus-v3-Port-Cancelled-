@@ -6,71 +6,15 @@ sub ObjectMain //Welcome to switch case hell//
 	switch Object.State
 	case 0
 #platform: Standard
-		if KeyPress.Up==true
-			if KeyDown.ButtonA==true
-				Object.Value1=1
-			endif
-		endif
-		if KeyPress.Down==true
-			if KeyDown.ButtonA==true
-				if Object.Value1==1
-					Object.Value1=2
-				else
-					Object.Value1=0
-				endif
-			endif
-		endif
-		if KeyPress.Left==true
-			if KeyDown.ButtonA==true
-				if Object.Value1==2
-					Object.Value1=3
-				else
-					Object.Value1=0
-				endif
-			endif
-		endif
-		if KeyPress.Right==true
-			if KeyDown.ButtonA==true
-				if Object.Value1==3
-					Object.Value1=4
-				else
-					Object.Value1=0
-				endif
-			endif
-		endif
-		if KeyDown.ButtonA==true
-			if KeyDown.Start==true
-				if Object.Value1==4
-					Object.State=3 //LSelect
-					StopMusic()
-					SetMusicTrack("StageSelect.ogg",0,1)
-					PlaySfx(1,false)
-				else
-					Object.Value1=0
-				endif
-			endif
-		else
-			Object.Value1=0
-		endif
-#endplatform
-
-#platform: Mobile
-		CheckTouchRect(0,100,200,0)
-		if CheckResult>-1
-			Object.Value1=1
-#endplatform
-
-#platform: Standard
 		if KeyPress.Start==true
-			if Object.Value1<4
-				Object.State=1
-			endif
+			Object.State=1
 #endplatform
 
 #platform: Mobile
-		//CheckTouchRect(0,0,Screen.XSize,240)
+		CheckTouchRect(0,0,Screen.XSize,240)
 		if CheckResult>-1
-			Object.State=1
+			Object.State=1 
+			
 #endplatform
 		end if
 		break
@@ -86,22 +30,16 @@ sub ObjectMain //Welcome to switch case hell//
 			Player.Score=0
 			StopMusic()
 #platform: Standard
-			Stage.ListPos=0
+			Stage.ListPos=2
 #endplatform
 
 #platform: Mobile
 			Stage.ActiveList=1
-			Stage.ListPos=0
+			Stage.ListPos=2
 #endplatform
 			LoadStage()
 		end if
 		SetScreenFade(0,0,0,Object.Value1,0,255)
-		break
-	case 3
-		LoadPalette("LSelect.act",0,0,0,255)
-		PlayMusic(0)
-		object[5].value2=1
-		ResetObjectEntity(Object.EntityNo,6,0,0,0)
 		break
 	end switch
 end sub

@@ -3,13 +3,15 @@
 
 
 sub ObjectDraw
-	DrawSprite(Object.PropertyValue)
+	Object.Priority=1
+	DrawSprite(0)
+	DrawSprite(1)
 end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("RetroMenu/Menus.gif")
 	SpriteFrame(-160,-120,320,240,104,0)
-	SpriteFrame(-160,-120,320,240,0,240)
+	SpriteFrame(160,-120,320,240,0,240) //I think is better if i make this just one object
 end sub
 
 sub RSDK

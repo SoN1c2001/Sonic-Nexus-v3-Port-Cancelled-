@@ -1,0 +1,33 @@
+//-------Retro Sonic Triggers Script Recreation--------//
+//--------------Scripted by LanceReborn-------------//
+
+
+sub ObjectMain
+	switch Object.PropertyValue
+	case 0 
+		if Player.XPos>Object.XPos
+			Stage.NewYBoundary2=1088
+		endif
+		break
+	case 1
+		if Player.XPos>Object.XPos
+			Stage.NewYBoundary2=960
+		endif
+		break
+	case 2
+		if Player.XPos>Object.XPos
+			Stage.NewYBoundary2=1176
+			Stage.NewXBoundary1=624
+			Stage.NewXBoundary2=944
+		endif
+		break
+	case 3
+		//Here goes the stuff that starts the Boss fight
+		break
+	endswitch
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

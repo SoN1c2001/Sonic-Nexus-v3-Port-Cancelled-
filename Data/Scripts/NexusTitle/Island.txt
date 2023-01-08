@@ -1,10 +1,18 @@
 //-------------Sonic Nexus Island Script--------------//
 //----Scripted by Christian Whitehead "The Taxman"----//
 
+
+sub ObjectMain
+	if Object.Value0>0
+		Object.Value0-=4
+	end if
+end sub
+
 sub ObjectDraw
 	Object.XPos-=4096
 	Object.DrawOrder=1
 	DrawSprite(0)
+	DrawRect(0,0,Screen.Xsize,Screen.Ysize,0,0,0,Object.Value0)
 end sub
 
 sub ObjectStartup

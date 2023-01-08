@@ -1,0 +1,72 @@
+//---------------Sonic Nexus PaletteFade Recreation Script--------------//
+//------------------------Scripted by LanceReborn-----------------------//
+
+
+#alias Object.Value0 : Object.YSpeed
+#alias Object.Value1 : Object.ScaleSpeed
+//Im just gonna copy the Logo script 
+
+sub ObjectMain
+
+	switch Object.PropertyValue
+	case 0
+		if Object.State<4
+
+			Object.YSpeed+=16384
+			Object.YPos+=Object.YSpeed
+
+			if Object.YPos>7077888
+				Object.YPos=7077888
+				Object.YSpeed>>=1
+				FlipSign(Object.YSpeed)
+				Object.State++
+			end if
+		end if
+		break
+
+	case 1
+		if Object.State<4
+
+			Object.ScaleSpeed-=2
+			Object.Scale+=Object.ScaleSpeed
+
+			if Object.Scale<512
+				Object.Scale=512
+				Object.ScaleSpeed>>=1
+				FlipSign(Object.ScaleSpeed)
+				PlayStageSfx(0,false)
+				Object.State++
+			end if
+		else
+			Object.PropertyValue=2
+		end if
+		break
+	end switch
+end sub
+
+sub ObjectDraw
+	object.iYpos=Screen.centerY
+	object.iXpos=Screen.centerX
+	Object.InkEffect=2
+	if Object.PropertyValue==1
+		DrawSpriteFX(0,FX_SCALE,Object.XPos,Object.YPos)
+	else
+		DrawSpriteFX(0,FX_INK,Object.XPos,Object.YPos)
+		if Object.Alpha>0
+			Object.Alpha-=4
+		end if
+		if Object.Alpha<4
+			Object.Type=TypeName[BlankObject]
+		endif
+	Endif
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusTitle/White.gif")
+	SpriteFrame(-128,-80,256,160,0,0)
+end sub
+
+sub RSDK
+	LoadSpriteSheet("NexusTitle/Logo.gif")
+	SetEditorIcon(Icon1,0,-128,-80,256,160,0,0)
+end sub

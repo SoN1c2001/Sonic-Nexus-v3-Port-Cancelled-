@@ -8,15 +8,8 @@ sub ObjectMain
 		LoadPalette("NexusTitle.act",0,0,0,255)
 		Object.State=1
 		Object.Value0=896
-		Object[5].Value0=0
-		Object.Value1=512
-
-		if Object[1].PropertyValue==1
-			SetScreenFade(255,255,255,255,0,255)
-		else
-			SetScreenFade(0,0,0,255,0,255)
-		end if
-
+		Object[+1].Value0=896
+		Object[2].Alpha=255
 		break
 		
 	case 1 //Fade from White
@@ -25,26 +18,18 @@ sub ObjectMain
 		else
 			ResetObjectEntity(Object.EntityNo,5,0,0,0)
 			ArrayPos0=Object.EntityNo
-			Object[ArrayPos0].iXPos=Screen.CenterX
+			Object[ArrayPos0].iXPos=160
 			Object[ArrayPos0].iYPos=200
-		end if
-		if Object.Value1>0
-			Object.Value1-=4
 		end if
 		if Object.Value0==128
 			PlayMusic(0)
 		end if
-		//*maybe SetPaletteFade could work?//
-		//*It kinda does//
-		//*SetPaletteFade(0,0,0,0,Object.Value0,0,112) //*Palette Fade Test//
-		//*SetPaletteFade(0,255,255,255,Object.Value1,112,255)//
-		SetScreenFade(0,0,0,Object.Value0,0,111)
-		SetScreenFade(255,255,255,Object.Value1,112,255)
 		break
 		
 	end switch
 	
 end sub
+
 
 sub ObjectStartup
 
@@ -61,6 +46,20 @@ sub ObjectStartup
 		Object[1].Value1=-24
 	else
 		Object[1].iYPos=-320
+	end if
+	Object.State=2
+	Object[2].Type=6
+	Object[2].iXPos=160
+	Object[2].Priority=1
+
+	Object[2].PropertyValue=1
+
+	if Object[2].PropertyValue==1
+		Object[2].iYPos=108
+		Object[2].Scale=2048
+		Object[2].Value1=-24
+	else
+		Object[2].iYPos=-320
 	end if
 
 	//Setup the any FadeUp

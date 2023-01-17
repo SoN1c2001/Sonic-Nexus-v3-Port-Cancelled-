@@ -120,14 +120,25 @@ sub ObjectStartup
 	SpriteFrame(-12,4,24,24,175,166)
 
 	//Sign Frames
-	SpriteFrame(-24,-28,48,32,208,178)
-	SpriteFrame(-16,-28,32,32,175,191)
-	SpriteFrame(-4,-28,8,32,175,133)
-	SpriteFrame(-16,-28,32,32,175,224)
-	SpriteFrame(-24,-28,48,32,208,211)
-	SpriteFrame(-16,-28,32,32,175,191)
-	SpriteFrame(-4,-28,8,32,175,133)
-	SpriteFrame(-16,-28,32,32,175,224)
+	SpriteFrame(-24,-28,48,32,208,178) //Robotnik
+	SpriteFrame(-16,-28,32,32,175,191) //Inbetween Left
+	SpriteFrame(-4,-28,8,32,207,133)   //Side
+	SpriteFrame(-16,-28,32,32,175,224) //Inbetween Right
+	switch Stage.PlayerListPos
+	case0
+		SpriteFrame(-24,-28,48,32,208,211) //Sonic
+		break
+	case1
+		SpriteFrame(-24,-28,48,32,84,265) //Tails
+		break
+	case2
+		SpriteFrame(-24,-28,48,32,158,133) //Knuckles
+		break
+	endswitch
+	endif
+	SpriteFrame(-16,-28,32,32,175,191) //Inbetween Left
+	SpriteFrame(-4,-28,8,32,207,133)   //Side
+	SpriteFrame(-16,-28,32,32,175,224) //Inbetween Right
 end sub
 
 sub RSDK

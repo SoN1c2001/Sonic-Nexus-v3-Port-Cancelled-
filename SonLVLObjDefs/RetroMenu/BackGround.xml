@@ -5,11 +5,16 @@
       <Offset X="-160" Y="-120"/>
     </ImageFromSheet>
     <ImageFromSheet id="right" sheet="RetroMenu/Menus.gif" sourcex="0" sourcey="240" width="320" height="240">
-      <Offset X="-160" Y="-120"/>
+      <Offset X="160" Y="-120"/>
     </ImageFromSheet>
   </Images>
-  <Subtypes>
-    <Subtype id="00" name="Left" image="left" />
-      <Subtype id="01" name="Right" image="right" />
-  </Subtypes>
-</ObjDef>
+  <ImageSets>
+    <ImageSet id="Background">
+      <ImageRef image="left" />
+      <ImageRef image="right" />
+    </ImageSet>
+  </ImageSets>
+  <DefaultImage>
+    <ImageSetRef set="Background" />
+  </DefaultImage>
+ </ObjDef>

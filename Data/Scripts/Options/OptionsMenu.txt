@@ -3,54 +3,70 @@
 
 //-------Aliases-------//
 #alias 1: TYPE_OPTIONS
+#alias Object.Value3: Object.Timer
 
 sub ObjectMain //Welcome! to "if" hell!
 	switch Object.State
-	case 0 //Initialise
-		Rand(Object.Value0,6)
+	case 0 //Initialise/Repeat
+		Rand(Object.Value0,4)
 		switch Object.value0 //Trying to make all the BG have the same chance to appear
 		case 0
 			Stage.ActiveLayer[0]=1
-			Stage.ActiveLayer[1]=2
+			Stage.ActiveLayer[1]=5
 			SetMusicTrack("Options.ogg",0,1)
+			Object.value5=1440
 			break
 		case 1
-			Stage.ActiveLayer[1]=1
-			Stage.ActiveLayer[1]=2
-			SetMusicTrack("Options.ogg",0,1)
+			Stage.ActiveLayer[0]=2
+			Stage.ActiveLayer[1]=6
+			SetMusicTrack("JP/R5A.ogg",0,1)
+			Object.value5=11160
 			break
 		case 2
-			Stage.ActiveLayer[0]=1
-			Stage.ActiveLayer[1]=2
-			SetMusicTrack("Options.ogg",0,1)
+			Stage.ActiveLayer[0]=3
+			Stage.ActiveLayer[1]=0
+			SetMusicTrack("RetroSonic/WareHouse.ogg",0,1)
+			Object.value5=11160 //This is fucking 3 minutes and 6 seconds long but the music is a banger.
 			break
 		case 3
-			Stage.ActiveLayer[0]=3
+			Stage.ActiveLayer[0]=4
 			Stage.ActiveLayer[1]=0
-			SetMusicTrack("JP/R5A.ogg",0,1)
-			break
-		case 4
-			Stage.ActiveLayer[0]=3
-			Stage.ActiveLayer[1]=0
-			SetMusicTrack("JP/R5A.ogg",0,1)
-			break
-		case 5
-			Stage.ActiveLayer[0]=3
-			Stage.ActiveLayer[1]=0
-			SetMusicTrack("JP/R5A.ogg",0,1)
+			SetMusicTrack("RetroSonic/RetroMenu.ogg",0,1)
+			Object.value5=2400 //40 Seconds
 			break
 		endswitch
 		Object.Value1=256
 		Object.State=1
-		SetScreenFade(0,0,0,Object.Value1,0,255)
-		playmusic(0)
-		break
-	case 1 //Fade In
-		if Object.Value1>0
-			Object.Value1-=8
-			SetScreenFade(0,0,0,0,0,255)
+		Object.Value2=0
+		if object.Timer==0
+			SetScreenFade(0,0,0,Object.Value1,0,255)
+			Object.Value4=9
 		endif
-		SetScreenFade(0,0,0,Object.Value1,0,255)
+		break
+	case 1 //Making sure the BG does not repeat
+		if Object.Value4==Object.Value0
+			Object.State=0
+		else
+			playmusic(0)
+			Object.State=2
+			Object.Value4=Object.Value0
+		endif
+		if object.Timer==0
+			SetScreenFade(0,0,0,Object.Value1,0,255)
+		endif
+		break
+	case 2 //Fade In
+		if Object.Value1>0
+			Object.Value1-=4
+			if object.Timer==0
+				SetScreenFade(0,0,0,0,0,255)
+			endif
+		else
+			Object.State=3
+		endif
+		if object.Timer==0
+			SetScreenFade(0,0,0,Object.Value1,0,255)
+		endif
 		break
 	endswitch
 	if KeyPress.Down==true
@@ -129,6 +145,19 @@ sub ObjectMain //Welcome! to "if" hell!
 endsub
 
 sub ObjectDraw
+	if Object.State>2
+		Object.Timer++
+	endif
+	if Object.Timer>Object.value5
+		Object.value2++
+		Music.Volume--
+	endif
+	if Object.value2>256
+		Object.State=0
+		Object.Timer=1
+	endif
+	DrawRect(0,0,Screen.Xsize,Screen.Ysize,0,0,0,Object.Value1)
+	DrawRect(0,0,Screen.Xsize,Screen.Ysize,0,0,0,Object.Value2)
 	DrawMenu(MENU_1,screen.centerx, 16)
 	DrawMenu(MENU_2,screen.centerx, 16)
 endsub

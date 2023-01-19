@@ -10,6 +10,7 @@ sub ObjectMain
 		Object.Value0=896
 		Object[+1].Value0=896
 		Object[2].Alpha=255
+		SetScreenFade(255,255,255,255)
 		break
 		
 	case 1 //Fade from White

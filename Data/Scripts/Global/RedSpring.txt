@@ -303,9 +303,23 @@ sub ObjectStartup
 				Object[ArrayPos0].PropertyValue-=8
 				Object[ArrayPos0].Value7=1
 			endif
-			if Object[ArrayPos0].PropertyValue>5
+			switch Object[ArrayPos0].PropertyValue
+			case 2
+				Object[ArrayPos0].Direction=1
+				break
+			case 3
 				Object[ArrayPos0].Direction=2
-			endif
+				break
+			case 5
+				Object[ArrayPos0].Direction=1
+				break
+			case 6
+				Object[ArrayPos0].Direction=2
+				break
+			case 7
+				Object[ArrayPos0].Direction=3
+				break
+			endswitch
 		endif
 		ArrayPos0++
 	loop
@@ -313,35 +327,35 @@ sub ObjectStartup
 	//Spring Resting Frames
 	SpriteFrame(-16,-8,32,16,51,17) //Red Spring Facing Up
 	SpriteFrame(-8,-16,16,32,51,34) //Red Spring Facing Right
-	SpriteFrame(-8,-16,16,32,67,67) //Red Spring Facing Left
-	SpriteFrame(-16,-8,32,16,51,100) //Red Spring Facing Down
+	SpriteFrame(-8,-16,16,32,51,34) //Red Spring Left
+	SpriteFrame(-16,-8,32,16,51,17 //Red Spring Facing Down
 	
 	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Right
-	SpriteFrame(-16,-16,32,32,51,166) //Diagonal Spring Left
-	SpriteFrame(-16,-16,32,32,51,199) //Diagonal Spring Right (Upside down)
-	SpriteFrame(-16,-16,32,32,51,232) //Diagonal Spring Left (Upside down)
+	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Left
+	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Right (Upside down)
+	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Left (Upside down)
 	
 	//Spring 'Pre-Boing' Frames
 	SpriteFrame(-16,0,32,8,51,17) //Red Spring Up
 	SpriteFrame(-8,-16,8,32,59,34) //Red Spring Right
-	SpriteFrame(0,-16,8,32,67,67) //Red Spring Left
-	SpriteFrame(-16,-8,32,8,51,108) //Red Spring Down
+	SpriteFrame(-8,-16,8,32,59,34) //Red Spring Left
+	SpriteFrame(-16,0,32,8,51,17) //Red Spring Down
 	
 	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Right
-	SpriteFrame(-16,-16,32,32,141,342) //Diagonal Spring Left
-	SpriteFrame(-16,-16,32,32,141,375) //Diagonal Spring Right (Upside down)
-	SpriteFrame(-16,-16,32,32,141,408) //Diagonal Spring Left (Upside Down)
+	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Left
+	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Right (Upside down)
+	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Left (Upside Down)
 	
 	//Spring 'Boing' Frames
 	SpriteFrame(-16,-16,32,32,117,1) //Red Spring Up
 	SpriteFrame(-16,-16,32,32,117,34) //Red Spring Right
-	SpriteFrame(-16,-16,32,32,117,67) //Red Spring Left
-	SpriteFrame(-16,-16,32,32,117,100) //Red Spring Down
+	SpriteFrame(-16,-16,32,32,117,34) //Red Spring Left
+	SpriteFrame(-16,-16,32,32,117,1) //Red Spring Down
 	
 	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Right
-	SpriteFrame(-32,-32,41,40,1,379) //Diagonal Spring Left
-	SpriteFrame(-16,-20,41,40,43,338) //Diagonal Spring Right (Upside down)
-	SpriteFrame(-32,-32,41,40,43,379) //Diagonal Spring Left (Upside Down)
+	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Left
+	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Right (Upside down)
+	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Left (Upside down)
 endsub
 
 sub RSDK

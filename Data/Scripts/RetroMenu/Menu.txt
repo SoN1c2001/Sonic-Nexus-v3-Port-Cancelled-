@@ -4,7 +4,6 @@
 sub ObjectMain
 	switch Object.State
 	case 0
-		LoadPalette("TitlePalette.act",0,0,0,256)
 		Object.State=1
 		Object.Value0=256
 		Stage.PlayerListPos=0

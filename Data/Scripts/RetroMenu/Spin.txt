@@ -3,7 +3,11 @@
 
 
 sub ObjectDraw
-	Object.Rotation-=1
+	if Object.PropertyValue==1
+		Object.Rotation-=1
+	else
+		Object.Rotation+=1
+	end if
 	DrawSpriteFX(Object.PropertyValue,1,object.Xpos,object.Ypos)
 	Object.Priority=1
 end sub

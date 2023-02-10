@@ -1,0 +1,38 @@
+//--------------Sonic 2 LightningSpark Script Port---------------//
+//--------Scripted by Christian Whitehead/Simon Thomley--------//
+//-------------------Ported by LanceReborn-------------------//
+
+Sub ObjectMain
+	object.drawOrder = Player.DrawOrder
+	
+	object.xpos += Object.value0
+	object.ypos += Object.value1
+
+	object.frame++
+	if object.frame >= 3
+		object.frame = 0
+	end if
+
+	object.animationTimer++
+	if object.animationTimer >= 22
+		object.type = TypeName[BlankObject]
+	end if
+endsub
+
+
+sub ObjectDraw
+	DrawSpriteFX(object.frame, FX_FLIP, object.xpos, object.ypos)
+endsub
+
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	SpriteFrame(0, 0, 1, 1, 1, 1)
+	SpriteFrame(-3, -3, 6, 6, 150, 84)
+	SpriteFrame(-8, -8, 16, 16, 157, 84)
+endsub
+
+sub RSDK
+	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,157,84)
+end sub

@@ -6,6 +6,7 @@
 #alias 8: TYPE_RING
 
 #alias Player.Value0:Player.Rings
+#alias Player.Value13:Player.Shield
 
 sub ObjectPlayerInteraction
 	if Player.State!=PlayerObject_Knockback
@@ -37,9 +38,53 @@ sub ObjectPlayerInteraction
 			else
 				SetSfxAttributes(2,-1,100)
 				Ring.Pan=0
+			endif	
+		endif
+		if Player.Shield==4
+			PlayerObjectCollision(C_TOUCH,-64,-64,64,64)
+			if CheckResult==1
+				object.state=1
 			endif
 		endif
 	endif
+	if Object.State==1
+		if Player.Shield!=4
+			object.type=TypeName[LoseRing]
+			object.animationSpeed = 128
+			object.alpha = 256
+		else
+			if object.xpos > player.xpos
+				if object.Value2 > 0
+					object.Value2 -= 0xC000
+				else
+					object.Value2 -= 0x3000
+				end if
+			else
+				if object.Value2 < 0
+					object.Value2 += 0xC000
+				else
+					object.Value2 += 0x3000
+				end if
+			end if
+
+			if object.ypos > player.ypos
+				if object.Value1 > 0
+					object.Value1 -= 0xC000
+				else
+					object.Value1 -= 0x3000
+				end if
+			else
+				if object.Value1 < 0
+					object.Value1 += 0xC000
+				else
+					object.Value1 += 0x3000
+				end if
+			end if
+
+			object.xpos += object.Value2
+			object.ypos += object.Value1
+		end if
+	end if
 endsub
 
 

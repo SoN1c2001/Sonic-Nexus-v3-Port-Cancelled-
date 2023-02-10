@@ -1,0 +1,281 @@
+//--------------Sonic 2 BubbleShield Script Port---------------//
+//--------Scripted by Christian Whitehead/Simon Thomley--------//
+//-------------------Ported by LanceReborn-------------------//
+
+//-------Aliases-------//
+#alias 29: TYPE_BUBBLESHIELD
+#alias Player.Value13: Player.Shield
+#alias object.value0: object.Timer
+
+sub ObjectMain
+	Object.DrawOrder=Object[-2].DrawOrder
+	
+	if Player.State==PlayerObject_Death
+		Object.Type=TypeName[BlankObject]
+	endif
+	if Player.State==PlayerObject_Drown
+		Object.Type=TypeName[BlankObject]
+	endif
+	if Player.Shield!=2
+		Object.Type=TypeName[BlankObject]
+	endif
+	switch object.Timer
+	case 0
+		Object.Frame=2
+		Object.Direction=0
+		break
+	case 1
+		Object.Frame=0
+		break
+	case 2
+		Object.Frame=2
+		break
+	case 3
+		Object.Frame=0
+		break
+	case 4
+		Object.Frame=2
+		break
+	case 5
+		Object.Frame=0
+		break
+	case 6
+		Object.Frame=3
+		break
+	case 7
+		Object.Frame=1
+		break
+	case 8
+		Object.Frame=3
+		break
+	case 9
+		Object.Frame=1
+		break
+	case 10
+		Object.Frame=3
+		break
+	case 11
+		Object.Frame=1
+		break
+	case 12
+		Object.Frame=4
+		break
+	case 13
+		Object.Frame=0
+		break
+	case 14
+		Object.Frame=4
+		break
+	case 15
+		Object.Frame=0
+		break
+	case 16
+		Object.Frame=4
+		break
+	case 17
+		Object.Frame=0
+		break
+	case 18
+		Object.Frame=5
+		break
+	case 19
+		Object.Frame=1
+		break
+	case 20
+		Object.Frame=5
+		break
+	case 21
+		Object.Frame=1
+		break
+	case 22
+		Object.Frame=5
+		break
+	case 23
+		Object.Frame=1
+		break
+	case 24
+		Object.Frame=6
+		break
+	case 25
+		Object.Frame=0
+		break
+	case 26
+		Object.Frame=6
+		break
+	case 27
+		Object.Frame=0
+		break
+	case 28
+		Object.Frame=6
+		break
+	case 29
+		Object.Frame=0
+		break
+	case 30
+		Object.Frame=5
+		break
+	case 31
+		Object.Frame=1
+		break
+	case 32
+		Object.Frame=5
+		break
+	case 33
+		Object.Frame=1
+		break
+	case 34
+		Object.Frame=5
+		break
+	case 35
+		Object.Frame=1
+		break
+	case 36
+		Object.Frame=4
+		break
+	case 37
+		Object.Frame=0
+		break
+	case 38
+		Object.Frame=4
+		break
+	case 39
+		Object.Frame=0
+		break
+	case 40
+		Object.Frame=4
+		break
+	case 41
+		Object.Frame=0
+		break
+	case 42
+		Object.Frame=3
+		break
+	case 43
+		Object.Frame=1
+		break
+	case 44
+		Object.Frame=3
+		break
+	case 45
+		Object.Frame=1
+		break
+	case 46
+		Object.Frame=3
+		break
+	case 47
+		Object.Frame=1
+		break
+	case 48
+		Object.Frame=2
+		break
+	case 49
+		Object.Frame=0
+		break
+	case 50
+		Object.Frame=2
+		break
+	case 51
+		Object.Frame=0
+		break
+	case 52
+		Object.Frame=2
+		break
+	case 53
+		Object.Frame=0
+		break
+	endswitch
+	switch object.state
+	case 0
+		object.animationTimer = 0
+		object.timer = 0
+		object.state++
+	case 1
+		object.animationTimer++
+		if object.animationTimer >= 2
+			object.animationTimer = 0
+			object.timer++
+			if object.timer >= 54
+				object.timer = 0
+			end if
+			//GetTableValue(object.frame, object.timer, BubbleShield_frameTable)
+		end if
+		break
+		
+	case 2
+		object.animationTimer = 0
+		object.timer = 0
+		object.frame = 0
+		object.state++
+		// [FallThrough]
+	case 3
+		if object.timer == 0
+			object.animationTimer++
+			if object.animationTimer >= 5
+				object.frame = 8
+				object.animationTimer = 0
+				object.timer++
+			end if
+		else
+			object.animationTimer++
+			if object.animationTimer >= 19
+				object.state = 0
+			end if
+		end if
+		break
+		
+	case 4
+		object.animationTimer = 0
+		object.timer = 0
+		object.frame = 7
+		object.state++
+		// [FallThrough]
+	case 5
+		if object.timer == 0
+			object.animationTimer++
+			if object.animationTimer >= 13
+				object.frame = 8
+				object.animationTimer = 0
+				object.timer++
+			end if
+		else
+			object.animationTimer++
+			if object.animationTimer >= 7
+				object.state = 0
+			end if
+		end if
+		break
+		
+	endswitch
+endsub
+
+
+sub ObjectDraw
+	object.direction = FACING_RIGHT
+	if object.timer >= 30
+		if object.frame > 1
+			object.direction = 2
+		end if
+	end if
+	DrawSpriteFX(object.frame,FX_FLIP,player.xpos,player.ypos)
+endsub
+
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	// Bubble shield frames
+	SpriteFrame(-24, -24, 48, 48, 1, 1)
+	SpriteFrame(-24, -24, 48, 48, 50, 1)
+	SpriteFrame(-16, -23, 32, 7, 99, 1)
+	SpriteFrame(-20, -22, 40, 12, 99, 9)
+	SpriteFrame(-22, -22, 44, 20, 99, 22)
+	SpriteFrame(-23, -20, 46, 19, 144, 1)
+	SpriteFrame(-23, -15, 46, 30, 144, 21)
+	SpriteFrame(-36, -16, 72, 32, 1, 50)
+	SpriteFrame(-28, -20, 56, 40, 74, 50)
+	SpriteFrame(0, 0, 1, 1, 1, 1) // (Empty)
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

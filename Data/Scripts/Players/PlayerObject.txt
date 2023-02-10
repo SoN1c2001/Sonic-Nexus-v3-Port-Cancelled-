@@ -78,6 +78,9 @@
 #function PlayerObject_DebugMode
 #function PlayerObject_SizeChange
 #function PlayerObject_VictoryAni
+#function PlayerObject_CheckShield
+#function PlayerObject_AbilityLock
+#function PlayerObject_BubbleBounce
 
 #alias SaveRAM[67]:Options.Spindash
 #alias SaveRAM[275]:Options.WalkAnim
@@ -2286,6 +2289,7 @@ function PlayerObject_Hurt
 	ArrayPos0+=2
 	if Object[ArrayPos0].PropertyValue>0
 		TempValue0=1
+		Player.Shield=0
 		ResetObjectEntity(ArrayPos0,TypeName[BlankObject],0,0,0)
 		PlaySfx(5,0)
 	else
@@ -2989,6 +2993,114 @@ function PlayerObject_VictoryAni
 	Player.JumpHold=false
 endfunction
 
+function PlayerObject_CheckShield
+	if Player.JumpPress==1
+		switch Player.Shield
+		case 0 //No shield/Insta-Shield
+			break
+		case 1 //Blue Shield
+			break
+		case 2 //Bubble Shield
+			PlaySfx(33,0)
+			player.yvelocity=0x80000
+			player.xvelocity=0
+			player.speed=player.xvelocity
+			player.state=PlayerObject_BubbleBounce
+			object[2].state = 2
+			break
+		case 3 //Fire Shield
+			PlaySfx(35,0)
+			if Player.Direction==FACING_RIGHT
+				player.xvelocity=0x80000
+			else
+				player.xvelocity=-0x80000
+			end if
+			player.speed=player.xvelocity
+			player.yvelocity=0
+			Player.State=PlayerObject_AbilityLock
+			object[2].state = 2
+			object[2].direction = player.direction
+			Player.ScrollDelay=15
+			Screen.CameraStyle=4
+			break
+		case 4 //Lightning Shield
+			PlaySfx(37,0)
+			player.yvelocity=-0x58000
+			Player.State=PlayerObject_AbilityLock
+			CreateTempObject(TypeName[Lightning Spark], 0, player.xpos, player.ypos)
+			object[tempObjectPos].value0 = -0x20000
+			object[tempObjectPos].value1 = -0x20000
+			CreateTempObject(TypeName[Lightning Spark], 0, player.xpos, player.ypos)
+			object[tempObjectPos].value0 = 0x20000
+			object[tempObjectPos].value1 = -0x20000
+			CreateTempObject(TypeName[Lightning Spark], 0, player.xpos, player.ypos)
+			object[tempObjectPos].value0 = -0x20000
+			object[tempObjectPos].value1 = 0x20000
+			CreateTempObject(TypeName[Lightning Spark], 0, player.xpos, player.ypos)
+			object[tempObjectPos].value0 = 0x20000
+			object[tempObjectPos].value1 = 0x20000
+			break
+		endswitch
+	endif
+endfunction
+
+function PlayerObject_AbilityLock //This is PlayerObject_AirControlLock lol
+	CallFunction(PlayerObject_HandleAirSpeed)
+	if Player.Gravity==1
+		CallFunction(PlayerObject_HandleAirMovement)
+	else
+		Player.State=PlayerObject_HandleGround
+		CallFunction(PlayerObject_ResetOnFloor)
+	endif
+endfunction
+
+function PlayerObject_BubbleBounce
+	CallFunction(PlayerObject_HandleAirSpeed)
+	CheckNotEqual(player.shield, 2)
+	TempValue0=CheckResult
+	CheckNotEqual(Player.Invincible, 0)
+	TempValue0|=CheckResult
+	if TempValue0==True
+		Player.State=PlayerObject_HandleAir
+	else
+		if player.gravity == 1
+			CallFunction(PlayerObject_HandleAirMovement)
+		else
+			player.gravity = 1
+			if player.jumpStrength == 0x38000
+				TempValue1 = -0x40000
+			else
+				TempValue1 = -0x78000
+			end if
+			TempValue1 += player.gravityStrength
+			Sin256(player.xvelocity, player.angle)
+			player.xvelocity *= TempValue1
+			Cos256(TempValue0, player.angle)
+			TempValue0 *= player.speed
+			player.xvelocity += TempValue0
+			player.xvelocity >>= 8
+
+			Sin256(player.yvelocity, player.angle)
+			player.yvelocity *= player.speed
+			Cos256(TempValue0, player.angle)
+			TempValue0 *= TempValue1
+			player.yvelocity = TempValue0
+			player.yvelocity >>= 8
+			Player.TrackScroll= True
+			player.speed = player.xvelocity
+			player.animation = ANI_JUMPING
+			player.angle = 240
+			player.collisionMode = 0
+			player.timer = 1
+			CallFunction(PlayerObject_RollAnimSpeed)
+			player.state = PlayerObject_HandleAir
+			PlaySfx(33,0)
+			object[2].state = 4
+		end if
+	end if
+endfunction
+	
+
 sub ObjectMain
 #platform: Standard
 	if Stage.DebugMode==1
@@ -3168,7 +3280,7 @@ sub ObjectStartup
 				Player.JumpCap=-262144
 				Player.RollingDeceleration=8192
 				Player.CameraOffset=-5
-				Player.FlightFunction=PlayerObject_Blank
+				Player.FlightFunction=PlayerObject_CheckShield
 				if Options.OriginalControls==0
 					Player.PeeloutFunction=PlayerObject_StartPeeloutS2
 					Player.SpindashFunction=PlayerObject_StartSpindashS2

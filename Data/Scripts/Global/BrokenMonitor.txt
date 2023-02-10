@@ -8,6 +8,7 @@
 #alias Player.Value3:Player.SpeedShoes
 #alias Player.Value4:Player.Invincible
 #alias Player.Value5:Player.BlinkTimer
+#alias Player.Value13:Player.Shield
 
 sub ObjectMain
 	switch Object.State
@@ -22,7 +23,7 @@ sub ObjectMain
 			Object.State=1
 			Object.InkEffect=2
 			switch Object.PropertyValue
-			case 1
+			case 1 //Rings
 				Player.Rings+=10
 				if Ring.Pan==0
 					SetSfxAttributes(1,-1,-100)
@@ -56,11 +57,16 @@ sub ObjectMain
 					endif
 				endif
 				break
-			case 2
+			case 2 //Blue Shield
 				PlaySfx(10,0)
 				Object[2].PropertyValue=1
+				Player.Shield=1
 				if Object[2].Type!=TypeName[Invincibility]
 					Object[2].Type=TypeName[BlueShield]
+					Object[2].Value0=0
+					Object[2].Value1=0
+					Object[2].Value2=0
+					Object[2].Value3=0
 					Object[2].Priority=1
 					Object[2].DrawOrder=4
 					Object[2].InkEffect=2
@@ -69,7 +75,7 @@ sub ObjectMain
 					Object[2].YPos=Player.YPos
 				endif
 				break
-			case 3
+			case 3 //Invincibility
 				Object[2].Type=TypeName[Invincibility]
 				Object[2].Priority=1
 				Object[2].DrawOrder=4
@@ -84,7 +90,7 @@ sub ObjectMain
 				Player.Visible=1
 				PlayMusic(2)
 				break
-			case 4
+			case 4 //Speed Shoes
 				PlayMusic(3)
 				Player.Acceleration=6144
 				Player.AirAcceleration=12288
@@ -95,17 +101,17 @@ sub ObjectMain
 					Player.SpeedShoes=900
 				endif
 				break
-			case 5
+			case 5 //Sonic Extra Life
 				Player.Lives++
 				PlaySfx(20,0)
 				break
-			case 6
+			case 6 //Clock
 				break
-			case 7
+			case 7//Tails Extra Life
 				Player.Lives++
 				PlaySfx(21,0)
 				break
-			case 8
+			case 8 //Super Monitor
 				Object[2].Type=TypeName[Invincibility]
 				Object[2].Priority=1
 				Object[2].DrawOrder=4
@@ -119,16 +125,64 @@ sub ObjectMain
 				Player.TopSpeed=786432
 				Player.SpeedShoes=1320
 				break
-			case 9
+			case 9 //Knuckles Extra Life
 				Player.Lives++
 				PlaySfx(21,0)
 				break
-			case 10
+			case 10 //Eggman Monitor
 				if Player.Invincible==0
 					Player.State=PlayerObject_Hurt
 				endif
 				break
-			case 14
+			case 11 //Bubble Shield
+				PlaySfx(32,0)
+				Object[2].PropertyValue=1
+				Player.Shield=2
+				if Object[2].Type!=TypeName[Invincibility]
+					Object[2].Type=TypeName[BubbleShield]
+					Object[2].Value0=0
+					Object[2].Value1=0
+					Object[2].Value2=0
+					Object[2].Value3=0
+					Object[2].Priority=1
+					Object[2].DrawOrder=4
+					Object[2].XPos=Player.XPos
+					Object[2].YPos=Player.YPos
+				endif
+				break
+			case 12 //Fire Shield
+				PlaySfx(34,0)
+				Object[2].PropertyValue=1
+				Player.Shield=3
+				if Object[2].Type!=TypeName[Invincibility]
+					Object[2].Type=TypeName[FireShield]
+					Object[2].Value0=0
+					Object[2].Value1=0
+					Object[2].Value2=0
+					Object[2].Value3=0
+					Object[2].Priority=1
+					Object[2].DrawOrder=4
+					Object[2].XPos=Player.XPos
+					Object[2].YPos=Player.YPos
+				endif
+				break
+			case 13 //Lightning Shield
+				PlaySfx(36,0)
+				Object[2].PropertyValue=1
+				Player.Shield=4
+				if Object[2].Type!=TypeName[Invincibility]
+					Object[2].Type=TypeName[LightningShield]
+					Object[2].Value0=0
+					Object[2].Value1=0
+					Object[2].Value2=0
+					Object[2].Value3=0
+					Object[2].Priority=1
+					Object[2].DrawOrder=4
+					Object[2].XPos=Player.XPos
+					Object[2].YPos=Player.YPos
+				endif
+				break
+			case 14 //Blue Ring
 				PlaySfx(1,0)
 				Object[23].Value5=1
 				break

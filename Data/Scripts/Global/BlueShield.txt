@@ -4,10 +4,10 @@
 
 //-------Aliases-------//
 #alias 25: TYPE_BLUESHIELD
-
+#alias Player.Value13: Player.Shield
 
 sub ObjectMain
-	Object.DrawOrder=Object[-2].DrawOrder
+	Object.DrawOrder=Player.DrawOrder
 	if Player.State==PlayerObject_Death
 		Object.Type=TypeName[BlankObject]
 	endif
@@ -18,22 +18,20 @@ endsub
 
 
 sub ObjectDraw
-	
 	Object.Value0++
-	if Object.Value0==2
+	if Object.Value0>2
 		Object.Value0=0
 		Object.Frame++
 		if Object.Frame>7
 			Object.Frame=0
-		end if
-	end if
-	
+		endif
+	endif
 	DrawSpriteFX(Object.Frame,FX_INK,Player.XPos,Player.YPos)
 endsub
 
-
 sub ObjectStartup
-	LoadSpriteSheet("NexusGlobals/Shield.gif")
+	
+	LoadSpriteSheet("NexusGlobals/Shields.gif")
 	
 	//Shield Frames
 	SpriteFrame(-24,-24,48,48,1,1)
@@ -44,9 +42,11 @@ sub ObjectStartup
 	SpriteFrame(-24,-24,48,48,50,99)
 	SpriteFrame(-24,-24,48,48,1,148)
 	SpriteFrame(-24,-24,48,48,50,148)
-endsub
+
+	
+end sub
 
 sub RSDK
-	LoadSpriteSheet("Global/Display.gif")
-	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
-endsub
+	LoadSpriteSheet("NexusGlobals/Shields.gif")
+	SetEditorIcon(Icon0,SingleIcon,-24,-24,48,48,1,1)
+end sub

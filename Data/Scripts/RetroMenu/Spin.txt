@@ -1,6 +1,7 @@
 //---------------RetroSonic Spin thing Recreation--------------//
 //-------------------Scripted by LanceReborn-------------------//
 
+#alias Object[32].Value0:Object.Move
 
 sub ObjectDraw
 	if Object.PropertyValue==1
@@ -10,6 +11,9 @@ sub ObjectDraw
 	end if
 	DrawSpriteFX(Object.PropertyValue,1,object.Xpos,object.Ypos)
 	Object.Priority=1
+	if Object.Move==1
+		Object.iXPos-=1
+	endif
 end sub
 
 sub ObjectStartup

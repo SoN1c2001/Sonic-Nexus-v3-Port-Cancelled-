@@ -1,53 +1,47 @@
 //---------------RetroSonic Menu Recreation--------------//
 //----------------Scripted by LanceReborn---------------//
 
+
+
 sub ObjectMain
 	switch Object.State
 	case 0
 		Object.State=1
 		Object.Value0=256
 		Stage.PlayerListPos=0
+		PlayMusic(0)	
 		SetScreenFade(0,0,0,255,0,255)
 		break
 		
 	case 1
 		if Object.Value0>0
 			Object.Value0-=8
+		else
+			Object.State=3
 		end if
 		SetScreenFade(0,0,0,Object.Value0,0,255)
 		break
 	case 2 //if i had a programming job i would be fired Instantly lol
-		Object[+1].iXPos-=1
-		Object[+2].iXPos-=2
-		Object[+3].iXPos-=2
-		Object[+4].iXPos-=2
-		Object[+5].iXPos-=2
-		Object[+6].iXPos-=2
-		Object[+7].iXPos-=2
-		Object[+8].iXPos-=2
-		Object[+9].iXPos-=2
-		Object.Value1+=1
-		if Object.value1==320
-			Object.State=3
-		endif
+		Object.Value0=1
 	break
 	endswitch
-	if KeyPress.Up==1
-		Stage.PlayerListPos--
+	if Object.State>1
+		if KeyPress.Up==1
+			Stage.PlayerListPos--
+		endif
+		if KeyPress.Down==1
+			Stage.PlayerListPos++
+		endif
+		if Stage.PlayerListPos==4
+			Stage.PlayerListPos=0
+		endif
+		if Stage.PlayerListPos<0
+			Stage.PlayerListPos=3
+		endif
+		if KeyPress.Start==1
+			Object.State=2
+		endif
 	endif
-	if KeyPress.Down==1
-		Stage.PlayerListPos++
-	endif
-	if Stage.PlayerListPos==4
-		Stage.PlayerListPos=0
-	endif
-	if Stage.PlayerListPos<0
-		Stage.PlayerListPos=3
-	endif
-	if KeyPress.Start==1
-		Object.State=2
-	endif
-
 end sub
 
 sub ObjectDraw
@@ -70,6 +64,7 @@ sub ObjectDraw
 end sub
 
 sub ObjectStartup
+	SetMusicTrack("RetroSonic/RetroMenu.ogg",0,67914)
 	LoadSpriteSheet("RetroMenu/Menus.gif")
 	SpriteFrame(-28,-30,40,8,164,561) //Sonic//
 	SpriteFrame(-28,-30,40,8,164,570) //Yellow Sonic//
@@ -77,8 +72,6 @@ sub ObjectStartup
 	SpriteFrame(-28,-30,40,8,164,588) //Yellow Tails//
 	SpriteFrame(-28,-30,64,8,164,597) //Knuckles//
 	SpriteFrame(-28,-30,64,8,164,606) //Yellow Knuckles//
-	SetMusicTrack("RetroSonic/RetroMenu.ogg",0,67914)
-	PlayMusic(0)	
 end sub
 
 sub RSDK

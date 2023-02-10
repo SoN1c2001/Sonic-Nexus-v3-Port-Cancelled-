@@ -2,68 +2,53 @@
 //---------Original Script by Christian Whitehead---------//
 //----------------Modified by LanceReborn---------------//
 
-
 sub ObjectMain
-	switch Object.State //He goes up and never comes down
+	object.ypos += Object.Value1
+	Object.Value1 += 0x1800
+	if object.ypos > Object.Value2
+		object.ypos = Object.Value2
+		Object.Value1 = -0x59000
+	end if
+	if Object.Value1 < -0x3000
+		object.animation = 0
+	else
+		if Object.Value1 > 0x3000
+			object.animation = 2
+		else
+			object.animation = 1
+		end if
+	end if
+	switch object.animation
 	case 0
-		Object.Value1=Object.Ypos
-		Object.State=1
+		object.frame = object.animationTimer
+		object.frame >>= 3
+		object.animationTimer++
+		object.animationTimer &= 15
+		break
+
 	case 1
-		Object.Value0-=1144
-		Object.YPos+=Object.Value0
-		if Object.Value0>18432
-			Object.State=2
-		endif
+		object.frame = object.animationTimer
+		object.frame >>= 3
+		object.animationTimer += 2
+		object.animationTimer &= 15
 		break
+
 	case 2
-		Object.Value0+=1144
-		Object.YPos+=Object.Value0
-		if Object.Value0<Object.Value1
-			Object.State=1
-		endif
+		object.frame = 0
 		break
-	endswitch
+
+	end switch
 endsub
 
 sub ObjectPlayerInteraction
-	if Object.State<5
-		ArrayPos0=Player.EntityNo
-		ArrayPos0+=2
-		if Object[ArrayPos0].Type==TypeName[Ring Sparkle]
-			PlayerObjectCollision(C_TOUCH,-24,-24,24,24)
-		else
-			PlayerObjectCollision(C_TOUCH,-15,-10,15,10)
-		endif
-		if CheckResult==1
-			CallFunction(PlayerObject_BadnikBreak)
-		endif
+	PlayerObjectCollision(C_TOUCH,-12,-14,12,14)
+	if CheckResult==1
+		CallFunction(PlayerObject_BadnikBreak)
 	endif
 endsub
 
 sub ObjectDraw
-	switch Object.State
-	case 0
-		DrawSprite(0)
-		break
-	case 1
-		DrawSprite(0)
-		break
-	case 2
-		DrawSprite(0)
-		break
-	case 3
-		DrawSprite(0)
-		break
-	case 4
-		DrawSprite(1)
-		break
-	case 5
-		DrawSprite(1)
-		break
-	case 6
-		DrawSprite(0)
-		break
-	endswitch
+	DrawSpriteXY(Object.Frame,Object.Xpos,Object.Ypos)
 Endsub
 
 
@@ -73,6 +58,7 @@ sub ObjectStartup
 	while ArrayPos0<1056
 		if Object[ArrayPos0].Type==TypeName[Chomper]
 			Object[ArrayPos0].Value2=Object[ArrayPos0].YPos
+			object[arrayPos0].Value1 = -0x59000
 		endif
 		ArrayPos0++
 	loop

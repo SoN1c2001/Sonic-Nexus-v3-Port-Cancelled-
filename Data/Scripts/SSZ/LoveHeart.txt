@@ -37,8 +37,8 @@ endsub
 
 sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
-	SpriteFrame(-8,-8,16,16,193,134)
-	SpriteFrame(-8,-8,16,16,193,150)
+	SpriteFrame(-8,-8,16,16,199,167)
+	SpriteFrame(-8,-8,16,16,199,183)
 endsub
 
 sub RSDK

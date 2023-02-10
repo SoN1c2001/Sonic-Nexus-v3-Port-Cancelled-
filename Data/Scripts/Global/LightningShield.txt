@@ -1,0 +1,146 @@
+//--------------Sonic 2 LightningShield Script Port---------------//
+//--------Scripted by Christian Whitehead/Simon Thomley--------//
+//-------------------Ported by LanceReborn-------------------//
+
+//-------Aliases-------//
+#alias 27: TYPE_LIGHTNINGSHIELD
+#alias Player.Value13: Player.Shield
+#alias object.value0: object.frameTimer
+#alias object.value1: object.animTimer
+#alias object.value2: object.FrameSpeed
+
+sub ObjectMain
+	Object.DrawOrder=Object[-2].DrawOrder
+	
+	if Player.State==PlayerObject_Death
+		Object.Type=TypeName[BlankObject]
+	endif
+	if Player.State==PlayerObject_Drown
+		Object.Type=TypeName[BlankObject]
+	endif
+	if Player.Shield!=4
+		Object.Type=TypeName[BlankObject]
+	endif
+	switch object.frameTimer
+	case 0
+	case 1
+	case 2
+	case 3
+	case 4
+		Object.Frame=object.frameTimer
+		object.FrameSpeed=4
+		break
+	case 5
+		Object.Frame=3
+		object.FrameSpeed=4
+		break
+	case 6
+		Object.Frame=2
+		object.FrameSpeed=4
+		break
+	case 7
+		Object.Frame=1
+		object.FrameSpeed=4
+		break
+	case 8
+		Object.Frame=0
+		object.FrameSpeed=4
+		break
+	case 9
+		Object.Frame=5
+		object.FrameSpeed=2
+		break
+	case 10
+		Object.Frame=6
+		object.FrameSpeed=2
+		break
+	case 11
+		Object.Frame=7
+		object.FrameSpeed=2
+		break
+	endswitch
+	switch object.animTimer
+	case 0
+	case 1
+	case 2
+	case 3
+	case 4
+		Object.Direction=0
+		Object.DrawOrder=Player.DrawOrder
+		break
+	case 5
+	case 6
+	case 7
+	case 8
+		Object.Direction=1
+		Object.DrawOrder=Player.DrawOrder
+		break
+	case 9
+	case 10
+	case 11
+		Object.Direction=0
+		Object.DrawOrder=Player.DrawOrder
+		break
+	case 12
+	case 13
+	case 14
+	case 15
+		Object.Direction=1
+		Object.DrawOrder=3
+		break
+	case 16
+	case 17
+	case 18
+	case 19
+	case 20
+		Object.Direction=0
+		Object.DrawOrder=3
+		break
+	case 21
+	case 22
+	case 23
+		Object.Direction=0
+		Object.DrawOrder=Player.DrawOrder
+		break
+	endswitch
+endsub
+
+
+sub ObjectDraw
+	Object.value3++
+	if object.value3==object.FrameSpeed
+		object.frameTimer++
+		
+		if object.frameTimer >= 12
+			object.frameTimer = 0
+		end if
+		
+		object.animTimer++
+		if object.animTimer >= 24
+			object.animTimer = 0
+		end if
+		
+		object.value3=0
+	endif
+	
+	DrawSpriteFX(Object.Frame,FX_FLIP,Player.XPos,Player.YPos)
+endsub
+
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	SpriteFrame(-8, -24, 31, 48, 191, 1)
+	SpriteFrame(-1, -24, 24, 48, 223, 1)
+	SpriteFrame(-8, -24, 31, 48, 174, 52)
+	SpriteFrame(-8, -24, 32, 48, 206, 52)
+	SpriteFrame(-8, -24, 16, 48, 239, 52)
+	SpriteFrame(-24, -24, 48, 48, 1, 83)
+	SpriteFrame(-24, -24, 48, 48, 50, 91)
+	SpriteFrame(-24, -24, 48, 48, 99, 91)
+	SpriteFrame(0, 0, 1, 1, 1, 1) // Empty frame
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

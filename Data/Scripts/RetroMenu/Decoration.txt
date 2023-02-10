@@ -1,10 +1,25 @@
 //---------------RetroSonic Decoration Recreation--------------//
 //-------------------Scripted by LanceReborn-------------------//
 
+#alias Object[32].Value0:Object.Move
 
 sub ObjectDraw
 	DrawSprite(Object.PropertyValue)
 	Object.Priority=1
+	if Object.Move==1
+		switch Object.PropertyValue
+		case 0
+			if Object.iXPos>-238
+				Object.iXPos-=2
+			endif
+			break
+		case 1
+			if Object.iXPos>81
+				Object.iXPos-=2
+			endif
+			break
+		endswitch
+	endif
 end sub
 
 sub ObjectStartup

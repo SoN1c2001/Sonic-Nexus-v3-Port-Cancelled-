@@ -110,9 +110,9 @@ sub ObjectStartup
 		TempValue2+=512
 		TempValue3++
 	loop
-	Object[5].Type=TypeName[EGZSetup]
-	Object[5].Priority=1
-	Object[5].DrawOrder=2
+	Object[19].Type=TypeName[EGZSetup]
+	Object[19].Priority=1
+	Object[19].DrawOrder=2
 	SetMusicTrack("RetroSonic/EggGarden.ogg",0,1)
 	SetLayerDeformation(2,128,4,0,0,0)
 endsub

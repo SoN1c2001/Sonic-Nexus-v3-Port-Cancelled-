@@ -1,11 +1,17 @@
 //---------------RetroSonic BackGround Recreation--------------//
 //----------------Scripted by LanceReborn---------------//
 
+#alias Object[32].Value0:Object.Move
 
 sub ObjectDraw
 	Object.Priority=1
 	DrawSprite(0)
 	DrawSprite(1)
+	if Object.Move==1
+		if Object.iXPos>-155
+			Object.iXPos-=9
+		endif
+	endif
 end sub
 
 sub ObjectStartup

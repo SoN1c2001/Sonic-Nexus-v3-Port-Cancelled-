@@ -1,0 +1,213 @@
+//--------------Sonic 2 FireShield Script Port---------------//
+//--------Scripted by Christian Whitehead/Simon Thomley--------//
+//-------------------Ported by LanceReborn-------------------//
+
+
+//-------Aliases-------//
+#alias 28: TYPE_FIRESHIELD
+#alias Player.Value13: Player.Shield
+#alias object.value0: object.Timer
+
+sub ObjectMain
+	Object.DrawOrder=Object[-2].DrawOrder
+	
+	if Player.State==PlayerObject_Death
+		Object.Type=TypeName[BlankObject]
+	endif
+	if Player.State==PlayerObject_Drown
+		Object.Type=TypeName[BlankObject]
+	endif
+	if Player.Shield!=3
+		Object.Type=TypeName[BlankObject]
+	endif
+	switch object.Timer
+	case 0
+		if Object.State<2
+			Object.Frame=0
+		else
+			Object.Frame=10
+		endif
+		break
+	case 1
+		if Object.State<2
+			Object.Frame=1
+		else
+			Object.Frame=11
+		endif
+		break
+	case 2
+		if Object.State<2
+			Object.Frame=2
+		else
+			Object.Frame=12
+		endif
+		break
+	case 3
+		if Object.State<2
+			Object.Frame=3
+		else
+			Object.Frame=10
+		endif
+		break
+	case 4
+		if Object.State<2
+			Object.Frame=4
+		else
+			Object.Frame=12
+		endif
+		break
+	case 5
+		if Object.State<2
+			Object.Frame=5
+		else
+			Object.Frame=13
+		endif
+		break
+	case 6
+		if Object.State<2
+			Object.Frame=6
+		else
+			Object.Frame=10
+		endif
+		break
+	case 7
+		if Object.State<2
+			Object.Frame=7
+		else
+			Object.Frame=11
+		endif
+		break
+	case 8
+		if Object.State<2
+			Object.Frame=8
+		else
+			Object.Frame=12
+		endif
+		break
+	case 9
+		if Object.State<2
+			Object.Frame=9
+		else
+			Object.Frame=10
+		endif
+		break
+	case 10
+		if Object.State<2
+			Object.Frame=6
+		else
+			Object.Frame=12
+		endif
+		break
+	case 11
+		if Object.State<2
+			Object.Frame=7
+		else
+			Object.Frame=13
+		endif
+		break
+	case 12
+		if Object.State<2
+			Object.Frame=4
+		else
+			Object.Frame=0
+		endif
+		break
+	case 13
+		Object.Frame=5
+		break
+	case 14
+		Object.Frame=2
+		break
+	case 15
+		Object.Frame=3
+		break
+	case 16
+		Object.Frame=0
+		break
+	case 17
+		Object.Frame=1
+		break
+	endswitch
+	switch object.state
+	case 0 //Idle Setup
+		object.Value3 = 0
+		object.timer = 0
+		object.DrawOrder = 0
+		object.direction = FACING_RIGHT
+		object.state++
+		// Fall through to below
+	case 1 //Idle
+		object.Value3++
+
+		if object.Value3 >= 3
+			object.Value3 = 1
+			object.timer++
+			object.DrawOrder ^= 1
+
+			if object.timer >= 10
+				object.direction = 2
+				if object.timer >= 18
+					object.timer = 0
+					object.direction = FACING_RIGHT
+				end if
+			end if
+
+			//GetTableValue(object.frame, object.timer, FireShield_idleFrameTable)
+		end if
+		break
+
+	case 2 //Dash Setup
+		object.Value3 = 0
+		object.timer = 0
+		object.DrawOrder = 0
+	//	GetTableValue(object.frame, object.timer, FireShield_dashFrameTable)
+		object.state++
+		// Fall through again
+	case 3 //Dash
+		object.Value3++
+
+		if object.Value3 >= 3
+
+			object.Value3 = 1
+			object.timer++
+
+			if object.timer >= 12
+				object.state = 0
+			end if
+
+		//	GetTableValue(object.frame, object.timer, FireShield_dashFrameTable)
+		end if
+		break
+		
+	end switch
+endsub
+
+
+sub ObjectDraw
+	DrawSpriteFX(Object.Frame,FX_FLIP,Player.XPos,Player.YPos)
+endsub
+
+
+sub ObjectStartup
+	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	SpriteFrame(-16, 9, 37, 15, 131, 52)
+	SpriteFrame(-20, -24, 39, 15, 131, 68)
+	SpriteFrame(-20, 3, 40, 21, 148, 101)
+	SpriteFrame(-23, -24, 47, 23, 189, 101)
+	SpriteFrame(-24, -9, 48, 29, 148, 125)
+	SpriteFrame(-24, -19, 48, 27, 197, 125)
+	SpriteFrame(-24, -15, 48, 28, 1, 132)
+	SpriteFrame(-24, -21, 48, 34, 50, 140)
+	SpriteFrame(-23, -17, 46, 32, 99, 140)
+	SpriteFrame(-24, -22, 48, 42, 1, 161)
+	SpriteFrame(-4, -21, 20, 43, 63, 175)
+	SpriteFrame(-24, -23, 48, 46, 84, 175)
+	SpriteFrame(-32, -19, 56, 38, 134, 175)
+	SpriteFrame(-40, -24, 64, 48, 191, 165)
+	SpriteFrame(0, 0, 1, 1, 1, 1) // (Empty)
+endsub
+
+sub RSDK
+	LoadSpriteSheet("Global/Display.gif")
+	SetEditorIcon(Icon0,SingleIcon,-16,-16,32,32,1,143)
+endsub

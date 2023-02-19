@@ -133,6 +133,7 @@ sub ObjectStartup
 	else
 		LoadSpriteSheet("Global/Display_t.gif")
 	endif
+	//LoadPalette("SunsetSSZ.act",0,144,144,198)
 	SetMusicTrack("SunsetShore.ogg",0,142428)
 	Flower_TypeNo=TypeName[Flower]
 	Object[20].Type=TypeName[TitleCard]

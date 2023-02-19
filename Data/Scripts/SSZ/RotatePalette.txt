@@ -10,6 +10,11 @@ sub ObjectMain
 endsub
 
 sub ObjectStartup
+	if Stage.ListPos==1
+		LoadPalette("SunsetSSZ.act",0,120,120,198)
+	else
+		LoadPalette("SSZ.act",0,120,120,198)
+	endif
 	Object[19].Type=TypeName[RotatePalette]
 	Object[19].Priority=1
 	SetMusicTrack("SunsetShore.ogg",0,142428) //*This goes here in the original script*//

@@ -174,14 +174,14 @@ sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects2.gif")
 	
 	//Parachute Frames
-	SpriteFrame(-24,-20,48,43,219,142)
-	SpriteFrame(-19,-20,48,43,268,142)
-	SpriteFrame(-15,-20,48,43,219,186)
-	SpriteFrame(-19,-20,48,43,268,142)
-	SpriteFrame(-24,-20,48,43,219,142)
-	SpriteFrame(-29,-20,48,43,267,98)
-	SpriteFrame(-34,-20,47,43,219,98)
-	SpriteFrame(-29,-20,48,43,267,98)
+	SpriteFrame(-24,-20,48,43,159,45)
+	SpriteFrame(-19,-20,48,43,208,45)
+	SpriteFrame(-15,-20,48,43,159,89)
+	SpriteFrame(-19,-20,48,43,208,45)
+	SpriteFrame(-24,-20,48,43,159,45)
+	SpriteFrame(-29,-20,48,43,207,1)
+	SpriteFrame(-34,-20,47,43,159,1)
+	SpriteFrame(-29,-20,48,43,207,1)
 end sub
 
 sub RSDK

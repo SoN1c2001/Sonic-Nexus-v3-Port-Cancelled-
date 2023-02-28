@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="main">
+  <Images>
+    <ImageFromSheet id="main" sheet="EGZ/Objects2.gif" sourcex="60" sourcey="82" width="61" height="48">
+      <Offset X="-30" Y="-24"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="head" sheet="EGZ/Objects2.gif" sourcex="1" sourcey="139" width="36" height="15">
+      <Offset X="-14" Y="-30"/>
+    </ImageFromSheet>
+  </Images>
+  <ImageSets>
+    <ImageSet id="eggmobile">
+      <ImageRef image="head" />
+      <ImageRef image="main" />
+    </ImageSet>
+  </ImageSets>
+  <DefaultImage>
+    <ImageSetRef set="eggmobile" />
+  </DefaultImage>
+</ObjDef>

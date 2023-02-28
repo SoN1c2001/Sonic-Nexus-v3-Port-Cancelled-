@@ -209,7 +209,7 @@ sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
 	
 	//Log Frame
-	SpriteFrame(-8,-8,16,16,84,124)
+	SpriteFrame(-8,-8,16,16,18,78)
 	
 	//Setup the Bridge sizes for any Bridge
 	//Objects that are present in the level

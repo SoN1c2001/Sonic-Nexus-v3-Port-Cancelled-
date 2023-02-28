@@ -37,43 +37,50 @@ endsub
 
 sub ObjectDraw
 	if Object.Value0>0
-		Object.Frame=3
-	else
+		Object.Direction=1
 		Object.Frame=0
+		Object.Value3=3
+	else
+		Object.Direction=0
+		Object.Frame=0
+		Object.Value3=3
 	end if
 
 	if Object.Value1>131072
 		Object.Frame+=2
+		Object.Value3+=2
 	else
 		if Object.Value1>32768
 			Object.Frame++
+			Object.Value3++
 		end if
 	end if
 
 	if Object.Value1<-196608
 		Object.Frame+=2
+		Object.Value3+=2
 	else
 		if Object.Value1<-131072
 			Object.Frame++
+			Object.Value3++
 		end if
 	end if
 
-	DrawSprite(Object.Frame)
+	DrawSpriteFX(Object.Frame,FX_FLIP,Object.XPos,Object.YPos)
+	DrawSprite(Object.Value3)
 end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
 	
 	//Frog Left Frames
-	SpriteFrame(-8,-16,16,53,1,1)  //Frog Fully Extend
-	SpriteFrame(-8,-16,16,44,18,1) //Frog Mid Extend
-	SpriteFrame(-8,-16,16,35,35,1) //Frog No Extend
-
-	//Frog Right Frames
-	SpriteFrame(-8,-16,16,53,35,37) //Frog Fully Extend
-	SpriteFrame(-8,-16,16,44,18,46) //Frog Mid Extend
-	SpriteFrame(-8,-16,16,35,1,55)  //Frog No Extend
-
+	SpriteFrame(-8,-16,16,47,77,80)  //Frog Fully Extend
+	SpriteFrame(-8,-16,16,38,94,89) //Frog Mid Extend
+	SpriteFrame(-8,-16,16,29,111,98) //Frog No Extend
+	//Spring
+	SpriteFrame(-8,31,16,6,58,1) //Spring Fully Extend
+	SpriteFrame(-8,22,16,6,58,1) //Spring Mid Extend
+	SpriteFrame(-8,13,16,6,58,1) //Spring No Extend
 	ArrayPos0=32
 	while ArrayPos0<1056
 		if Object[ArrayPos0].Type==TypeName[FrogOmatic] //this object type check was originally missing for some reason

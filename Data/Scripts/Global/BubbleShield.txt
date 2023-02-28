@@ -261,7 +261,7 @@ endsub
 
 
 sub ObjectStartup
-	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	LoadSpriteSheet("NexusGlobals/Items3.gif")
 	// Bubble shield frames
 	SpriteFrame(-24, -24, 48, 48, 1, 1)
 	SpriteFrame(-24, -24, 48, 48, 50, 1)

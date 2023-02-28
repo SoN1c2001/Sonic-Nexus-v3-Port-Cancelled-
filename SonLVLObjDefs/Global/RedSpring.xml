@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ObjDef xmlns="http://www.sonicretro.org" Image="up">
   <Images>
-    <ImageFromSheet id="up" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="1" width="32" height="32">
-      <Offset X="-16" Y="-16" />
+    <ImageFromSheet id="up" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="17" width="32" height="16">
+      <Offset X="-16" Y="-8" />
     </ImageFromSheet>
-    <ImageFromSheet id="right" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="34" width="32" height="32">
-      <Offset X="-16" Y="-16" />
+    <ImageFromSheet id="right" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="34" width="16" height="32">
+      <Offset X="-8" Y="-16" />
     </ImageFromSheet>
-    <ImageFromSheet id="left" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="67" width="32" height="32">
-      <Offset X="-16" Y="-16" />
-    </ImageFromSheet>
-    <ImageFromSheet id="down" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="100" width="32" height="32">
-      <Offset X="-16" Y="-16" />
-    </ImageFromSheet>
-    <ImageFromSheet id="diagright" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="133" width="32" height="32">
-      <Offset X="-16" Y="-16" />
-    </ImageFromSheet>
-    <ImageFromSheet id="diagleft" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="166" width="32" height="32">
+    <ImageFromSheet id="diagright" sheet="NexusGlobals/Items.gif" sourcex="51" sourcey="67" width="32" height="32">
       <Offset X="-16" Y="-16" />
     </ImageFromSheet>
   </Images>
   <Subtypes>
     <Subtype id="00" name="Up" image="up" />
     <Subtype id="01" name="Right" image="right" />
-    <Subtype id="02" name="Left" image="left" />
-    <Subtype id="03" name="Down" image="down" />
+    <Subtype id="02" name="Left">
+      <ImageRef image="right" xflip="ReverseFlip" />
+    </Subtype>
+    <Subtype id="03" name="Down">
+      <ImageRef image="up" yflip="ReverseFlip" />
+    </Subtype>
     <Subtype id="04" name="Diagonal Up-Right" image="diagright" />
-    <Subtype id="05" name="Diagonal Up-Left" image="diagleft" />
+    <Subtype id="05" name="Diagonal Up-Left">
+      <ImageRef image="diagright" xflip="ReverseFlip" />
+    </Subtype>
     <Subtype id="06" name="Diagonal Down-Right">
       <ImageRef image="diagright" yflip="ReverseFlip" />
     </Subtype>
     <Subtype id="07" name="Diagonal Down-Left">
-      <ImageRef image="diagleft" yflip="ReverseFlip" />
+      <ImageRef image="diagright" yflip="ReverseFlip" xflip="ReverseFlip" />
     </Subtype>
   </Subtypes>
 </ObjDef>

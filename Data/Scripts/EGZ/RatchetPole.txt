@@ -7,6 +7,6 @@ sub ObjectDraw
 endsub
 
 sub objectStartup
-	LoadSpriteSheet("EGZ/Objects.gif")
-	SpriteFrame(-10,-32,22,64,219,1)
+	LoadSpriteSheet("EGZ/Objects2.gif")
+	SpriteFrame(-10,-32,22,64,208,1)
 endsub

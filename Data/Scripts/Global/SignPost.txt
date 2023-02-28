@@ -117,28 +117,28 @@ sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
 	
 	//Pole
-	SpriteFrame(-12,4,24,24,175,166)
+	SpriteFrame(-12,4,24,24,224,165)
 
 	//Sign Frames
-	SpriteFrame(-24,-28,48,32,208,178) //Robotnik
-	SpriteFrame(-16,-28,32,32,175,191) //Inbetween Left
-	SpriteFrame(-4,-28,8,32,207,133)   //Side
-	SpriteFrame(-16,-28,32,32,175,224) //Inbetween Right
+	SpriteFrame(-24,-28,48,32,150,99) //Robotnik
+	SpriteFrame(-16,-28,32,32,191,165) //Inbetween Left
+	SpriteFrame(-4,-28,8,32,141,133)   //Side
+	SpriteFrame(-16,-28,32,32,191,198) //Inbetween Right
 	switch Stage.PlayerListPos
 	case0
-		SpriteFrame(-24,-28,48,32,208,211) //Sonic
+		SpriteFrame(-24,-28,48,32,199,99) //Sonic
 		break
 	case1
-		SpriteFrame(-24,-28,48,32,84,265) //Tails
+		SpriteFrame(-24,-28,48,32,150,132) //Tails
 		break
 	case2
-		SpriteFrame(-24,-28,48,32,158,133) //Knuckles
+		SpriteFrame(-24,-28,48,32,199,132) //Knuckles
 		break
 	endswitch
 	endif
-	SpriteFrame(-16,-28,32,32,175,191) //Inbetween Left
-	SpriteFrame(-4,-28,8,32,207,133)   //Side
-	SpriteFrame(-16,-28,32,32,175,224) //Inbetween Right
+	SpriteFrame(-16,-28,32,32,191,165) //Inbetween Left
+	SpriteFrame(-4,-28,8,32,141,133)   //Side
+	SpriteFrame(-16,-28,32,32,191,198) //Inbetween Right
 end sub
 
 sub RSDK

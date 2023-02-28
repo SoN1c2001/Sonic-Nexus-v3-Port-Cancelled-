@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Image="frog">
+  <Images>
+    <ImageFromSheet id="main" sheet="SSZ/Objects.gif" sourcex="111" sourcey="98" width="16" height="29">
+      <Offset X="-8" Y="-16"/>
+    </ImageFromSheet>
+    <ImageFromSheet id="spring" sheet="SSZ/Objects.gif" sourcex="58" sourcey="1" width="16" height="6">
+      <Offset X="-8" Y="13"/>
+    </ImageFromSheet>
+  </Images>
+  <ImageSets>
+    <ImageSet id="frog">
+      <ImageRef image="main" />
+      <ImageRef image="spring" />
+    </ImageSet>
+  </ImageSets>
+  <DefaultImage>
+    <ImageSetRef set="frog" />
+  </DefaultImage>
+</ObjDef>

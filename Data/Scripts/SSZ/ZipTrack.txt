@@ -2,7 +2,10 @@
 //----Scripted by Christian Whitehead "The Taxman"----//
 
 sub ObjectDraw
-	DrawSprite(Object.PropertyValue)
+	if Object.PropertyValue>2
+		Object.Direction=1
+	endif
+	DrawSpriteFX(Object.PropertyValue,FX_FLIP,Object.Xpos,Object.Ypos)
 end sub
 
 sub ObjectStartup
@@ -10,11 +13,11 @@ sub ObjectStartup
 	
 	//Zip Line Frames
 	SpriteFrame(-30,-128,59,256,0,0)
-	SpriteFrame(-49,-64,98,128,120,0)
-	SpriteFrame(-47,-24,94,48,219,0)
-	SpriteFrame(-47,-24,94,48,219,49)
-	SpriteFrame(-49,-64,98,128,120,128)
-	SpriteFrame(-30,-128,59,256,60,0)
+	SpriteFrame(-49,-64,98,128,60,0)
+	SpriteFrame(-47,-24,94,48,60,129)
+	SpriteFrame(-47,-24,94,48,60,129)
+	SpriteFrame(-49,-64,98,128,60,0)
+	SpriteFrame(-30,-128,59,256,0,0)
 end sub
 
 sub RSDK

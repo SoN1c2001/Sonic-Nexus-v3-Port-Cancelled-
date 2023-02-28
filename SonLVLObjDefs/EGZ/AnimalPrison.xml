@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ObjDef xmlns="http://www.sonicretro.org" Image="main">
   <Images>
-    <ImageFromSheet id="main" sheet="EGZ/Boss.gif" sourcex="191" sourcey="191" width="64" height="64">
+    <ImageFromSheet id="main" sheet="EGZ/Objects2.gif" sourcex="191" sourcey="191" width="64" height="64">
       <Offset X="-32" Y="-32"/>
     </ImageFromSheet>
-    <ImageFromSheet id="top" sheet="EGZ/Boss.gif" sourcex="221" sourcey="164" width="32" height="16">
+    <ImageFromSheet id="top" sheet="EGZ/Objects2.gif" sourcex="222" sourcey="174" width="32" height="16">
       <Offset X="-16" Y="-47"/>
     </ImageFromSheet>
   </Images>

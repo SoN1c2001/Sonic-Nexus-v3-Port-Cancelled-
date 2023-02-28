@@ -44,10 +44,10 @@ endsub
 
 sub ObjectStartup
 	LoadSpriteSheet("EGZ/Objects.gif")
-	SpriteFrame(-4,-4,8,8,67,108)
-	SpriteFrame(-4,-4,8,8,67,99)
-	SpriteFrame(-6,-6,12,12,1,117)
-	SpriteFrame(-6,-6,12,12,14,117)
+	SpriteFrame(-4,-4,8,8,67,29)
+	SpriteFrame(-4,-4,8,8,76,29)
+	SpriteFrame(-6,-6,12,12,80,38)
+	SpriteFrame(-6,-6,12,12,67,38)
 endsub
 
 sub RSDK

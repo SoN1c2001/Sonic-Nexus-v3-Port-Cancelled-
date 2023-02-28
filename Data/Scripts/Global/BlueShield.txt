@@ -31,17 +31,17 @@ endsub
 
 sub ObjectStartup
 	
-	LoadSpriteSheet("NexusGlobals/Shields.gif")
+	LoadSpriteSheet("NexusGlobals/Items2.gif")
 	
 	//Shield Frames
-	SpriteFrame(-24,-24,48,48,1,1)
-	SpriteFrame(-24,-24,48,48,50,1)
-	SpriteFrame(-24,-24,48,48,1,50)
-	SpriteFrame(-24,-24,48,48,50,50)
-	SpriteFrame(-24,-24,48,48,1,99)
-	SpriteFrame(-24,-24,48,48,50,99)
-	SpriteFrame(-24,-24,48,48,1,148)
-	SpriteFrame(-24,-24,48,48,50,148)
+	SpriteFrame(-24,-24,48,48,1,158)
+	SpriteFrame(-24,-24,48,48,50,158)
+	SpriteFrame(-24,-24,48,48,99,158)
+	SpriteFrame(-24,-24,48,48,148,158)
+	SpriteFrame(-24,-24,48,48,1,207)
+	SpriteFrame(-24,-24,48,48,50,207)
+	SpriteFrame(-24,-24,48,48,99,207)
+	SpriteFrame(-24,-24,48,48,148,207)
 
 	
 end sub

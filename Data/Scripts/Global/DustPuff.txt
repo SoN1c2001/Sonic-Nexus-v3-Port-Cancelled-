@@ -64,19 +64,19 @@ endsub
 
 sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
-	SpriteFrame(-7,-11,13,14,117,245) //Puff 1
-	SpriteFrame(-7,-11,13,14,131,245) //Puff 2
-	SpriteFrame(-6,-11,13,14,145,245) //Puff 3
-	SpriteFrame(-7,-11,13,14,159,245) //Puff 4
+	SpriteFrame(-7,-11,13,14,32,172) //Puff 1
+	SpriteFrame(-6,-11,13,14,18,172) //Puff 2
+	SpriteFrame(-7,-11,13,14,32,187) //Puff 3
+	SpriteFrame(-7,-11,13,14,18,187) //Puff 4
 	
 	//Spindash Dust
-	SpriteFrame(-32,-10,32,10,67,484) //Dust 1
-	SpriteFrame(-32,-12,32,12,34,499) //Dust 2
-	SpriteFrame(-32,-16,32,16,67,495) //Dust 3
-	SpriteFrame(-32,-18,32,18,1,493) //Dust 4
-	SpriteFrame(-32,-20,32,20,34,478) //Dust 5
-	SpriteFrame(-32,-21,32,21,100,490) //Dust 6
-	SpriteFrame(-32,-23,32,23,133,489) //Dust 7
+	SpriteFrame(-32,-10,32,10,58,232) //Dust 1
+	SpriteFrame(-32,-12,32,12,58,243) //Dust 2
+	SpriteFrame(-32,-16,32,16,91,239) //Dust 3
+	SpriteFrame(-32,-18,32,18,124,237) //Dust 4
+	SpriteFrame(-32,-20,32,20,157,235) //Dust 5
+	SpriteFrame(-32,-21,32,21,190,234) //Dust 6
+	SpriteFrame(-32,-23,32,23,223,232) //Dust 7
 endsub
 
 sub RSDK

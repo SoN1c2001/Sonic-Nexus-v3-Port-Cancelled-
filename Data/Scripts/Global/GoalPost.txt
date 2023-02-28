@@ -41,7 +41,7 @@ endsub
 
 sub ObjectStartup
 	LoadSpriteSheet("NexusGlobals/Items.gif")
-	SpriteFrame(-20,-44,40,56,117,133)
+	SpriteFrame(-20,-44,40,56,150,165)
 endsub
 
 sub RSDK

@@ -33,14 +33,14 @@ sub ObjectPlayerInteraction
 endsub
 
 sub ObjectStartup
-	LoadSpriteSheet("SSZ/Objects.gif")
+	LoadSpriteSheet("SSZ/Objects2.gif")
 	
 	//Fan Frames
-	SpriteFrame(-14,-8,26,16,221,170)
-	SpriteFrame(-11,-8,20,16,221,187)
-	SpriteFrame(-6,-8,14,16,221,204)
-	SpriteFrame(-7,-8,20,16,221,221)
-	SpriteFrame(-10,-8,26,16,221,238)
+	SpriteFrame(-14,-8,26,16,293,35)
+	SpriteFrame(-11,-8,20,16,299,52)
+	SpriteFrame(-6,-8,14,16,305,69)
+	SpriteFrame(-7,-8,20,16,299,86)
+	SpriteFrame(-10,-8,26,16,293,103)
 
 	//Setup any fans that are present in the level
 	ArrayPos0=32

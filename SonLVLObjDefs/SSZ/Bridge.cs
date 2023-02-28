@@ -11,7 +11,7 @@ namespace SCDObjectDefinitions.SSZ
 
 		public override void Init(ObjectData data)
 		{
-			img = new Sprite(LevelData.GetSpriteSheet("SSZ/Objects.gif").GetSection(84, 124, 16, 16), -8, -8);
+			img = new Sprite(LevelData.GetSpriteSheet("SSZ/Objects.gif").GetSection(18, 78, 16, 16), -8, -8);
 		}
 
 		public override ReadOnlyCollection<byte> Subtypes

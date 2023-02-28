@@ -15,9 +15,9 @@ sub ObjectDraw
 end sub
 
 sub ObjectStartup
-	LoadSpriteSheet("RetroMenu/Menus.gif")
+	LoadSpriteSheet("RetroMenu/BackGround.gif")
 	SpriteFrame(-160,-120,320,240,104,0)
-	SpriteFrame(160,-120,320,240,0,240) //I think is better if i make this just one object
+	SpriteFrame(160,-120,320,240,424,0) //I think is better if i make this just one object
 end sub
 
 sub RSDK

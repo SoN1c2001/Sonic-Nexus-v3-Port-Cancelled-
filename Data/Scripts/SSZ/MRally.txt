@@ -60,7 +60,7 @@ sub ObjectMain
 		if Object.Timer==30
 			Object.Timer=0
 			Object.State=1
-			Object.Direction=2
+			Object.Direction=1
 		end if
 		break
 	case 5	//Waiting Right
@@ -95,19 +95,15 @@ sub ObjectDraw
 	end if
 	TempValue0=Object.Frame
 	TempValue0>>=3
-	TempValue0+=Object.Direction
-	DrawSprite(TempValue0)
+	DrawSpriteFX(TempValue0,FX_FLIP,Object.Xpos,Object.YPos)
 end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
 	
 	//Moto Rally Frames
-	SpriteFrame(-24,-16,47,32,112,1)
-	SpriteFrame(-24,-16,47,32,112,34)
-
-	SpriteFrame(-24,-16,47,32,112,67)
-	SpriteFrame(-24,-16,47,32,112,100)
+	SpriteFrame(-24,-16,47,32,80,1)
+	SpriteFrame(-24,-16,47,32,80,34)
 end sub
 
 sub RSDK

@@ -24,11 +24,11 @@ end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("RetroMenu/Menus.gif")
-	SpriteFrame(-19,-129,258,39,1,481)
-	SpriteFrame(-19,-129,258,39,1,521)
-	SpriteFrame(-81,-33,162,67,1,561)
-	SpriteFrame(-38,-44,77,88,1,629)
-	SpriteFrame(-38,-44,77,88,79,629)
+	SpriteFrame(-19,-129,258,39,1,1)
+	SpriteFrame(-19,-129,258,39,1,41)
+	SpriteFrame(-81,-33,162,67,1,81)
+	SpriteFrame(-38,-44,77,88,1,149)
+	SpriteFrame(-38,-44,77,88,79,149)
 end sub
 
 sub RSDK

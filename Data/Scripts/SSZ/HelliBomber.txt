@@ -15,13 +15,18 @@
 #alias 15 : TYPE_EXPLOSION
 #alias 20 : TYPE_INVINCIBLE
 
+#alias 0 :HELLIBOMBER_IDLE
+#alias 1 :HELLIBOMBER_MOVE
+#alias 2 :HELLIBOMBER_TARGETING
+#alias 3 :HELLIBOMBER_SHOOTING
+
 sub ObjectMain
 
 	switch Object.State
-	case 0
+	case HELLIBOMBER_IDLE
 		Object.Frame=0
 		break
-	case 1
+	case HELLIBOMBER_MOVE
 		Object.Frame=0
 		Object.XVelocity=Object.DestX
 		Object.XVelocity-=Object.XPos
@@ -32,7 +37,7 @@ sub ObjectMain
 		TempValue0>>=19
 		TempValue1>>=19
 		if TempValue0==TempValue1
-			Object.State=2
+			Object.State=HELLIBOMBER_TARGETING
 			Object.Timer=0
 		end if
 
@@ -43,15 +48,15 @@ sub ObjectMain
 		end if
 
 		break
-	case 2
+	case HELLIBOMBER_TARGETING
 		Object.Frame=0
 		Object.Timer++
 		if Object.Timer==15
-			Object.State=3
+			Object.State=HELLIBOMBER_SHOOTING
 		end if
 		break
-	case 3
-		Object.Frame=2
+	case HELLIBOMBER_SHOOTING
+		Object.Frame=1
 		Object.Timer++
 
 		if Object.Timer==90
@@ -80,7 +85,7 @@ sub ObjectMain
 		end if
 
 		if Object.Timer==120
-			Object.State=0
+			Object.State=HELLIBOMBER_IDLE
 		end if
 		break
 	end switch
@@ -100,7 +105,7 @@ end sub
 sub ObjectPlayerInteraction
 
 	switch Object.State
-	case 0
+	case HELLIBOMBER_IDLE
 		PlayerObjectCollision(C_TOUCH,-128,-256,128,256)
 		if CheckResult==1
 			Object.DestX=Player.XPos
@@ -109,11 +114,11 @@ sub ObjectPlayerInteraction
 			else
 				Object.DestX-=6291456
 			end if
-			Object.State=1
+			Object.State=HELLIBOMBER_MOVE
 		end if
 		break
-	case 2
-	case 3
+	case HELLIBOMBER_TARGETING
+	case HELLIBOMBER_SHOOTING
 		if Object.XPos<Player.XPos
 			Object.Direction=1
 		else
@@ -129,12 +134,11 @@ sub ObjectPlayerInteraction
 end sub
 
 sub ObjectDraw
-	Object.Frame+=Object.Direction
-	DrawSprite(Object.Frame)
+	DrawSpriteFX(Object.Frame,FX_FLIP,Object.Xpos,Object.YPos)
 
 	TempValue0=Object.Blades
 	TempValue0>>=1
-	TempValue0+=4
+	TempValue0+=2
 	DrawSprite(TempValue0)
 	Object.Blades++
 	if Object.Blades>3
@@ -146,16 +150,14 @@ sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
 	
 	//HBomber Moving Frames
-	SpriteFrame(-24,-10,47,19,52,1)
-	SpriteFrame(-24,-10,47,19,52,21)
+	SpriteFrame(-24,-10,47,19,1,1)
 
 	//HBomber Shooting Frames
-	SpriteFrame(-24,-10,30,29,52,59)
-	SpriteFrame(-7,-10,30,29,67,89)
+	SpriteFrame(-24,-10,30,29,1,21)
 
 	//Heli-blades
-	SpriteFrame(-16,-18,32,8,52,41)
-	SpriteFrame(-16,-18,32,8,52,50)
+	SpriteFrame(-16,-18,32,8,1,51)
+	SpriteFrame(-16,-18,32,8,1,60)
 end sub
 
 sub RSDK

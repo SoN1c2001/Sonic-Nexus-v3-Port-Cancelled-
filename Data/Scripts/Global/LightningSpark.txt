@@ -26,13 +26,13 @@ endsub
 
 
 sub ObjectStartup
-	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	LoadSpriteSheet("NexusGlobals/Items3.gif")
 	SpriteFrame(0, 0, 1, 1, 1, 1)
 	SpriteFrame(-3, -3, 6, 6, 150, 84)
 	SpriteFrame(-8, -8, 16, 16, 157, 84)
 endsub
 
 sub RSDK
-	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	LoadSpriteSheet("NexusGlobals/Items3.gif")
 	SetEditorIcon(Icon0,SingleIcon,-8,-8,16,16,157,84)
 end sub

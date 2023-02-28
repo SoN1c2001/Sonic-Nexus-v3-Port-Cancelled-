@@ -189,7 +189,7 @@ endsub
 
 
 sub ObjectStartup
-	LoadSpriteSheet("NexusGlobals/Shields2.gif")
+	LoadSpriteSheet("NexusGlobals/Items3.gif")
 	SpriteFrame(-16, 9, 37, 15, 131, 52)
 	SpriteFrame(-20, -24, 39, 15, 131, 68)
 	SpriteFrame(-20, 3, 40, 21, 148, 101)

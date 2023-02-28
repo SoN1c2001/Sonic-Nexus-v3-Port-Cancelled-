@@ -8,107 +8,14 @@
 #alias Player.Value0:Player.Rings
 #alias Player.Value6:Player.MinRollSpeed
 
-function StageSetup_CheckGoodFuture
-	if Good_Future==1
-		if Object.PropertyValue>0
-			ResetObjectEntity(Object.EntityNo,Flower_TypeNo,0,Object.XPos,Object.YPos)
-			Object.DrawOrder=4
-			Object.State=1
-		else
-			if Object[24].PropertyValue>0
-				ResetObjectEntity(Object.EntityNo,Flower_TypeNo,0,Object.XPos,Object.YPos)
-				Object.DrawOrder=4
-				Object.State=1
-			endif
-		endif
-	endif
-endfunction
-
 
 function StageSetup_SaveStageState
-	ArrayPos0=32
-	ArrayPos1=7168
-	TempValue1=Object[24].PropertyValue
-	TempValue1+=4
-	while ArrayPos0<1056
-		if Object[ArrayPos0].Type==TypeName[BlankObject]
-			SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,1)
-		else
-			if Object[ArrayPos0].Type==TypeName[BrokenMonitor]
-				SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,1)
-			else
-				if Object[ArrayPos0].Type==TypeName[FuturePost]
-					if Object[ArrayPos0].State==2
-						SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,1)
-					else
-						SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,0)
-					endif
-				else
-					if Object[ArrayPos0].Type==TypeName[PastPost]
-						if Object[ArrayPos0].State==2
-							SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,1)
-						else
-							SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,0)
-						endif
-					else
-						SetBit(SaveRAM[ArrayPos1],Object[24].PropertyValue,0)
-						if Object[ArrayPos0].Type==Flower_TypeNo
-							SetBit(SaveRAM[ArrayPos1],TempValue1,1)
-						else
-							SetBit(SaveRAM[ArrayPos1],TempValue1,0)
-						endif
-					endif
-				endif
-			endif
-		endif
-		ArrayPos0++
-		ArrayPos1++
-	loop
+
 endfunction
 
 
 function StageSetup_LoadStageState
-	ArrayPos0=32
-	ArrayPos1=7168
-	TempValue1=Object[24].PropertyValue
-	TempValue1+=4
-	while ArrayPos0<1056
-		if Object[ArrayPos0].Type==TypeName[Ring]
-			GetBit(TempValue0,SaveRAM[ArrayPos1],Object[24].PropertyValue)
-			if TempValue0==1
-				Object[ArrayPos0].Type=TypeName[BlankObject]
-			endif
-		else
-			if Object[ArrayPos0].Type==TypeName[Monitor]
-				GetBit(TempValue0,SaveRAM[ArrayPos1],Object[24].PropertyValue)
-				if TempValue0==1
-					Object[ArrayPos0].Type=TypeName[BrokenMonitor]
-					Object[ArrayPos0].State=2
-				endif
-			else
-				if Object[ArrayPos0].Type==TypeName[FuturePost]
-					GetBit(TempValue0,SaveRAM[ArrayPos1],Object[24].PropertyValue)
-					if TempValue0==1
-						Object[ArrayPos0].State=2
-					endif
-				else
-					if Object[ArrayPos0].Type==TypeName[PastPost]
-						GetBit(TempValue0,SaveRAM[ArrayPos1],Object[24].PropertyValue)
-						if TempValue0==1
-							Object[ArrayPos0].State=2
-						endif
-					else
-						GetBit(TempValue0,SaveRAM[ArrayPos1],TempValue1)
-						if TempValue0==1
-							Object[ArrayPos0].Type=TypeName[BlankObject]
-						endif
-					endif
-				endif
-			endif
-		endif
-		ArrayPos0++
-		ArrayPos1++
-	loop
+
 endfunction
 
 

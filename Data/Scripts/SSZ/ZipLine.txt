@@ -187,8 +187,8 @@ sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
 	
 	//Zip Line Frames
-	SpriteFrame(-4,-4,8,8,18,141)
-	SpriteFrame(-8,-8,16,25,1,141)
+	SpriteFrame(-4,-4,8,8,18,69)
+	SpriteFrame(-8,-8,16,25,1,69)
 
 	//Initialise any instances of the object
 	ArrayPos0=32

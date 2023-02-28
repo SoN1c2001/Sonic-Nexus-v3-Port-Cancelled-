@@ -316,16 +316,22 @@ sub ObjectMain
 		Player.Speed=0
 		Player.XVelocity=0
 		Player.Direction=Object.Direction
-		if Player.Animation==10
-			Object.State=8
-			Object.Frame=9
-			Object.Value1=-262144
-			Object.Value5=1
-			if Object.Direction==FACING_RIGHT
-				Object.Value0=-65536
-			else
-				Object.Value0=65536
+		if Object.PropertyValue==0
+			if Player.Animation==10
+				Object.State=8
+				Object.Frame=9
+				Object.Value1=-262144
+				Object.Value5=1
+				if Object.Direction==FACING_RIGHT
+					Object.Value0=-65536
+				else
+					Object.Value0=65536
+				endif
 			endif
+		else
+			Object.State=10
+			CreateTempObject(TypeName[Fade Music],3,Object.XPos,Object.YPos)
+			stage.TimeEnabled=false
 		endif
 		break
 	case 8
@@ -352,6 +358,34 @@ sub ObjectMain
 			Object.XPos=Object.Value3
 		endif
 		break
+	case 9
+		Object.State=8
+		Object.Frame=9
+		Object.Value1=-262144
+		Object.Value5=1
+		if Object.Direction==FACING_LEFT //It just works
+			if Object.Value0>0
+				Object.Value0=-131078
+			else
+				Object.Value0=131078
+			endif
+		else
+			if Object.Value0<0
+				Object.Value0=131078
+			else
+				Object.Value0=-131078
+			endif
+		endif
+		break
+	case 10
+		Player.Speed=0
+		Player.XVelocity=0
+		Player.Direction=Object.Direction
+		Player.Left  = 0
+		Player.Right = 0
+		Player.Up    = 0
+		Player.Down  = 0
+		Player.ControlMode = -1
 	endswitch
 	Object.Value7++
 	if Object.State==7
@@ -387,6 +421,23 @@ sub ObjectMain
 		Object.State=0
 		Object.Value4=0
 	endif
+	if Object.Direction==FACING_LEFT
+		if Object.Value0>0
+			ObjectTileCollision(1, 12, 0, 0)
+		else
+			ObjectTileCollision(2, -12, 0, 0)
+		endif
+	else
+		if Object.Value0<0
+			ObjectTileCollision(2, -12, 0, 0)
+		else
+			ObjectTileCollision(1, 12, 0, 0)
+		endif
+	endif
+	if CheckResult==true
+		Object.State=9
+		PlayStageSfx(5,0)
+	endif
 endsub
 
 
@@ -396,11 +447,11 @@ endsub
 
 
 sub ObjectStartup
-	LoadSpriteSheet("SSZ/Objects.gif")
+	LoadSpriteSheet("SSZ/Objects2.gif")
 	ArrayPos0=32
 	while ArrayPos0<1056
 		if Object[ArrayPos0].Type==TypeName[AmyRose]
-			if Stage.PlayerListPos==1
+			if Stage.PlayerListPos!=0
 				Object[ArrayPos0].Type=TypeName[BlankObject]
 			else
 				if Options.GameMode==2
@@ -416,31 +467,47 @@ sub ObjectStartup
 		endif
 		ArrayPos0++
 	loop
-	SpriteFrame(-11,-20,22,40,176,167)
-	SpriteFrame(-11,-20,22,40,1,208)
-	SpriteFrame(-11,-20,22,40,176,167)
-	SpriteFrame(-11,-20,22,40,81,167)
-	SpriteFrame(-15,-20,30,40,23,167)
-	SpriteFrame(-10,-20,21,40,1,167)
-	SpriteFrame(-13,-20,26,40,54,167)
-	SpriteFrame(-10,-20,21,40,1,167)
-	SpriteFrame(-12,-20,24,40,125,208)
-	SpriteFrame(-13,-20,26,40,24,208)
-	SpriteFrame(-12,-20,24,40,51,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-14,-20,25,40,76,208)
-	SpriteFrame(-14,-20,25,40,76,208)
-	SpriteFrame(-14,-20,25,40,76,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-12,-20,22,40,102,208)
-	SpriteFrame(-14,-20,25,40,76,208)
-	SpriteFrame(-14,-20,25,40,76,208)
-	SpriteFrame(-14,-20,25,40,76,208)
+	// Idle
+	SpriteFrame(-11, -20, 22, 40, 87, 179)		// #0  - Amy Idle Frame 0
+	SpriteFrame(-11, -20, 22, 40, 110, 179)		// #1  - Amy Idle Frame 1
+	SpriteFrame(-11, -20, 22, 40, 87, 179)		// #2  - Amy Idle Frame 2
+	SpriteFrame(-11, -20, 22, 40, 236, 134)		// #3  - Amy Idle Frame 3
+
+	// Walking
+	SpriteFrame(-15, -20, 30, 40, 178, 134)		// #4  - Amy Walking Frame 0
+	SpriteFrame(-10, -20, 21, 40, 156, 134)		// #5  - Amy Walking Frame 1
+	SpriteFrame(-13, -20, 26, 40, 209, 134)		// #6  - Amy Walking Frame 2
+	SpriteFrame(-10, -20, 21, 40, 156, 134)		// #7  - Amy Walking Frame 3
+
+	// Hug
+	SpriteFrame(-12, -20, 24, 40, 234, 179)		// #8  - Amy Hug
+
+	// Jumping
+	SpriteFrame(-13, -20, 26, 40, 133, 179)		// #9  - Amy Jumping Frame 0
+	SpriteFrame(-12, -20, 24, 40, 160, 179)		// #10 - Amy Jumping Frame 1
+
+	// Looking for Sonic
+	// Amy Looking Frame "0"
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #11
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #12
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #13
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #14
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #15
+
+	// Amy Looking Frame "1"
+	SpriteFrame(-14, -20, 25, 40, 185, 179)		// #16
+	SpriteFrame(-14, -20, 25, 40, 185, 179)		// #17
+	SpriteFrame(-14, -20, 25, 40, 185, 179)		// #18
+
+	// Amy Looking Frame "2"
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #19
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #20
+	SpriteFrame(-12, -20, 22, 40, 211, 179)		// #21
+
+	// Amy Looking Frame "3"
+	SpriteFrame(-14, -20, 25, 40, 185, 179)		// #22
+	SpriteFrame(-14, -20, 25, 40, 185, 179)		// #23
+	SpriteFrame(-14, -20, 25, 40, 185, 179)		// #24
 endsub
 
 sub RSDK

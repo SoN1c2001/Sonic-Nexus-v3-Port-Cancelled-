@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ObjDef xmlns="http://www.sonicretro.org" Image="player">
   <Images>
-    <ImageFromSheet id="player" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="481" width="258" height="39">
+    <ImageFromSheet id="player" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="1" width="258" height="39">
       <Offset X="-19" Y="-129"/>
     </ImageFromSheet>
-	<ImageFromSheet id="zone" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="521" width="258" height="39">
+	<ImageFromSheet id="zone" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="41" width="258" height="39">
       <Offset X="-19" Y="-129"/>
     </ImageFromSheet>
-	<ImageFromSheet id="text" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="561" width="162" height="67">
+	<ImageFromSheet id="text" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="81" width="162" height="67">
       <Offset X="-81" Y="-33"/>
     </ImageFromSheet>
-	<ImageFromSheet id="diag1" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="629" width="77" height="88">
+	<ImageFromSheet id="diag1" sheet="RetroMenu/Menus.gif" sourcex="1" sourcey="149" width="77" height="88">
       <Offset X="-38" Y="-44"/>
     </ImageFromSheet>
-	<ImageFromSheet id="diag2" sheet="RetroMenu/Menus.gif" sourcex="79" sourcey="629" width="77" height="88">
+	<ImageFromSheet id="diag2" sheet="RetroMenu/Menus.gif" sourcex="79" sourcey="149" width="77" height="88">
       <Offset X="-38" Y="-44"/>
     </ImageFromSheet>
   </Images>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ObjDef xmlns="http://www.sonicretro.org">
   <Images>
-    <ImageFromSheet id="post" sheet="NexusGlobals/Items.gif" sourcex="175" sourcey="166" width="24" height="24">
-      <Offset X="-12" Y="-12" />
+    <ImageFromSheet id="post" sheet="NexusGlobals/Items.gif" sourcex="224" sourcey="165" width="24" height="24">
+      <Offset X="-12" Y="4" />
     </ImageFromSheet>
-    <ImageFromSheet id="eggman" sheet="NexusGlobals/Items.gif" sourcex="208" sourcey="178" width="48" height="32">
-      <Offset X="-24" Y="-44" />
+    <ImageFromSheet id="eggman" sheet="NexusGlobals/Items.gif" sourcex="150" sourcey="99" width="48" height="32">
+      <Offset X="-24" Y="-28" />
     </ImageFromSheet>
   </Images>
   <Properties>

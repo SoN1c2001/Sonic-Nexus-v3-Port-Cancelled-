@@ -18,10 +18,10 @@ namespace SCDObjectDefinitions.SSZ
 
 		public override void Init(ObjectData data)
 		{
-			BitmapBits sheet = LevelData.GetSpriteSheet("SSZ/Objects.gif");
-			sprites[0] = new Sprite(sheet.GetSection(1, 124, 16, 16), -8, -8);
-			sprites[1] = new Sprite(sheet.GetSection(18, 124, 16, 16), -8, -8);
-			sprites[2] = new Sprite(sheet.GetSection(35, 124, 48, 16), -24, -8);
+			BitmapBits sheet = LevelData.GetSpriteSheet("SSZ/Objects2.gif");
+			sprites[0] = new Sprite(sheet.GetSection(286, 1, 16, 16), -8, -8);
+			sprites[1] = new Sprite(sheet.GetSection(303, 1, 16, 16), -8, -8);
+			sprites[2] = new Sprite(sheet.GetSection(271, 18, 48, 16), -24, -8);
 			
 			properties = new PropertySpec[1];
 			properties[0] = new PropertySpec("Size", typeof(int), "Extended",

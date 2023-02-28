@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ObjDef xmlns="http://www.sonicretro.org" Image="left">
   <Images>
-    <ImageFromSheet id="left" sheet="EGZ/Objects.gif" sourcex="50" sourcey="68" width="23" height="8">
-      <Offset X="-11" Y="-4"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="right" sheet="EGZ/Objects.gif" sourcex="50" sourcey="77" width="23" height="8">
+    <ImageFromSheet id="left" sheet="EGZ/Objects2.gif" sourcex="231" sourcey="106" width="23" height="8">
       <Offset X="-11" Y="-4"/>
     </ImageFromSheet>
   </Images>
   <Subtypes>
     <Subtype id="00" name="Left" image="left" />
-      <Subtype id="01" name="Right" image="right" />
+    <Subtype id="01" name="Right">
+      <ImageRef image="left" xflip="ReverseFlip" />
+	</Subtype>
   </Subtypes>
 </ObjDef>

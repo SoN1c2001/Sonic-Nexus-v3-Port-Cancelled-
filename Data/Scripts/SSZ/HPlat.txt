@@ -79,10 +79,10 @@ sub ObjectDraw
 end sub
 
 sub ObjectStartup
-	LoadSpriteSheet("SSZ/Objects.gif")
+	LoadSpriteSheet("SSZ/Objects2.gif")
 	
 	//Platform Frame
-	SpriteFrame(-35,-18,70,36,160,1)
+	SpriteFrame(-35,-18,70,36,208,89)
 end sub
 
 sub RSDK

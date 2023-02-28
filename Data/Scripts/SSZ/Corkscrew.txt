@@ -156,7 +156,7 @@ end sub
 
 sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
-	SpriteFrame(-8,-8,16,16,83,59)
+	SpriteFrame(-8,-8,16,16,32,21)
 end sub
 
 sub RSDK

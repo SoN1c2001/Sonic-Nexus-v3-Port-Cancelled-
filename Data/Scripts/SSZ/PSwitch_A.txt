@@ -20,8 +20,8 @@ sub ObjectDraw
 end sub
 	
 sub ObjectStartup
-	LoadSpriteSheet("SSZ/Objects.gif")
-	SpriteFrame(-8,-8,16,16,231,59)
+	LoadSpriteSheet("NexusGlobals/Items.gif")
+	SpriteFrame(-8,-8,16,16,18,236)
 	
 	//Setup the collision sizes for any Switcher
 	//Objects that are present in the level

@@ -12,6 +12,15 @@ endsub
 sub ObjectStartup
 	if Stage.ListPos==1
 		LoadPalette("SunsetSSZ.act",0,120,120,198)
+		if Stage.PlayerListPos!=0
+			SetTileLayerEntry(271,0,175,9)
+			SetTileLayerEntry(271,0,175,10)
+			SetTileLayerEntry(4,0,176,9)
+			SetTileLayerEntry(1,0,177,9)
+			SetTileLayerEntry(8,0,177,10)
+			SetTileLayerEntry(4,0,177,11)
+			SetTileLayerEntry(3,0,177,12)
+		endif
 	else
 		LoadPalette("SSZ.act",0,120,120,198)
 	endif

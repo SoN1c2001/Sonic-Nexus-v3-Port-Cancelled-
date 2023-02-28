@@ -162,7 +162,7 @@ sub ObjectDraw
 end sub
 
 sub ObjectStartup
-	LoadSpriteSheet("SSZ/Objects.gif")
+	LoadSpriteSheet("SSZ/Objects2.gif")
 
 	//Setup the Ledge sizes for any Crumbling Ledge
 	//Objects that are present in the level
@@ -180,11 +180,11 @@ sub ObjectStartup
 	loop
 
 	//Ledge Frame
-	SpriteFrame(-8,-20,16,40,231,1)
+	SpriteFrame(-8,-20,16,40,257,48)
 
 	//Broken Ledge Frames
-	SpriteFrame(-8,-10,16,20,231,1)
-	SpriteFrame(-8,-10,16,20,231,21)
+	SpriteFrame(-8,-10,16,20,257,48)
+	SpriteFrame(-8,-10,16,20,257,68)
 end sub
 
 sub RSDK

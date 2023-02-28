@@ -328,12 +328,12 @@ sub ObjectStartup
 	SpriteFrame(-16,-8,32,16,51,17) //Red Spring Facing Up
 	SpriteFrame(-8,-16,16,32,51,34) //Red Spring Facing Right
 	SpriteFrame(-8,-16,16,32,51,34) //Red Spring Left
-	SpriteFrame(-16,-8,32,16,51,17 //Red Spring Facing Down
+	SpriteFrame(-16,-8,32,16,51,17) //Red Spring Facing Down
 	
-	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Right
-	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Left
-	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Right (Upside down)
-	SpriteFrame(-16,-16,32,32,51,133) //Diagonal Spring Left (Upside down)
+	SpriteFrame(-16,-16,32,32,51,67) //Diagonal Spring Right
+	SpriteFrame(-16,-16,32,32,51,67) //Diagonal Spring Left
+	SpriteFrame(-16,-16,32,32,51,67) //Diagonal Spring Right (Upside down)
+	SpriteFrame(-16,-16,32,32,51,67) //Diagonal Spring Left (Upside down)
 	
 	//Spring 'Pre-Boing' Frames
 	SpriteFrame(-16,0,32,8,51,17) //Red Spring Up
@@ -341,21 +341,21 @@ sub ObjectStartup
 	SpriteFrame(-8,-16,8,32,59,34) //Red Spring Left
 	SpriteFrame(-16,0,32,8,51,17) //Red Spring Down
 	
-	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Right
-	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Left
-	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Right (Upside down)
-	SpriteFrame(-16,-16,32,32,141,309) //Diagonal Spring Left (Upside Down)
+	SpriteFrame(-16,-16,32,32,84,67) //Diagonal Spring Right
+	SpriteFrame(-16,-16,32,32,84,67) //Diagonal Spring Left
+	SpriteFrame(-16,-16,32,32,84,67) //Diagonal Spring Right (Upside down)
+	SpriteFrame(-16,-16,32,32,84,67) //Diagonal Spring Left (Upside Down)
 	
 	//Spring 'Boing' Frames
-	SpriteFrame(-16,-16,32,32,117,1) //Red Spring Up
-	SpriteFrame(-16,-16,32,32,117,34) //Red Spring Right
-	SpriteFrame(-16,-16,32,32,117,34) //Red Spring Left
-	SpriteFrame(-16,-16,32,32,117,1) //Red Spring Down
+	SpriteFrame(-16,-16,32,32,84,1) //Red Spring Up
+	SpriteFrame(-16,-16,32,32,84,34) //Red Spring Right
+	SpriteFrame(-16,-16,32,32,84,34) //Red Spring Left
+	SpriteFrame(-16,-16,32,32,84,1) //Red Spring Down
 	
-	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Right
-	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Left
-	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Right (Upside down)
-	SpriteFrame(-16,-24,41,40,1,338) //Diagonal Spring Left (Upside down)
+	SpriteFrame(-16,-24,41,40,51,133) //Diagonal Spring Right
+	SpriteFrame(-16,-24,41,40,51,133) //Diagonal Spring Left
+	SpriteFrame(-16,-24,41,40,51,133) //Diagonal Spring Right (Upside down)
+	SpriteFrame(-16,-24,41,40,51,133) //Diagonal Spring Left (Upside down)
 endsub
 
 sub RSDK

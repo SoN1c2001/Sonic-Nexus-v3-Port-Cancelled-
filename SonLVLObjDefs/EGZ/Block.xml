@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ObjDef xmlns="http://www.sonicretro.org" Image="normal">
   <Images>
-    <ImageFromSheet id="normal" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
+    <ImageFromSheet id="normal" sheet="EGZ/Objects.gif" sourcex="69" sourcey="1" width="16" height="16">
       <Offset X="-8" Y="-8"/>
     </ImageFromSheet>
-    <ImageFromSheet id="normal2" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
-      <Offset X="-8" Y="-24"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="normal3" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
-      <Offset X="-8" Y="-40"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="normal4" sheet="EGZ/Objects.gif" sourcex="115" sourcey="135" width="16" height="16">
-      <Offset X="-8" Y="-56"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="gray" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
+    <ImageFromSheet id="gray" sheet="EGZ/Objects.gif" sourcex="52" sourcey="1" width="16" height="16">
       <Offset X="-8" Y="-8"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="gray2" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
-      <Offset X="-8" Y="-24"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="gray3" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
-      <Offset X="-8" Y="-40"/>
-    </ImageFromSheet>
-    <ImageFromSheet id="gray4" sheet="EGZ/Objects.gif" sourcex="98" sourcey="135" width="16" height="16">
-      <Offset X="-8" Y="-56"/>
     </ImageFromSheet>
   </Images>
   <Properties>
@@ -39,16 +21,28 @@
     <DisplayOption>
       <Condition property="Blocks" value="Normal" />
       <ImageRef image="normal" />
-      <ImageRef image="normal2" />
-      <ImageRef image="normal3" />
-      <ImageRef image="normal4" />
+      <ImageRef image="normal">
+        <Offset Y="16" />
+      </ImageRef>
+      <ImageRef image="normal">
+        <Offset Y="32" />
+      </ImageRef>
+      <ImageRef image="normal">
+        <Offset Y="48" />
+      </ImageRef>
     </DisplayOption>
     <DisplayOption>
       <Condition property="Blocks" value="Knuckles Only" />
       <ImageRef image="gray" />
-      <ImageRef image="gray2" />
-      <ImageRef image="gray3" />
-      <ImageRef image="gray4" />
+      <ImageRef image="gray">
+        <Offset Y="16" />
+      </ImageRef>
+      <ImageRef image="gray">
+        <Offset Y="32" />
+      </ImageRef>
+      <ImageRef image="gray">
+        <Offset Y="48" />
+      </ImageRef>
     </DisplayOption>
   </Display>
 </ObjDef>

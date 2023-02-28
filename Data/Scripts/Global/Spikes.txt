@@ -95,10 +95,10 @@ sub ObjectStartup
 		ArrayPos0++
 	loop
 	//Spike Directions
-	SpriteFrame(-16,-16,32,32,183,1)
-	SpriteFrame(-16,-16,32,32,183,34)
-	SpriteFrame(-16,-16,32,32,183,34)
-	SpriteFrame(-16,-16,32,32,183,1)
+	SpriteFrame(-16,-16,32,32,117,67)
+	SpriteFrame(-16,-16,32,32,117,100
+	SpriteFrame(-16,-16,32,32,117,100)
+	SpriteFrame(-16,-16,32,32,117,67)
 endsub
 
 sub RSDK

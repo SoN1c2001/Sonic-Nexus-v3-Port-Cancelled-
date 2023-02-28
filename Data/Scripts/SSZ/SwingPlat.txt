@@ -88,16 +88,16 @@ sub ObjectDraw
 end sub
 
 sub ObjectStartup
-	LoadSpriteSheet("SSZ/Objects.gif")
+	LoadSpriteSheet("SSZ/Objects2.gif")
 	
 	//Pivot Ball Frame
-	SpriteFrame(-8,-8,16,16,1,124)
+	SpriteFrame(-8,-8,16,16,286,1)
 	
 	//Chain Frame
-	SpriteFrame(-8,-8,16,16,18,124)
+	SpriteFrame(-8,-8,16,16,303,1)
 	
 	//Platform Frame
-	SpriteFrame(-24,-8,48,16,35,124)
+	SpriteFrame(-24,-8,48,16,271,18)
 end sub
 
 sub RSDK

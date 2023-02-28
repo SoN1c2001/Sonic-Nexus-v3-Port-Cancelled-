@@ -32,8 +32,8 @@ sub ObjectStartup
 	LoadSpriteSheet("SSZ/Objects.gif")
 	
 	//Bullet Frames
-	SpriteFrame(-4,-4,8,8,85,41)
-	SpriteFrame(-4,-4,8,8,85,50)
+	SpriteFrame(-4,-4,8,8,49,1)
+	SpriteFrame(-4,-4,8,8,49,10)
 end sub
 
 sub RSDK

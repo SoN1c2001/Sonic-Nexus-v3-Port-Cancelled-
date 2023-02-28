@@ -62,8 +62,8 @@ sub ObjectStartup
 		endif
 		ArrayPos0++
 	loop
-	SpriteFrame(-16, -16, 32, 32, 1, 35)
-	SpriteFrame(-16, -16, 32, 32, 34, 35)
+	SpriteFrame(-16, -16, 32, 32, 1, 18)
+	SpriteFrame(-16, -16, 32, 32, 34, 18)
 Endsub
 
 

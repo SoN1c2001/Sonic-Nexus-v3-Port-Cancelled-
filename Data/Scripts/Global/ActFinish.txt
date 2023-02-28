@@ -378,7 +378,7 @@ sub ObjectStartup
 	
 	//HUD Stuff
 	SpriteFrame(0,0,41,13,355,156) //Score
-	SpriteFrame(0,0,41,13,355,188) //Rings
+	SpriteFrame(0,0,33,13,355,188) //Ring
 	SpriteFrame(0,0,41,13,355,172) //Time
 	
 	//Bonus Text

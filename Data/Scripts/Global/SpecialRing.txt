@@ -7,7 +7,19 @@
 #alias Player.Value0:Player.Rings
 
 sub ObjectMain
-	if Object.State==0
+	switch Object.State
+	case 0
+	PlayerObjectCollision(C_TOUCH,-128,-128,128,128)
+	if CheckResult==1
+		Object.Scale+=8
+		if Object.Scale>512
+			Object.State++
+		endif
+	else
+		Object.Scale=0
+	endif
+	break
+	case 1
 		PlayerObjectCollision(C_TOUCH,-16,-16,16,16)
 		if CheckResult==1
 			Object[0].Type=TypeName[BlankObject]
@@ -16,34 +28,58 @@ sub ObjectMain
 			Player.Direction=FACING_RIGHT
 			ResetObjectEntity(2,TypeName[BlankObject],0,0,0)
 			Object.DrawOrder=4
-			Object.State=1
+			Object.State=2
 			Object.Frame=16
 			PlaySfx(18,0)
 			Player.Left=0
 			Player.Right=0
 		endif
-	endif
+	break
+	case 3
+		Object.Value0++
+		if Object.Value0==60
+			Object.State=4
+			Object.Value0=0
+			PlaySfx(19, false)
+			StopMusic() 
+		endif
+		break
+	case 4
+		Object.Value0+=8
+		SetScreenFade(208, 255, 224, Object.Value0)
+		if Object.Value0==1024
+			Stage.ActiveList=SPECIAL_STAGE
+			Stage.ListPos=0
+			LoadStage()
+		endif
+		break
+	endswitch
 endsub
 
 
 sub ObjectDraw
 	switch Object.State
 	case 0
+	case 1
 		TempValue0=Object.Frame
 		TempValue0>>=3
-		DrawSprite(TempValue0)
+		if object.State==0
+			DrawSpriteFX(TempValue0,FX_SCALE,Object.Xpos,Object.Ypos)
+		else
+			DrawSprite(TempValue0)
+		endif
 		Object.Frame++
 		if Object.Frame>31
 			Object.Frame=0
 		endif
 		break
-	case 1
+	case 2
 		TempValue0=Object.Frame
 		TempValue0>>=2
 		DrawSpriteFX(TempValue0,FX_FLIP,Object.XPos,Object.YPos)
 		Object.Frame++
 		if Object.Frame>31
-			ResetObjectEntity(Object.EntityNo,TypeName[BlankObject],0,0,0)
+			Object.State=3
 		endif
 		break
 	endswitch
@@ -61,6 +97,12 @@ sub ObjectStartup
 	SpriteFrame(-16,-32,48,64,195,66)
 	SpriteFrame(-8,-32,40,64,197,131)
 	SpriteFrame(0,-32,32,64,218,1)
+	//ArrayPos0 = 32
+	//while ArrayPos0 < 1056
+	//	if Object[ArrayPos0].Type == TypeName[SpecialRing]
+	//	end if
+	//	ArrayPos0++
+	//loop
 endsub
 
 sub RSDK

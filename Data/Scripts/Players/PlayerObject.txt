@@ -244,6 +244,12 @@ function PlayerObject_ProcessPlayer
 				if CheckResult>-1
 					KeyDown.ButtonA=1
 				endif
+				if stage.debugMode==1
+					CheckTouchRect(0, 0, 112, 56)
+					if CheckResult>-1
+						KeyDown.ButtonB=1
+					endif
+				endif
 				if Object[25].Value7==0
 					KeyPress.ButtonA|=KeyDown.ButtonA
 				endif
@@ -3102,7 +3108,6 @@ endfunction
 	
 
 sub ObjectMain
-#platform: Standard
 	if Stage.DebugMode==1
 		if KeyPress.ButtonB==1
 			Object.Type=TypeName[DebugMode]
@@ -3195,47 +3200,6 @@ sub ObjectMain
 			endif
 		endif
 	endif
-#endplatform
-
-#platform: Mobile
-	CallFunction(PlayerObject_ProcessPlayer)
-	CallFunction(Player.State)
-	ProcessAnimation()
-	if Player.Animation==ANI_JUMPING
-		Screen.AdjustCameraY=Player.CameraOffset
-	else
-		if Screen.AdjustCameraY==Player.CameraOffset
-			Screen.AdjustCameraY=0
-			Player.iYPos+=Player.CameraOffset
-		endif
-	endif
-	if Player.YVelocity>1048576
-		Player.YVelocity=1048576
-	endif
-	//dont let this set our rotation
-	TempValue1 = Player.Rotation
-	PlayerTileCollision()
-	Player.Rotation = TempValue1
-	if CheckResult==true
-		if Player.Animation==ANI_JUMPING
-			if Player.Down==false
-				if Stage.PlayerListPos==0
-					if Options.WalkAnim==0
-						Player.Animation=ANI_WALKING
-					else
-						Player.Animation=ANI_ALTWALK
-					endif
-				else
-						Player.Animation=ANI_WALKING
-				endif
-				Screen.AdjustCameraY=0
-				Player.iYPos+=Player.CameraOffset
-			endif
-			Player.Rotation = Player.Angle
-			Player.Rotation <<=1
-		endif
-	endif
-#endplatform
 endsub
 
 

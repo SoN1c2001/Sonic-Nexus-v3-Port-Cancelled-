@@ -3,203 +3,8 @@
 //-------Unpacked By Rubberduckycooly's Script Unpacker-------//
 
 //-------Aliases-------//
-#alias 33: TYPE_DEBUGMODE
-
-
-function DebugMode_ChangeItem
-	switch Object.Rotation
-	case 0
-	case 1
-	case 2
-	case 3
-	case 4
-	case 5
-	case 6
-	case 7
-	case 8
-	case 9
-	case 10
-	case 11
-	case 12
-	case 13
-	case 14
-	case 15
-	case 16
-	case 17
-	case 18
-	case 19
-	case 20
-	case 21
-	case 22
-	case 23
-	case 24
-	case 25
-		Object.Frame=Object.Rotation
-		Object.Value6=0
-		break
-	case 26
-		Object.Frame=26
-		Object.Value6=27
-		break
-	case 27
-		Object.Frame=28
-		Object.Value6=29
-		break
-
-	endswitch
-endfunction
-
-
-sub ObjectMain
-#platform: Standard
-	TempValue0=0
-	if KeyDown.Left==1
-		Player.XPos-=Player.YVelocity
-		TempValue0=1
-	endif
-	if KeyDown.Right==1
-		Player.XPos+=Player.YVelocity
-		TempValue0=1
-	endif
-	if KeyDown.Up==1
-		Player.YPos-=Player.YVelocity
-		TempValue0=1
-	endif
-	if KeyDown.Down==1
-		Player.YPos+=Player.YVelocity
-		TempValue0=1
-	endif
-	if TempValue0==1
-		Player.YVelocity+=3072
-		if Player.YVelocity>1048576
-			Player.YVelocity=1048576
-		endif
-	else
-		Player.YVelocity=0
-	endif
-	if KeyPress.ButtonB==1
-		Object.Value6=0
-		Object.Type=TypeName[PlayerObject]
-		Player.Speed=0
-		Player.Rotation=0
-		Player.XVelocity=0
-		Player.YVelocity=0
-		Player.State=PlayerObject_HandleAir
-		Player.Animation=ANI_WALKING
-		Player.AnimationSpeed=0
-		Player.Frame=0
-		Player.ControlMode=0
-		Player.ObjectInteraction=1
-	else
-		if KeyPress.ButtonA==1
-			Object.Rotation++
-			if Object.Rotation>27
-				Object.Rotation=0
-			endif
-			CallFunction(DebugMode_ChangeItem)
-		endif
-		if KeyDown.ButtonA==1
-			if KeyPress.ButtonC==1
-				Object.Rotation--
-				if Object.Rotation<0
-					Object.Rotation=27
-				endif
-				CallFunction(DebugMode_ChangeItem)
-			endif
-		else
-			if KeyPress.ButtonC==1
-				switch Object.Rotation
-				case 0
-					CreateTempObject(TypeName[Ring],0,Player.XPos,Player.YPos)
-					Object[TempObjectPos].DrawOrder=4
-					break
-				case 1
-				case 2
-				case 3
-				case 4
-				case 5
-				case 6
-				case 7
-				case 8
-					CreateTempObject(TypeName[Monitor],Object.Rotation,Player.XPos,Player.YPos)
-					break
-				case 9
-				case 10
-				case 11
-				case 12
-				case 13
-				case 14
-				case 15
-				case 16
-					TempValue0=Object.Rotation
-					TempValue0-=9
-					CreateTempObject(TypeName[RedSpring],TempValue0,Player.XPos,Player.YPos)
-					break
-				case 17
-				case 18
-				case 19
-				case 20
-				case 21
-				case 22
-				case 23
-				case 24
-					TempValue0=Object.Rotation
-					TempValue0-=17
-					CreateTempObject(TypeName[YellowSpring],TempValue0,Player.XPos,Player.YPos)
-					break
-				case 25
-					CreateTempObject(TypeName[LampPost],0,Player.XPos,Player.YPos)
-					break
-				case 26
-					CreateTempObject(TypeName[FuturePost],0,Player.XPos,Player.YPos)
-					break
-				case 27
-					CreateTempObject(TypeName[PastPost],0,Player.XPos,Player.YPos)
-					break
-
-				endswitch
-				Object[TempObjectPos].Priority=4
-			endif
-		endif
-	endif
-#endplatform
-endsub
 
 sub ObjectDraw
-	switch Object.Rotation // 10/10 code, won the REMS best code award
-	case 1
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 2
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 3
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 4
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 5
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 6
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 7
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	case 8
-		DrawSpriteXY(30,Player.XPos,Player.YPos)
-		break
-	endswitch
-#platform: Standard
-	DrawSpriteXY(Object.Frame,Player.XPos,Player.YPos)
-	if Object.Value6>0
-		DrawSpriteXY(Object.Value6,Player.XPos,Player.YPos)
-	endif
-#endplatform
-
-#platform: Mobile
 	if Options.TouchControls==0
 		TempValue0=-1
 	else
@@ -242,7 +47,7 @@ sub ObjectDraw
 				Object.Alpha=Object.Value0
 				DrawSpriteScreenFX(1,FX_INK,Object.Value4,160)
 			endif
-			if Player.JumpHold==1
+			if KeyDown.ButtonA==1
 				Object.Alpha=160
 				DrawSpriteScreenFX(10,FX_INK,Object.Value3,176)
 			else
@@ -284,54 +89,14 @@ sub ObjectDraw
 			DrawSpriteScreenXY(11,Object.Value2,8)
 		endif
 	endif
-#endplatform
 endsub
 
 
 sub ObjectStartup
-#platform: Standard
-	LoadSpriteSheet("NexusGlobals/Items.gif")
-	SpriteFrame(-8,-8,16,16,1,1) //Ring
-	
-	SpriteFrame(-8,-10,16,14,34,34) //Ring Monitor
-	SpriteFrame(-8,-10,16,14,18,48) //Blue Shield Monitor
-	SpriteFrame(-8,-10,16,14,34,48) //Invincibility Monitor
-	SpriteFrame(-8,-10,16,14,18,62) //Speed Shoes Monitor
-	SpriteFrame(-8,-10,16,14,34,62) //Sonic Life Monitor
-	SpriteFrame(-8,-10,16,14,18,76) //Clock Monitor
-	SpriteFrame(-8,-10,16,14,34,76) //Tails Life Monitor
-	SpriteFrame(-8,-10,16,14,18,90) //Super Monitor
-	
-	SpriteFrame(-16,-8,32,16,51,17) //Red Spring Facing Up
-	SpriteFrame(-8,-16,16,32,51,34) //Red Spring Facing Right
-	SpriteFrame(-8,-16,16,32,67,67) //Red Spring Facing Left
-	SpriteFrame(-16,-8,32,16,51,100) //Red Spring Facing Down
-	SpriteFrame(-16,-16,32,32,51,133) //Red Diagonal Spring Facing Right
-	SpriteFrame(-16,-16,32,32,51,166) //Red Diagonal Spring Facing Left
-	SpriteFrame(-16,-16,32,32,51,199) //Red Diagonal Spring Facing Right
-	SpriteFrame(-16,-16,32,32,51,232) //Red Diagonal Spring Facing Left
-	
-	SpriteFrame(-16,-8,32,16,84,17) //Yellow Spring Facing Up
-	SpriteFrame(-8,-16,16,32,84,34) //Yellow Spring Facing Right
-	SpriteFrame(-8,-16,16,32,100,67) //Yellow Spring Facing Left
-	SpriteFrame(-16,-8,32,16,84,100) //Yellow Spring Facing Down
-	SpriteFrame(-16,-16,32,32,84,133) //Yellow Diagonal Spring Facing Right
-	SpriteFrame(-16,-16,32,32,84,166) //Yellow Diagonal Spring Facing Left
-	SpriteFrame(-16,-16,32,32,84,199) //Yellow Diagonal Spring Facing Right+
-	SpriteFrame(-16,-16,32,32,84,232) //Yellow Diagonal Spring Facing Left
-	
-	SpriteFrame(-8,-40,16,64,1,205) //Checkpoint
-	SpriteFrame(-8,-24,16,48,35,204) //Past and Future Base Only
-	SpriteFrame(-16,-40,32,16,52,239) //Future Sign
-	SpriteFrame(-8,-24,16,48,35,204) //Past and Future Base Only
-	SpriteFrame(-16,-40,32,16,118,239) //Past Sign
-	SpriteFrame(-16,-16,32,32,18,1) //Empty Monitor
-#endplatform
-
 #platform: Mobile
 	if Options.AttractMode==0
 		LoadSpriteSheet("NexusGlobals/Display.gif")
-		Object[32].Type=TypeName[DebugMode]
+		Object[32].Type=TypeName[TouchControls]
 		Object[32].Priority=1
 		Object[32].DrawOrder=6
 		Object[32].InkEffect=2

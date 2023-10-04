@@ -66,12 +66,12 @@ end sub
 sub ObjectStartup
 	SetMusicTrack("RetroSonic/RetroMenu.ogg",0,67914)
 	LoadSpriteSheet("RetroMenu/Menus.gif")
-	SpriteFrame(-28,-30,40,8,164,561) //Sonic//
-	SpriteFrame(-28,-30,40,8,164,570) //Yellow Sonic//
-	SpriteFrame(-28,-30,40,8,164,579) //Tails//
-	SpriteFrame(-28,-30,40,8,164,588) //Yellow Tails//
-	SpriteFrame(-28,-30,64,8,164,597) //Knuckles//
-	SpriteFrame(-28,-30,64,8,164,606) //Yellow Knuckles//
+	SpriteFrame(-28,-30,42,7,164,81) //Sonic//
+	SpriteFrame(-28,-30,42,7,164,105) //Yellow Sonic//
+	SpriteFrame(-28,-30,42,7,164,89) //Tails//
+	SpriteFrame(-28,-30,42,7,164,113) //Yellow Tails//
+	SpriteFrame(-28,-30,71,7,164,97) //Knuckles//
+	SpriteFrame(-28,-30,71,7,164,121) //Yellow Knuckles//
 end sub
 
 sub RSDK

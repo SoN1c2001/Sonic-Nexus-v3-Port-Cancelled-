@@ -36,9 +36,14 @@ KNUCKLES THE ECHIDNA IN SONIC CD CREDITS https://gamebanana.com/wips/53126
 - MegAmi - Creator of MegAmi's Additions
 
 SONIC NEXUS CREDITS https://info.sonicretro.org/Sonic_Nexus
-- Slingerland
-- The Taxman
-- Hunter Bridges
-
+- Slingerland: Director, Producer, Level Designer, Level Graphics, Concept Artist
+- The Taxman: Developer of the Retro Sonic Engine, Lead Programmer, Level and Character Graphics
+- Hunter Bridges: Composer, Programmer
+- RGXSuperSonic: Flash Animator, Artist
+- Damizean: Programmer, Level and Character Graphics
+- DimensionWarped: Programmer
+- Patrick Long ("Boz"): Concept Artist
+- The ParadoXx: Level Graphics
+    
 RETRO SONIC CREDITS https://info.sonicretro.org/Retro_Sonic
 - The Taxman

@@ -2,6 +2,8 @@ IF ANY CONTENT FROM HERE IS USED OR SOMEONE ELSE CONTINUES IT, GIVE CREDIT TO EV
 
 This project has been cancelled. It could be brought back in the future, but as of now, there's no plans to bring it back. This mod is public as is, no issues will be taken into consideration.
 
+Video Showcase: https://youtu.be/fycdF1ftW7M
+
 Sonic Nexus v3 Port was a combined effort and merger between my version of a v3 port and LanceReborn's v3 Port. Initially, it was just going to be a straight port of the original game and while that was still always the main goal, the project eventually went to including more as bonuses to the main content from the demo and would be unlocked after playing what the original demo had. The plans were the following:
 
 - Tails and Knuckles as playable characters after you complete Sunset Shore Zone

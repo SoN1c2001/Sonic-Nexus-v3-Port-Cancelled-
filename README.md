@@ -22,21 +22,21 @@ If anyone is interested in continuing this however, I wouldn't be opposed to com
 
 CREDITS
 
-SoN1c2001 - Sprite sheets and edits, stage recreations, and mod maintenance
-LanceReborn - Coding, object porting (v4-v3), and stages (Bonus Stages) 
-LittlePlanetCD - Playtester
-Alystyle - Made a logo for the project
+- SoN1c2001 - Sprite sheets and edits, stage recreations, and mod maintenance
+- LanceReborn - Coding, object porting (v4-v3), and stages (Bonus Stages) 
+- LittlePlanetCD - Playtester
+- Alystyle - Made a logo for the project
 
 KNUCKLES THE ECHIDNA IN SONIC CD CREDITS https://gamebanana.com/wips/53126
-Leonx254 - Created the mod
-Storice - Did the new sprites for the HUD and spinning top, fixed inconsistencies in the palette
-Rubberduckycooly - Creator of the Mania-Styled Rotation mod
-MegAmi - Creator of MegAmi's Additions
+- Leonx254 - Created the mod
+- Storice - Did the new sprites for the HUD and spinning top, fixed inconsistencies in the palette
+- Rubberduckycooly - Creator of the Mania-Styled Rotation mod
+- MegAmi - Creator of MegAmi's Additions
 
 SONIC NEXUS CREDITS https://info.sonicretro.org/Sonic_Nexus
-Slingerland
-The Taxman
-Hunter Bridges
+- Slingerland
+- The Taxman
+- Hunter Bridges
 
 RETRO SONIC CREDITS https://info.sonicretro.org/Retro_Sonic
-The Taxman
+- The Taxman
